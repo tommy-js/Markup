@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const express = require("express");
 const cors = require("cors");
 const graphqlHTTP = require("express-graphql");
+const schema = require("./schema/schema");
 
 const app = express();
 
@@ -11,7 +12,7 @@ mongoose.connect(
   "mongodb+srv://seconduser:nMun66YDIEKfctfU@cluster0-86hxt.mongodb.net/test?retryWrites=true&w=majority"
 );
 
-mongoose.connection("once", () => {
+mongoose.connection.once("open", () => {
   console.log("Connected to the Atlas server");
 });
 

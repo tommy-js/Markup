@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 const messageSchema = new Schema({
   id: Number,
   from: String,
-  to: String
+  to: String,
+  content: String
 });
 
-module.exports = mongoose.model("Messages", messageSchema);
+module.exports = mongoose.model("Message", messageSchema);
