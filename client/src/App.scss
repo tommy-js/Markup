@@ -1,0 +1,137 @@
+body {
+  margin: 0;
+}
+
+@mixin testing {
+  border: 1px solid red;
+}
+
+.userform {
+  position: relative;
+  top: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 400px;
+  border: 1px solid grey;
+  height: 250px;
+}
+
+@mixin page_fields {
+  position: relative;
+  display: block;
+  margin-top: 25px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.user_input_fields {
+  width: 175px;
+  height: 25px;
+  @include page_fields;
+}
+
+.signup_field {
+  text-align: center;
+  @include page_fields;
+}
+
+.home_page {
+  position: relative;
+  display: block;
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  overflow: hidden;
+}
+
+.friend_list {
+  position: relative;
+  width: 25%;
+  min-width: 200px;
+  border-right: 1px solid grey;
+  display: inline-block;
+  margin: -1px;
+  padding: 0;
+  height: 100%;
+  vertical-align: top;
+}
+
+.friend_list_header,
+.message_viewer_header,
+.task_list_header {
+  text-align: center;
+}
+
+.message_viewer {
+  position: relative;
+  width: 50%;
+  display: inline-block;
+  height: 100%;
+  vertical-align: top;
+}
+
+.task_list {
+  position: relative;
+  width: 25%;
+  display: inline-block;
+  padding: -1px;
+  height: 100%;
+  margin: -1px;
+  border-left: 1px solid grey;
+  vertical-align: top;
+}
+
+.person {
+  position: relative;
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  @include testing;
+}
+
+.friend_comp {
+  position: relative;
+  vertical-align: middle;
+  margin-left: auto;
+  margin-right: auto;
+  height: 85%;
+  width: 85%;
+  @include testing;
+}
+
+.message_box {
+  position: relative;
+  width: 85%;
+  height: 85%;
+  margin-left: auto;
+  margin-right: auto;
+  vertical-align: middle;
+  border: 1px solid grey;
+}
+
+.individual_task {
+  position: relative;
+}
+
+.inner_task_block {
+  position: relative;
+  display: inline-block;
+}
+
+.input_message_container {
+  position: relative;
+  bottom: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  width: 80%;
+  height: 75px;
+  resize: none;
+}
+
+.div_message_input_box {
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 50px;
+  width: 100%;
+}
