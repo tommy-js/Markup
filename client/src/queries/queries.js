@@ -8,6 +8,15 @@ const messageQuery = gql`
   }
 `;
 
+const userQuery = gql`
+  query($username: String!) {
+    user(username: $username) {
+      username
+      password
+    }
+  }
+`;
+
 const addMessageMutation = gql`
   mutation($id: ID!, $content: String!) {
     addMessage(id: $id, content: $content) {
@@ -27,4 +36,4 @@ const addUserMutation = gql`
   }
 `;
 
-export { messageQuery, addMessageMutation, addUserMutation };
+export { messageQuery, userQuery, addMessageMutation, addUserMutation };

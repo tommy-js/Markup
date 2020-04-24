@@ -36,6 +36,13 @@ const RootQuery = new GraphQLObjectType({
       resolve(parent, args) {
         return User.find(el => el.username === args.username);
       }
+    },
+    users: {
+      type: UserQuery,
+      args: { id: { type: GraphQLID } },
+      resolve(parent, args) {
+        return User.find({});
+      }
     }
   }
 });
@@ -50,7 +57,7 @@ const Mutation = new GraphQLObjectType({
         username: { type: GraphQLString },
         password: { type: GraphQLString }
       },
-      resolve(parents, args) {
+      resolve(parent, args) {
         let newUser = new User({
           id: args.id,
           username: args.username,
@@ -65,7 +72,7 @@ const Mutation = new GraphQLObjectType({
         id: { type: GraphQLID },
         content: { type: GraphQLString }
       },
-      resolve(parents, args) {
+      resolve(parent, args) {
         let newMessage = new Message({
           id: args.id,
           content: args.content
