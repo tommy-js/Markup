@@ -1,4 +1,5 @@
-const gql = require("graphql-apollo");
+import { gql } from "apollo-boost";
+import { graphql } from "react-apollo";
 
 const messageQuery = gql`
   query {
@@ -9,13 +10,21 @@ const messageQuery = gql`
 
 const addMessageMutation = gql`
   mutation($id: ID!, $content: String!) {
-    addMessage(id: $id, content: $content, to: "Tyler", from: "Alex") {
+    addMessage(id: $id, content: $content) {
       id
       content
-      to
-      from
     }
   }
 `;
 
-export { messageQuery, addMessageMutation };
+const addUserMutation = gql`
+  mutation($id: ID!, $username: String!, $password: String!) {
+    addUser(id: $id, username: $username, password: $password) {
+      id
+      username
+      password
+    }
+  }
+`;
+
+export { messageQuery, addMessageMutation, addUserMutation };

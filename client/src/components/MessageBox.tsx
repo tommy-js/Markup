@@ -1,6 +1,6 @@
 import React from "react";
 import { IndividualMessage } from "./IndividualMessage";
-import { InputBox } from "./InputBox";
+import InputBox from "./InputBox.js";
 import "../App.scss";
 
 export const MessageBox: React.FC = () => {

@@ -1,18 +1,16 @@
 import React, { useState } from "react";
 import "../App.scss";
+import { graphql } from "react-apollo";
+import { flowRight as compose } from "lodash";
 import { addMessageMutation } from "../queries/queries";
 
-interface Props {
-  addMessageMutation: (variables: object) => void;
-}
-
-export const InputBox: React.FC<Props> = () => {
+function InputBox(props) {
   const [userInput, setUserInput] = useState("");
 
   function sendMessage() {
     props.addMessageMutation({
       variables: {
-        id: Math.floor(Math.random() * 10000000000),
+        id: Math.floor(Math.random() * 1000000),
         content: userInput
       }
     });
@@ -24,7 +22,11 @@ export const InputBox: React.FC<Props> = () => {
         className="input_message_container"
         onChange={e => setUserInput(e.target.value)}
       />
-      <button onClick={() => sendMessage}>Send</button>
+      <button onClick={() => sendMessage()}>Send</button>
     </div>
   );
-};
+}
+
+export default compose(
+  graphql(addMessageMutation, { name: "addMessageMutation" })
+)(InputBox);
