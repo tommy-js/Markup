@@ -2,9 +2,10 @@ import { gql } from "apollo-boost";
 import { graphql } from "react-apollo";
 
 const messageQuery = gql`
-  query {
-    messages
-    sender
+  {
+    messages {
+      from
+    }
   }
 `;
 

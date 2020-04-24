@@ -1,4 +1,4 @@
-import React, { Context, createContext } from "react";
+import React, { createContext, useState } from "react";
 import "./App.scss";
 import ApolloClient from "apollo-boost";
 import { InitialScreen } from "./components/InitialScreen";
@@ -10,22 +10,25 @@ const client = new ApolloClient({
   uri: "http://localhost:4000/graphql"
 });
 
-const user = createContext("user");
+export const userContext = createContext(null);
 
 const App: React.FC = () => {
+  const [userVal, setUserVal] = useState("user");
   return (
-    <ApolloProvider client={client}>
-      <Router>
-        <div className="App">
-          <Route exact path="/">
-            <InitialScreen />
-          </Route>
-          <Route exact path="/home">
-            <HomePage />
-          </Route>
-        </div>
-      </Router>
-    </ApolloProvider>
+    <userContext.Provider value={{ userVal, setUserVal }}>
+      <ApolloProvider client={client}>
+        <Router>
+          <div className="App">
+            <Route exact path="/">
+              <InitialScreen />
+            </Route>
+            <Route exact path="/home">
+              <HomePage />
+            </Route>
+          </div>
+        </Router>
+      </ApolloProvider>
+    </userContext.Provider>
   );
 };
 

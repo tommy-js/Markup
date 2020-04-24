@@ -5,15 +5,11 @@ import { addUserMutation } from "../queries/queries";
 import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
 
-interface Props {
-  addUserMutation: (variables: object) => void;
-}
-
-const SignUp: React.FC<Props> = props => {
+function SignUp(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  function newUser(e: any) {
+  function newUser(e) {
     e.preventDefault();
     props.addUserMutation({
       variables: {
@@ -46,7 +42,7 @@ const SignUp: React.FC<Props> = props => {
       </form>
     </div>
   );
-};
+}
 
 export default compose(graphql(addUserMutation, { name: "addUserMutation" }))(
   SignUp

@@ -1,5 +1,11 @@
 const graphql = require("graphql");
-const { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLSchema } = graphql;
+const {
+  GraphQLObjectType,
+  GraphQLString,
+  GraphQLID,
+  GraphQLSchema,
+  GraphQLList
+} = graphql;
 const Message = require("../models/messages");
 const User = require("../models/user");
 
@@ -7,6 +13,8 @@ const MessageQuery = new GraphQLObjectType({
   name: "Message",
   fields: () => ({
     id: { type: GraphQLID },
+    from: { type: GraphQLString },
+    to: { type: GraphQLString },
     content: { type: GraphQLString }
   })
 });
@@ -24,17 +32,17 @@ const RootQuery = new GraphQLObjectType({
   name: "RootQuery",
   fields: {
     messages: {
-      type: MessageQuery,
+      type: new GraphQLList(MessageQuery),
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
-        return Messages.findById(args.id);
+        return Message.find({});
       }
     },
     user: {
       type: UserQuery,
       args: { username: { type: GraphQLString } },
       resolve(parent, args) {
-        return User.find(el => el.username === args.username);
+        return User.findOne({ username: args.username });
       }
     },
     users: {
