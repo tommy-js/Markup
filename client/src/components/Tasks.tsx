@@ -28,7 +28,7 @@ export const Tasks: React.FC = () => {
   }
 
   return (
-    <div>
+    <div className="task_box">
       {stateTasks.map(task => (
         <IndividualTask
           key={task.id}
@@ -36,8 +36,10 @@ export const Tasks: React.FC = () => {
           displayTask={displayTask}
         />
       ))}
-      <AddTask addTasks={addTasks} />
-      <ClearTaskList clearTasks={clearTasks} />
+      <div className="task_buttons">
+        <AddTask addTasks={addTasks} />
+        <ClearTaskList clearTasks={clearTasks} />
+      </div>
     </div>
   );
 };

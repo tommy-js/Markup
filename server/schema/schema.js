@@ -8,6 +8,7 @@ const {
 } = graphql;
 const Message = require("../models/messages");
 const User = require("../models/user");
+const Friend = require("../models/friends");
 
 const MessageQuery = new GraphQLObjectType({
   name: "Message",
@@ -25,6 +26,13 @@ const UserQuery = new GraphQLObjectType({
     id: { type: GraphQLID },
     username: { type: GraphQLString },
     password: { type: GraphQLString }
+  })
+});
+
+const FriendQuery = new GraphQLObjectType({
+  name: "Friend",
+  fields: () => ({
+    id: { type: GraphQLID }
   })
 });
 
@@ -63,7 +71,8 @@ const Mutation = new GraphQLObjectType({
       args: {
         id: { type: GraphQLID },
         username: { type: GraphQLString },
-        password: { type: GraphQLString }
+        password: { type: GraphQLString },
+        friends: { type: GraphQLList(FriendQuery) }
       },
       resolve(parent, args) {
         let newUser = new User({

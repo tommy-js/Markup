@@ -1,4 +1,5 @@
 import React from "react";
+import "../App.scss";
 
 interface Props {
   clearTasks: () => void;
@@ -6,8 +7,10 @@ interface Props {
 
 export const ClearTaskList: React.FC<Props> = props => {
   return (
-    <div>
-      <button onClick={props.clearTasks}>Clear Completed</button>
+    <div className="inline_buttons">
+      <button className="add_task_buttons" onClick={props.clearTasks}>
+        Clear Completed
+      </button>
     </div>
   );
 };
