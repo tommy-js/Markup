@@ -25,8 +25,10 @@ const SignIn: React.FC<Props> = props => {
 
   useEffect(() => {
     if (data) {
-      if (data.user.password == password) {
+      let { user } = data;
+      if (user.password == password) {
         setBordering("1px solid blue");
+        setUserVal(user.username);
       } else {
         setBordering("1px solid red");
       }

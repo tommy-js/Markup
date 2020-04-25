@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "../App.scss";
 import { Link } from "react-router-dom";
 import { addUserMutation } from "../queries/queries";
 import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
+import { userContext } from "../App";
 
 function SignUp(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const { userVal, setUserVal } = useContext(userContext);
 
   function newUser(e) {
     e.preventDefault();
@@ -18,6 +20,7 @@ function SignUp(props) {
         password: password
       }
     });
+    setUserVal(username);
   }
   return (
     <div>

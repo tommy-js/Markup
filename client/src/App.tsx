@@ -10,10 +10,10 @@ const client = new ApolloClient({
   uri: "http://localhost:4000/graphql"
 });
 
-export const userContext = createContext(null);
+export const userContext = createContext<any>("");
 
-const App: React.FC = () => {
-  const [userVal, setUserVal] = useState("user");
+function App(): JSX.Element {
+  const [userVal, setUserVal] = useState<any>("");
   return (
     <userContext.Provider value={{ userVal, setUserVal }}>
       <ApolloProvider client={client}>
@@ -30,6 +30,6 @@ const App: React.FC = () => {
       </ApolloProvider>
     </userContext.Provider>
   );
-};
+}
 
 export default App;
