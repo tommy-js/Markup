@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import "../App";
+import { ClearTaskList } from "./ClearTaskList";
 
 interface Props {
   addTasks: (userInput: string) => void;
+  clearTasks: () => void;
 }
 
 export const AddTask: React.FC<Props> = props => {
@@ -16,7 +18,7 @@ export const AddTask: React.FC<Props> = props => {
   }
 
   return (
-    <div className="inline_buttons">
+    <div>
       <input
         className="add_task_styles"
         type="text"
@@ -24,9 +26,12 @@ export const AddTask: React.FC<Props> = props => {
         onChange={e => setUserInput(e.target.value)}
         placeholder="Task"
       />
-      <button className="add_task_buttons" onClick={() => submitAdd()}>
-        Add
-      </button>
+      <div className="inline_buttons">
+        <button className="add_task_buttons" onClick={() => submitAdd()}>
+          Add
+        </button>
+        <ClearTaskList clearTasks={props.clearTasks} />
+      </div>
     </div>
   );
 };

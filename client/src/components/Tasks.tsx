@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { IndividualTask } from "./IndividualTask";
-import { ClearTaskList } from "./ClearTaskList";
 import { AddTask } from "./AddTask";
 import "../App.scss";
 
@@ -37,8 +36,7 @@ export const Tasks: React.FC = () => {
         />
       ))}
       <div className="task_buttons">
-        <AddTask addTasks={addTasks} />
-        <ClearTaskList clearTasks={clearTasks} />
+        <AddTask addTasks={addTasks} clearTasks={clearTasks} />
       </div>
     </div>
   );

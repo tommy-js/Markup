@@ -87,6 +87,7 @@ body {
   margin-left: auto;
   margin-right: auto;
   width: 85%;
+  min-width: 350px;
   height: 85%;
   @include testing;
 }
@@ -162,8 +163,10 @@ input[type="checkbox"] {
 .add_task_styles {
   height: 35px;
   border-left: none;
+  display: block;
   border-right: none;
   border-top: none;
+  width: 90%;
   border-bottom: 1px solid black;
   transition: 0.3s;
 }
@@ -174,9 +177,11 @@ input[type="checkbox"] {
 }
 
 .add_task_buttons {
+  position: relative;
   height: 44px;
   background-color: white;
   border: 2px solid pink;
+  display: inline-block;
   margin-left: 5px;
   border-radius: 5px;
   cursor: pointer;

@@ -9,6 +9,7 @@ const {
 const Message = require("../models/messages");
 const User = require("../models/user");
 const Friend = require("../models/friends");
+const Task = require("../models/tasks");
 
 const MessageQuery = new GraphQLObjectType({
   name: "Message",
@@ -33,6 +34,14 @@ const FriendQuery = new GraphQLObjectType({
   name: "Friend",
   fields: () => ({
     id: { type: GraphQLID }
+  })
+});
+
+const TaskQuery = new GraphQLObjectType({
+  name: "Task",
+  fields: () => ({
+    id: { type: GraphQLID },
+    content: { type: GraphQLString }
   })
 });
 
@@ -95,6 +104,20 @@ const Mutation = new GraphQLObjectType({
           content: args.content
         });
         return newMessage.save();
+      }
+    },
+    addTask: {
+      type: TaskQuery,
+      args: {
+        id: { type: GraphQLID },
+        content: { type: GraphQLString }
+      },
+      resolve(parent, args) {
+        let newTask = new Task({
+          id: args.id,
+          content: args.content
+        });
+        return newTask.save();
       }
     }
   }
