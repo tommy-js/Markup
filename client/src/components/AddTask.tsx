@@ -17,13 +17,23 @@ export const AddTask: React.FC<Props> = props => {
     }
   }
 
+  function setUser(input: string) {
+    if (input.length < 30) {
+      setUserInput(input);
+    } else {
+      let str = input;
+      let substr = str.substring(0, 30);
+      setUserInput(substr);
+    }
+  }
+
   return (
     <div>
       <input
         className="add_task_styles"
         type="text"
         value={userInput}
-        onChange={e => setUserInput(e.target.value)}
+        onChange={e => setUser(e.target.value)}
         placeholder="Task"
       />
       <div className="inline_buttons">

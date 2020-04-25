@@ -99,9 +99,15 @@ body {
 
 .person {
   position: relative;
-  width: 200px;
+  width: 175px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   margin-left: auto;
   margin-right: auto;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: #c24e3d;
+  cursor: pointer;
   @include testing;
 }
 
@@ -166,7 +172,10 @@ input[type="checkbox"] {
   display: block;
   border-right: none;
   border-top: none;
-  width: 90%;
+  margin-bottom: 15px;
+  padding: 3px;
+  font-size: 16px;
+  width: 100%;
   border-bottom: 1px solid black;
   transition: 0.3s;
 }
@@ -196,6 +205,7 @@ input[type="checkbox"] {
 .task_buttons {
   position: absolute;
   display: inline-block;
+  width: 250px;
   bottom: 0;
 }
 
@@ -221,18 +231,63 @@ input[type="checkbox"] {
 
 .input_message_container {
   position: relative;
+  box-sizing: border-box;
   bottom: 0;
   margin-left: auto;
+  padding: 10px;
   margin-right: auto;
-  display: block;
-  width: 80%;
-  height: 75px;
+  display: inline-block;
+  border-radius: 5px 0 0 5px;
+  font-size: 16px;
+  width: 90%;
+  height: 98%;
   resize: none;
 }
 
 .div_message_input_box {
   position: absolute;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
   bottom: 0;
-  margin-bottom: 50px;
+  margin-bottom: 25px;
+  width: 90%;
+  height: 100px;
+}
+
+.div_message_input_box_button {
+  position: relative;
+  display: inline-block;
+  box-sizing: border-box;
+  height: 100%;
+  width: 10%;
+  vertical-align: top;
+}
+
+.div_message_button {
+  position: relative;
+  display: block;
+  border: none;
+  background-color: grey;
+  cursor: pointer;
+  margin: 0;
+  height: 50%;
   width: 100%;
+  vertical-align: top;
+  transition: 0.3s;
+}
+
+.div_button_top {
+  border-radius: 0 5px 0 0;
+}
+
+.div_button_bottom {
+  border-radius: 0 0 5px 0;
+}
+
+.div_message_button:hover {
+  background-color: pink;
+  transition: 0.3s;
 }

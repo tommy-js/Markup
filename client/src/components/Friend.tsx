@@ -8,7 +8,7 @@ interface Props {
 export const Friend: React.FC<Props> = props => {
   return (
     <div className="person">
-      <p>{props.person}</p>
+      <span>{props.person}</span>
     </div>
   );
 };

@@ -7,7 +7,7 @@ interface Props {
 export const Member: React.FC<Props> = props => {
   return (
     <div className="person">
-      <p>{props.name}</p>
+      <span>{props.name}</span>
     </div>
   );
 };

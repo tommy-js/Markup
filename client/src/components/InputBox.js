@@ -22,7 +22,17 @@ function InputBox(props) {
         className="input_message_container"
         onChange={e => setUserInput(e.target.value)}
       />
-      <button onClick={() => sendMessage()}>Send</button>
+      <div className="div_message_input_box_button">
+        <button className="div_message_button div_button_top">
+          Enable linebreak
+        </button>
+        <button
+          className="div_message_button div_button_bottom"
+          onClick={() => sendMessage()}
+        >
+          Send
+        </button>
+      </div>
     </div>
   );
 }
