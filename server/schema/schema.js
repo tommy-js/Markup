@@ -27,8 +27,7 @@ const UserQuery = new GraphQLObjectType({
   fields: () => ({
     id: { type: GraphQLID },
     username: { type: GraphQLString },
-    password: { type: GraphQLString },
-    tasks: { type: new GraphQLList(TaskQuery) }
+    password: { type: GraphQLString }
   })
 });
 
@@ -69,6 +68,13 @@ const RootQuery = new GraphQLObjectType({
       type: new GraphQLList(UserQuery),
       resolve(parent, args) {
         return User.find({});
+      }
+    },
+    tasks: {
+      type: new GraphQLList(TaskQuery),
+      args: { id: { type: GraphQLID } },
+      resolve(parent, args) {
+        return Task.find({ userid: args.id });
       }
     }
   }

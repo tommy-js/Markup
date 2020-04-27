@@ -1,16 +1,26 @@
 import React, { useState, useEffect, useContext } from "react";
 import { IndividualTask } from "./IndividualTask";
 import { userContext } from "../App";
-import { AddTask } from "./AddTask";
+import AddTask from "./AddTask";
 import "../App.scss";
 
 export const Tasks: React.FC = () => {
   const { userVal, setUserVal } = useContext(userContext);
+  const tasks = [
+    {
+      title: "Edit main page",
+      id: 0
+    },
+    {
+      title: "Add some CSS to secondary page",
+      id: 1
+    }
+  ];
   const [displayTask, setDisplayTask] = useState(true);
-  const [stateTasks, setStateTasks] = useState(userVal.tasks);
+  const [stateTasks, setStateTasks] = useState(tasks);
 
   function addTasks(addParam: string) {
-    let newTask = { title: addParam, id: userVal.tasks.length };
+    let newTask = { title: addParam, id: tasks.length };
     setStateTasks(prev => [...prev, newTask]);
   }
 

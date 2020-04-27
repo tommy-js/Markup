@@ -1,17 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "../App";
 import { ClearTaskList } from "./ClearTaskList";
+import { flowRight as compose } from "lodash";
+import { graphql } from "react-apollo";
+import { userContext } from "../App";
+import { addTaskMutation } from "../queries/queries";
 
 interface Props {
   addTasks: (userInput: string) => void;
   clearTasks: () => void;
+  addTaskMutation: (variables: object) => void;
 }
 
-export const AddTask: React.FC<Props> = props => {
+const AddTask: React.FC<Props> = props => {
   const [userInput, setUserInput] = useState("");
+  const { userVal, setUserVal } = useContext(userContext);
+
+  console.log(userVal);
 
   function submitAdd() {
     if (userInput.length > 0) {
+      props.addTaskMutation({
+        variables: {
+          content: userInput,
+          id: Math.floor(Math.random() * 1000000),
+          userid: userVal.id
+        }
+      });
       props.addTasks(userInput);
       setUserInput("");
     }
@@ -45,3 +60,7 @@ export const AddTask: React.FC<Props> = props => {
     </div>
   );
 };
+
+export default compose(graphql(addTaskMutation, { name: "addTaskMutation" }))(
+  AddTask
+);

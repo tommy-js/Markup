@@ -18,6 +18,16 @@ const userQuery = gql`
   }
 `;
 
+const taskQuery = gql`
+  query($userid: ID!) {
+    task(userid: $userid) {
+      userid
+      id
+      content
+    }
+  }
+`;
+
 const addMessageMutation = gql`
   mutation($id: ID!, $content: String!) {
     addMessage(id: $id, content: $content) {
@@ -28,9 +38,10 @@ const addMessageMutation = gql`
 `;
 
 const addTaskMutation = gql`
-  mutation($id: ID!, $content: String!) {
-    addTask(id: $id, content: $content) {
+  mutation($id: ID!, $userid: ID!, $content: String!) {
+    addTask(id: $id, userid: $userid, content: $content) {
       id
+      userid
       content
     }
   }
@@ -58,6 +69,7 @@ const allUsersQuery = gql`
 export {
   messageQuery,
   userQuery,
+  taskQuery,
   allUsersQuery,
   addMessageMutation,
   addTaskMutation,

@@ -13,14 +13,15 @@ function SignUp(props) {
 
   function newUser(e) {
     e.preventDefault();
+    let id = Math.floor(Math.random() * 1000000000);
     props.addUserMutation({
       variables: {
-        id: Math.floor(Math.random() * 1000000000),
+        id: id,
         username: username,
         password: password
       }
     });
-    setUserVal({ username: username, password: password });
+    setUserVal({ username: username, password: password, id: id });
   }
   return (
     <div>
