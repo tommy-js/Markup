@@ -72,9 +72,9 @@ const RootQuery = new GraphQLObjectType({
     },
     tasks: {
       type: new GraphQLList(TaskQuery),
-      args: { id: { type: GraphQLID } },
+      args: { userid: { type: GraphQLID } },
       resolve(parent, args) {
-        return Task.find({ userid: args.id });
+        return Task.find({ userid: args.userid });
       }
     }
   }

@@ -1,45 +1,61 @@
 import React, { useState, useEffect, useContext } from "react";
+import { taskQuery } from "../queries/queries";
+import { ClearTaskList } from "./ClearTaskList";
+import { flowRight as compose } from "lodash";
+import { graphql } from "react-apollo";
+import { useQuery } from "@apollo/react-hooks";
 import { IndividualTask } from "./IndividualTask";
 import { userContext } from "../App";
 import AddTask from "./AddTask";
 import "../App.scss";
 
-export const Tasks: React.FC = () => {
+interface Props {
+  taskQuery: () => object;
+}
+
+const Tasks: React.FC<Props> = props => {
   const { userVal, setUserVal } = useContext(userContext);
-  const tasks = [
-    {
-      title: "Edit main page",
-      id: 0
-    },
-    {
-      title: "Add some CSS to secondary page",
-      id: 1
-    }
-  ];
+  const { data, loading } = useQuery(taskQuery, {
+    variables: { userid: userVal.id }
+  });
   const [displayTask, setDisplayTask] = useState(true);
-  const [stateTasks, setStateTasks] = useState(tasks);
+  const [stateTasks, setStateTasks] = useState([
+    { id: 0, content: "Example task" }
+  ]);
+
+  console.log(data);
 
   function addTasks(addParam: string) {
-    let newTask = { title: addParam, id: tasks.length };
-    setStateTasks(prev => [...prev, newTask]);
+    let newTask = { title: addParam, id: stateTasks.length };
+    setStateTasks((prev: any) => [...prev, newTask]);
   }
 
   function clearTasks() {
     setDisplayTask(!displayTask);
   }
 
-  return (
-    <div className="task_box">
-      {stateTasks.map(task => (
-        <IndividualTask
-          key={task.id}
-          task={task.title}
-          displayTask={displayTask}
-        />
-      ))}
-      <div className="task_buttons">
-        <AddTask addTasks={addTasks} clearTasks={clearTasks} />
+  if (loading) {
+    return (
+      <div>
+        <p>Loading...</p>
       </div>
-    </div>
-  );
+    );
+  } else {
+    return (
+      <div className="task_box">
+        {data.tasks.map((task: any) => (
+          <IndividualTask
+            key={task.id}
+            task={task.content}
+            displayTask={displayTask}
+          />
+        ))}
+        <div className="task_buttons">
+          <AddTask addTasks={addTasks} clearTasks={clearTasks} />
+        </div>
+      </div>
+    );
+  }
 };
+
+export default compose(graphql(taskQuery, { name: "taskQuery" }))(Tasks);

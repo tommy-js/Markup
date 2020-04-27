@@ -14,13 +14,14 @@ const userQuery = gql`
     user(username: $username) {
       username
       password
+      id
     }
   }
 `;
 
 const taskQuery = gql`
   query($userid: ID!) {
-    task(userid: $userid) {
+    tasks(userid: $userid) {
       userid
       id
       content
