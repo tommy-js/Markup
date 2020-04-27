@@ -80,8 +80,7 @@ const Mutation = new GraphQLObjectType({
       args: {
         id: { type: GraphQLID },
         username: { type: GraphQLString },
-        password: { type: GraphQLString },
-        friends: { type: GraphQLList(FriendQuery) }
+        password: { type: GraphQLString }
       },
       resolve(parent, args) {
         let newUser = new User({

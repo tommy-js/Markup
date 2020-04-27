@@ -20,7 +20,7 @@ function SignUp(props) {
         password: password
       }
     });
-    setUserVal(username);
+    setUserVal({ username: username, password: password });
   }
   return (
     <div>

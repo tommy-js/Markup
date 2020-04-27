@@ -116,7 +116,7 @@ body {
   vertical-align: middle;
   margin-left: auto;
   margin-right: auto;
-  height: 85%;
+  height: 100%;
   width: 85%;
   @include testing;
 }
@@ -290,4 +290,43 @@ input[type="checkbox"] {
 .div_message_button:hover {
   background-color: pink;
   transition: 0.3s;
+}
+
+.person_comp {
+  position: relative;
+  height: 75%;
+}
+
+.friends_block {
+  position: relative;
+  height: 85%;
+  width: 85%;
+  margin-left: auto;
+  margin-right: auto;
+  @include testing;
+}
+
+.tab_button {
+  position: relative;
+  display: inline-block;
+  width: 50%;
+  height: 40px;
+}
+
+.tab_button_left {
+  border-radius: 0 15px 0 0;
+}
+
+.tab_button_right {
+  border-radius: 15px 0 0 0;
+}
+
+.friend_search {
+  position: relative;
+  bottom: 0;
+  width: 85%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 15px;
+  @include testing;
 }

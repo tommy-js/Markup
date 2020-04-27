@@ -8,18 +8,36 @@ export const FriendComp: React.FC = () => {
 
   if (tab) {
     return (
-      <div>
-        <button disabled>Friends</button>
-        <button onClick={() => setTab(!tab)}>Teammates</button>
-        <FriendTab />
+      <div className="person_comp">
+        <div className="friend_comp">
+          <button className="tab_button tab_button_right" disabled>
+            Friends
+          </button>
+          <button
+            className="tab_button tab_button_left"
+            onClick={() => setTab(!tab)}
+          >
+            Teammates
+          </button>
+          <FriendTab />
+        </div>
       </div>
     );
   } else {
     return (
-      <div>
-        <button onClick={() => setTab(!tab)}>Friends</button>
-        <button disabled>Teammates</button>
-        <TeamTab />
+      <div className="person_comp">
+        <div className="friend_comp">
+          <button
+            className="tab_button tab_button_right"
+            onClick={() => setTab(!tab)}
+          >
+            Friends
+          </button>
+          <button className="tab_button tab_button_left" disabled>
+            Teammates
+          </button>
+          <TeamTab />
+        </div>
       </div>
     );
   }

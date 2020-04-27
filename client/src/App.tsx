@@ -10,10 +10,10 @@ const client = new ApolloClient({
   uri: "http://localhost:4000/graphql"
 });
 
-export const userContext = createContext<any>("");
+export const userContext = createContext<any>({});
 
 function App(): JSX.Element {
-  const [userVal, setUserVal] = useState<any>("");
+  const [userVal, setUserVal] = useState<any>({});
   return (
     <userContext.Provider value={{ userVal, setUserVal }}>
       <ApolloProvider client={client}>
