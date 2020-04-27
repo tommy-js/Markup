@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { FriendList } from "./FriendList";
-import { MessageViewer } from "./MessageViewer";
+import MessageViewer from "./MessageViewer";
 import { TaskList } from "./TaskList";
 import "../App.scss";
 

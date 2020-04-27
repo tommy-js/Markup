@@ -1,5 +1,9 @@
 import React from "react";
 import { MessageBox } from "./MessageBox";
+import { flowRight as compose } from "lodash";
+import { graphql } from "react-apollo";
+import { useLazyQuery } from "@apollo/react-hooks";
+import { allUsersQuery } from "../queries/queries";
 import "../App.scss";
 
 interface Props {
@@ -7,10 +11,12 @@ interface Props {
   viewMessages: () => void;
 }
 
-export const MessageViewer: React.FC<Props> = props => {
+const MessageViewer: React.FC<Props> = props => {
   function backButton() {
     props.viewMessages();
   }
+
+  useEffect(() => {}, [data]);
 
   if (props.searching) {
     return (
@@ -28,3 +34,7 @@ export const MessageViewer: React.FC<Props> = props => {
     );
   }
 };
+
+export default compose(graphql(allUsersQuery, { name: "allUsersQuery" }))(
+  MessageViewer
+);

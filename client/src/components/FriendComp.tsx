@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FriendTab } from "./FriendTab";
+import FriendTab from "./FriendTab";
 import { TeamTab } from "./TeamTab";
 import "../App.scss";
 

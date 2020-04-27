@@ -46,9 +46,19 @@ const addUserMutation = gql`
   }
 `;
 
+const allUsersQuery = gql`
+  {
+    users {
+      username
+      id
+    }
+  }
+`;
+
 export {
   messageQuery,
   userQuery,
+  allUsersQuery,
   addMessageMutation,
   addTaskMutation,
   addUserMutation

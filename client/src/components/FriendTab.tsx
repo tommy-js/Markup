@@ -1,15 +1,44 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Friend } from "./Friend";
+import { userQuery } from "../queries/queries";
+import { flowRight as compose } from "lodash";
+import { graphql } from "react-apollo";
+import { useLazyQuery } from "@apollo/react-hooks";
+import { userContext } from "../App";
 import "../App.scss";
 
-export const FriendTab: React.FC = () => {
-  const friends = ["person1", "person2", "person3"];
+const FriendTab: React.FC = () => {
+  const { userVal, setUserVal } = useContext(userContext);
+  const [passUser, { loading, data }] = useLazyQuery(userQuery);
+  const [friends, setFriends] = useState([]);
 
-  return (
-    <div>
-      {friends.map(person => (
-        <Friend person={person} />
-      ))}
-    </div>
-  );
+  useEffect(() => {
+    if (userVal) {
+      passUser({ variables: { username: userVal.username } });
+    }
+  }, []);
+
+  useEffect(() => {
+    if (data) {
+      setFriends(data.user.friends);
+    }
+  }, [data]);
+
+  if (friends) {
+    return (
+      <div>
+        {friends.map(person => (
+          <Friend key={Math.floor(Math.random() * 10000)} person={person} />
+        ))}
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <p>Loading</p>
+      </div>
+    );
+  }
 };
+
+export default compose(graphql(userQuery, { name: "userQuery" }))(FriendTab);
