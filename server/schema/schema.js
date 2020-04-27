@@ -15,6 +15,7 @@ const MessageQuery = new GraphQLObjectType({
   name: "Message",
   fields: () => ({
     id: { type: GraphQLID },
+    userid: { type: GraphQLID },
     from: { type: GraphQLString },
     to: { type: GraphQLString },
     content: { type: GraphQLString }
@@ -26,7 +27,8 @@ const UserQuery = new GraphQLObjectType({
   fields: () => ({
     id: { type: GraphQLID },
     username: { type: GraphQLString },
-    password: { type: GraphQLString }
+    password: { type: GraphQLString },
+    tasks: { type: new GraphQLList(TaskQuery) }
   })
 });
 
@@ -41,6 +43,7 @@ const TaskQuery = new GraphQLObjectType({
   name: "Task",
   fields: () => ({
     id: { type: GraphQLID },
+    userid: { type: GraphQLID },
     content: { type: GraphQLString }
   })
 });
@@ -63,8 +66,7 @@ const RootQuery = new GraphQLObjectType({
       }
     },
     users: {
-      type: UserQuery,
-      args: { id: { type: GraphQLID } },
+      type: new GraphQLList(UserQuery),
       resolve(parent, args) {
         return User.find({});
       }
@@ -95,11 +97,13 @@ const Mutation = new GraphQLObjectType({
       type: MessageQuery,
       args: {
         id: { type: GraphQLID },
+        userid: { type: GraphQLID },
         content: { type: GraphQLString }
       },
       resolve(parent, args) {
         let newMessage = new Message({
           id: args.id,
+          userid: args.userid,
           content: args.content
         });
         return newMessage.save();
@@ -109,11 +113,13 @@ const Mutation = new GraphQLObjectType({
       type: TaskQuery,
       args: {
         id: { type: GraphQLID },
+        userid: { type: GraphQLID },
         content: { type: GraphQLString }
       },
       resolve(parent, args) {
         let newTask = new Task({
           id: args.id,
+          userid: args.userid,
           content: args.content
         });
         return newTask.save();
