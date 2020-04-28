@@ -27,7 +27,8 @@ const UserQuery = new GraphQLObjectType({
   fields: () => ({
     id: { type: GraphQLID },
     username: { type: GraphQLString },
-    password: { type: GraphQLString }
+    password: { type: GraphQLString },
+    friends: { type: new GraphQLList(FriendQuery) }
   })
 });
 
@@ -129,6 +130,15 @@ const Mutation = new GraphQLObjectType({
           content: args.content
         });
         return newTask.save();
+      }
+    },
+    deleteTask: {
+      type: TaskQuery,
+      args: {
+        id: { type: GraphQLID }
+      },
+      resolve(parent, args) {
+        return Task.findOneAndDelete({ id: args.id });
       }
     }
   }

@@ -5,8 +5,7 @@ const userSchema = new Schema({
   id: Number,
   username: String,
   password: String,
-  friends: [Number],
-  tasks: [Number]
+  friends: [Number]
 });
 
 module.exports = mongoose.model("User", userSchema);

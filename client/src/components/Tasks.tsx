@@ -4,7 +4,7 @@ import { ClearTaskList } from "./ClearTaskList";
 import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
 import { useQuery } from "@apollo/react-hooks";
-import { IndividualTask } from "./IndividualTask";
+import IndividualTask from "./IndividualTask";
 import { userContext } from "../App";
 import AddTask from "./AddTask";
 import "../App.scss";
@@ -23,10 +23,17 @@ const Tasks: React.FC<Props> = props => {
     { id: 0, content: "Example task" }
   ]);
 
+  useEffect(() => {
+    if (!loading) {
+      setStateTasks(data.tasks);
+    }
+  }, [data]);
+
   console.log(data);
 
   function addTasks(addParam: string) {
-    let newTask = { title: addParam, id: stateTasks.length };
+    let idLength = Math.floor(Math.random() * 1000000);
+    let newTask = { content: addParam, id: idLength };
     setStateTasks((prev: any) => [...prev, newTask]);
   }
 
@@ -43,9 +50,10 @@ const Tasks: React.FC<Props> = props => {
   } else {
     return (
       <div className="task_box">
-        {data.tasks.map((task: any) => (
+        {stateTasks.map((task: any) => (
           <IndividualTask
             key={task.id}
+            id={task.id}
             task={task.content}
             displayTask={displayTask}
           />

@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from "react";
 import checked from "../icons/checked.png";
 import unchecked from "../icons/unchecked.png";
+import { flowRight as compose } from "lodash";
+import { graphql } from "react-apollo";
+import { removeTaskMutation } from "../queries/queries";
 import "../App.scss";
 
 interface Props {
   task: string;
+  id: number;
   displayTask: boolean;
+  removeTaskMutation: (variables: object) => void;
 }
 
-export const IndividualTask: React.FC<Props> = props => {
+const IndividualTask: React.FC<Props> = props => {
   const [checking, setChecking] = useState(false);
   const [showTask, setShowTask] = useState(true);
   const [displayed, setDisplayed] = useState("none");
@@ -37,6 +42,7 @@ export const IndividualTask: React.FC<Props> = props => {
       setDisplayed("block");
     } else {
       setDisplayed("none");
+      props.removeTaskMutation({ variables: { id: props.id } });
     }
   }, [showTask]);
 
@@ -60,3 +66,7 @@ export const IndividualTask: React.FC<Props> = props => {
     </div>
   );
 };
+
+export default compose(
+  graphql(removeTaskMutation, { name: "removeTaskMutation" })
+)(IndividualTask);

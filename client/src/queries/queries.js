@@ -29,6 +29,14 @@ const taskQuery = gql`
   }
 `;
 
+const removeTaskMutation = gql`
+  mutation($id: ID!) {
+    deleteTask(id: $id) {
+      id
+    }
+  }
+`;
+
 const addMessageMutation = gql`
   mutation($id: ID!, $content: String!) {
     addMessage(id: $id, content: $content) {
@@ -74,5 +82,6 @@ export {
   allUsersQuery,
   addMessageMutation,
   addTaskMutation,
-  addUserMutation
+  addUserMutation,
+  removeTaskMutation
 };
