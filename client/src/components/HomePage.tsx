@@ -4,12 +4,13 @@ import { MessageViewer } from "./MessageViewer";
 import { TaskList } from "./TaskList";
 import "../App.scss";
 
-interface Props {
-  passFriends: (friends: any) => void;
-}
-
-export const HomePage: React.FC<Props> = props => {
+export const HomePage: React.FC = () => {
+  const [friends, setFriends] = useState([]);
   const [searching, setSearching] = useState(false);
+
+  function passFriends(friends: any) {
+    setFriends(friends);
+  }
 
   function searchingForFriends() {
     setSearching(true);
@@ -19,14 +20,22 @@ export const HomePage: React.FC<Props> = props => {
     setSearching(false);
   }
 
-  return (
-    <div className="home_page">
-      <FriendList
-        searchingForFriends={searchingForFriends}
-        passFriends={props.passFriends}
-      />
-      <MessageViewer searching={searching} viewMessages={viewMessages} />
-      <TaskList />
-    </div>
-  );
+  if (friends) {
+    return (
+      <div className="home_page">
+        <FriendList
+          searchingForFriends={searchingForFriends}
+          passFriends={passFriends}
+        />
+        <MessageViewer
+          friends={friends}
+          searching={searching}
+          viewMessages={viewMessages}
+        />
+        <TaskList />
+      </div>
+    );
+  } else {
+    return <div>Loading...</div>;
+  }
 };

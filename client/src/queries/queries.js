@@ -42,9 +42,11 @@ const removeTaskMutation = gql`
 `;
 
 const addMessageMutation = gql`
-  mutation($id: ID!, $content: String!) {
-    addMessage(id: $id, content: $content) {
+  mutation($id: ID!, $content: String!, $to: ID!, $from: ID!) {
+    addMessage(id: $id, content: $content, to: $to, from: $from) {
       id
+      to
+      from
       content
     }
   }

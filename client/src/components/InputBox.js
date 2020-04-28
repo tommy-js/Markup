@@ -1,17 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "../App.scss";
 import { graphql } from "react-apollo";
 import { flowRight as compose } from "lodash";
 import { addMessageMutation } from "../queries/queries";
+import { userContext } from "../App";
 
 function InputBox(props) {
   const [userInput, setUserInput] = useState("");
+  const { userVal, setUserVal } = useContext(userContext);
 
   function sendMessage() {
     props.addMessageMutation({
       variables: {
         id: Math.floor(Math.random() * 1000000),
-        content: userInput
+        content: userInput,
+        from: userVal.id,
+        to: props.userId
       }
     });
   }

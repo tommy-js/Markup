@@ -15,9 +15,8 @@ const MessageQuery = new GraphQLObjectType({
   name: "Message",
   fields: () => ({
     id: { type: GraphQLID },
-    userid: { type: GraphQLID },
-    from: { type: GraphQLString },
-    to: { type: GraphQLString },
+    from: { type: GraphQLID },
+    to: { type: GraphQLID },
     content: { type: GraphQLString }
   })
 });
@@ -106,13 +105,15 @@ const Mutation = new GraphQLObjectType({
       type: MessageQuery,
       args: {
         id: { type: GraphQLID },
-        userid: { type: GraphQLID },
+        to: { type: GraphQLID },
+        from: { type: GraphQLID },
         content: { type: GraphQLString }
       },
       resolve(parent, args) {
         let newMessage = new Message({
           id: args.id,
-          userid: args.userid,
+          from: args.from,
+          to: args.to,
           content: args.content
         });
         return newMessage.save();

@@ -1,5 +1,4 @@
 import React, { createContext, useState } from "react";
-import { FriendConversation } from "./components/FriendConversation";
 import "./App.scss";
 import ApolloClient from "apollo-boost";
 import { InitialScreen } from "./components/InitialScreen";
@@ -14,38 +13,23 @@ const client = new ApolloClient({
 export const userContext = createContext<any>({});
 
 function App(): JSX.Element {
-  const [friends, setFriends] = useState([]);
-
-  function passFriends(friends: any) {
-    setFriends(friends);
-  }
-
   const [userVal, setUserVal] = useState<any>({});
-  if (friends) {
-    return (
-      <userContext.Provider value={{ userVal, setUserVal }}>
-        <ApolloProvider client={client}>
-          <Router>
-            <div className="App">
-              <Route exact path="/">
-                <InitialScreen />
-              </Route>
-              <Route exact path="/home">
-                <HomePage passFriends={passFriends} />
-              </Route>
-              {friends.map((el: any) => (
-                <Route exact path={"/" + el.id}>
-                  <FriendConversation />
-                </Route>
-              ))}
-            </div>
-          </Router>
-        </ApolloProvider>
-      </userContext.Provider>
-    );
-  } else {
-    return <div>"Loading..."</div>;
-  }
+  return (
+    <userContext.Provider value={{ userVal, setUserVal }}>
+      <ApolloProvider client={client}>
+        <Router>
+          <div className="App">
+            <Route exact path="/">
+              <InitialScreen />
+            </Route>
+            <Route path="/home">
+              <HomePage />
+            </Route>
+          </div>
+        </Router>
+      </ApolloProvider>
+    </userContext.Provider>
+  );
 }
 
 export default App;

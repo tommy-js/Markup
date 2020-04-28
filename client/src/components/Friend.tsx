@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "../App.scss";
 
 interface Props {
@@ -9,9 +10,11 @@ interface Props {
 export const Friend: React.FC<Props> = props => {
   return (
     <div className="person">
-      <span>
-        {props.name} #{props.id}
-      </span>
+      <Link to={`/home/${props.id}`}>
+        <span>
+          {props.name} #{props.id}
+        </span>
+      </Link>
     </div>
   );
 };

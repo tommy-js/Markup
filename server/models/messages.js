@@ -3,8 +3,8 @@ const Schema = mongoose.Schema;
 
 const messageSchema = new Schema({
   id: Number,
-  from: String,
-  to: String,
+  from: Number,
+  to: Number,
   content: String
 });
 
