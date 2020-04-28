@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { AddUserComponent } from "./AddUserComponent";
+import AddUserComponent from "./AddUserComponent";
 import { graphql } from "react-apollo";
 import { useQuery } from "@apollo/react-hooks";
 import { allUsersQuery } from "../queries/queries";

@@ -15,6 +15,9 @@ const userQuery = gql`
       username
       password
       id
+      friends {
+        id
+      }
     }
   }
 `;
@@ -56,6 +59,15 @@ const addTaskMutation = gql`
   }
 `;
 
+const addFriendMutation = gql`
+  mutation($userId: ID!, $id: ID!) {
+    addFriend(userId: $userId, id: $id) {
+      userId
+      id
+    }
+  }
+`;
+
 const addUserMutation = gql`
   mutation($id: ID!, $username: String!, $password: String!) {
     addUser(id: $id, username: $username, password: $password) {
@@ -83,5 +95,6 @@ export {
   addMessageMutation,
   addTaskMutation,
   addUserMutation,
-  removeTaskMutation
+  removeTaskMutation,
+  addFriendMutation
 };
