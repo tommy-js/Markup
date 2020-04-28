@@ -6,6 +6,7 @@ import "../App.scss";
 
 interface Props {
   searchingForFriends: () => void;
+  passFriends: (friends: any) => void;
 }
 
 export const FriendList: React.FC<Props> = props => {
@@ -14,7 +15,7 @@ export const FriendList: React.FC<Props> = props => {
   return (
     <div className="friend_list">
       <h1 className="friend_list_header">Friend List</h1>
-      <FriendComp />
+      <FriendComp passFriends={props.passFriends} />
       <FriendSearch searchingForFriends={props.searchingForFriends} />
       <div>{userVal.username}</div>
     </div>

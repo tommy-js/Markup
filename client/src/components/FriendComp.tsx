@@ -3,8 +3,13 @@ import FriendTab from "./FriendTab";
 import { TeamTab } from "./TeamTab";
 import "../App.scss";
 
-export const FriendComp: React.FC = () => {
+interface Props {
+  passFriends: (friends: any) => void;
+}
+
+export const FriendComp: React.FC<Props> = props => {
   const [tab, setTab] = useState(true);
+  const [friend, setFriends] = useState([]);
 
   if (tab) {
     return (
@@ -19,7 +24,7 @@ export const FriendComp: React.FC = () => {
           >
             Teammates
           </button>
-          <FriendTab />
+          <FriendTab passFriends={props.passFriends} />
         </div>
       </div>
     );
