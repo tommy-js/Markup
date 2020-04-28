@@ -17,6 +17,7 @@ const userQuery = gql`
       id
       friends {
         id
+        name
       }
     }
   }
@@ -60,10 +61,11 @@ const addTaskMutation = gql`
 `;
 
 const addFriendMutation = gql`
-  mutation($userId: ID!, $id: ID!) {
-    addFriend(userId: $userId, id: $id) {
+  mutation($userId: ID!, $id: ID!, $name: String) {
+    addFriend(userId: $userId, id: $id, name: $name) {
       userId
       id
+      name
     }
   }
 `;

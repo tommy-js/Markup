@@ -361,4 +361,15 @@ input[type="checkbox"] {
   border-radius: 50%;
   border: 1px solid black;
   display: inline-block;
+  transition: 0.3s;
+}
+
+.add_user:hover {
+  background-color: yellow;
+  transition: 0.3s;
+}
+
+.add_user_button {
+  height: 20px;
+  width: 20px;
 }

@@ -2,13 +2,16 @@ import React from "react";
 import "../App.scss";
 
 interface Props {
-  person: string;
+  name: string;
+  id: number;
 }
 
 export const Friend: React.FC<Props> = props => {
   return (
     <div className="person">
-      <span>{props.person}</span>
+      <span>
+        {props.name} #{props.id}
+      </span>
     </div>
   );
 };

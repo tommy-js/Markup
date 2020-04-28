@@ -36,7 +36,8 @@ const FriendQuery = new GraphQLObjectType({
   name: "Friend",
   fields: () => ({
     userId: { type: GraphQLID },
-    id: { type: GraphQLID }
+    id: { type: GraphQLID },
+    name: { type: GraphQLString }
   })
 });
 
@@ -146,13 +147,23 @@ const Mutation = new GraphQLObjectType({
       type: FriendQuery,
       args: {
         userId: { type: GraphQLID },
-        id: { type: GraphQLID }
+        id: { type: GraphQLID },
+        name: { type: GraphQLString }
       },
       resolve(parent, args) {
         return User.update(
           { id: args.userId },
-          { $push: { friends: { id: args.id } } }
+          { $push: { friends: { id: args.id, name: args.name } } }
         );
+      }
+    },
+    removeFriend: {
+      type: FriendQuery,
+      args: {
+        id: { type: GraphQLID }
+      },
+      resolve(parent, args) {
+        return Friend.findOneAndDelete({ id: args.id });
       }
     }
   }

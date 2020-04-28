@@ -5,6 +5,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { allUsersQuery } from "../queries/queries";
 import "../App.scss";
 import { flowRight as compose } from "lodash";
+import { Route, BrowserRouter as Router } from "react-router-dom";
 
 interface Props {
   allUsersQuery: () => object;

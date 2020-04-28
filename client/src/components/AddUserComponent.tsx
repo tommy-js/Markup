@@ -4,6 +4,7 @@ import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
 import { useLazyQuery } from "@apollo/react-hooks";
 import { userContext } from "../App";
+import plus from "../icons/plus.png";
 import "../App.scss";
 
 interface Props {
@@ -19,7 +20,8 @@ const AddUserComponent: React.FC<Props> = props => {
     props.addFriendMutation({
       variables: {
         userId: userVal.id,
-        id: props.id
+        id: props.id,
+        name: props.user
       }
     });
   }
@@ -27,9 +29,9 @@ const AddUserComponent: React.FC<Props> = props => {
   return (
     <div className="add_user_component">
       <div>
-        {props.user} #{props.id}{" "}
+        {props.user} #{props.id}
         <div className="add_user" onClick={() => addFriend()}>
-          +
+          <img className="add_user_button" src={plus} />
         </div>
       </div>
     </div>

@@ -24,11 +24,17 @@ const FriendTab: React.FC = () => {
     }
   }, [data]);
 
-  if (friends) {
+  console.log(friends);
+
+  if (data) {
     return (
       <div>
-        {friends.map(person => (
-          <Friend key={Math.floor(Math.random() * 10000)} person={person} />
+        {data.user.friends.map((person: any) => (
+          <Friend
+            key={Math.floor(Math.random() * 10000)}
+            id={person.id}
+            name={person.name}
+          />
         ))}
       </div>
     );
