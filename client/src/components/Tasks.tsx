@@ -19,17 +19,19 @@ const Tasks: React.FC<Props> = props => {
     variables: { userid: userVal.id }
   });
   const [displayTask, setDisplayTask] = useState(true);
-  const [stateTasks, setStateTasks] = useState([
-    { id: 0, content: "Example task" }
-  ]);
+  const [stateTasks, setStateTasks] = useState();
+  const [loadIfEmpty, setLoadIfEmpty] = useState("");
 
   useEffect(() => {
     if (!loading) {
-      setStateTasks(data.tasks);
+      if (data.tasks.length > 0) {
+        setStateTasks(data.tasks);
+        setLoadIfEmpty("");
+      } else {
+        setLoadIfEmpty("Add a task to start...");
+      }
     }
   }, [data]);
-
-  console.log(data);
 
   function addTasks(addParam: string) {
     let idLength = Math.floor(Math.random() * 1000000);
@@ -51,6 +53,7 @@ const Tasks: React.FC<Props> = props => {
     return (
       <div className="task_box">
         <div className="tasklist_container">
+          <p>{loadIfEmpty}</p>
           {stateTasks.map((task: any) => (
             <IndividualTask
               key={task.id}

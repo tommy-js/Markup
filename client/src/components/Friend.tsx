@@ -9,11 +9,13 @@ interface Props {
 
 export const Friend: React.FC<Props> = props => {
   return (
-    <div className="person">
-      <Link to={`/home/${props.id}`}>
-        <span>
-          {props.name} #{props.id}
-        </span>
+    <div className="person_container">
+      <Link className="link_to_person" to={`/home/${props.id}`}>
+        <div className="person">
+          <span>
+            {props.name} #{props.id}
+          </span>
+        </div>
       </Link>
     </div>
   );

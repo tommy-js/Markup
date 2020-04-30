@@ -15,7 +15,6 @@ export const FriendList: React.FC<Props> = props => {
 
   return (
     <div className="friend_list">
-      <h1 className="friend_list_header">Friend List</h1>
       <FriendComp passFriends={props.passFriends} />
       <FriendSearch searchingForFriends={props.searchingForFriends} />
       <ProfileAccessor profileName={userVal.username} />

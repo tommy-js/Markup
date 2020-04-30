@@ -11,6 +11,7 @@ export const ClearTaskList: React.FC<Props> = props => {
       <button className="add_task_buttons" onClick={props.clearTasks}>
         Clear Completed
       </button>
+      <input type="checkbox" />
     </div>
   );
 };

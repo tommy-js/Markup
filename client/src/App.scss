@@ -108,18 +108,27 @@ html {
   bottom: 0;
 }
 
-.person {
+.person_container {
   position: relative;
   width: 175px;
   margin-top: 10px;
   margin-bottom: 10px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.link_to_person {
+  color: black;
+  text-decoration: none;
+}
+
+.person {
+  position: relative;
+  width: 100%;
   border-radius: 5px;
   padding: 10px;
   background-color: #c24e3d;
   cursor: pointer;
-  @include testing;
 }
 
 .friend_comp {
@@ -234,6 +243,7 @@ input[type="checkbox"] {
   overflow-y: scroll;
   overflow-x: hidden;
   scrollbar-width: thin;
+  scrollbar-color: #ffcbec #fff4fb;
 }
 
 .inner_task_block {
@@ -241,8 +251,10 @@ input[type="checkbox"] {
   display: inline-block;
   margin-top: 5px;
   margin-bottom: 5px;
+  padding: 5px;
+  font-size: 18px;
   height: auto;
-  width: 75%;
+  width: 230px;
   overflow-wrap: break-word;
   transition: 0.3s;
   @include testing;
@@ -417,6 +429,7 @@ input[type="checkbox"] {
   width: 100%;
   overflow-y: scroll;
   overflow-x: hidden;
+  scrollbar-color: #ffcbec transparent;
   @include testing;
 }
 

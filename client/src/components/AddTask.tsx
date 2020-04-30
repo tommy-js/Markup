@@ -33,12 +33,20 @@ const AddTask: React.FC<Props> = props => {
   }
 
   function setUser(input: string) {
-    if (input.length < 30) {
+    if (input.length < 90) {
       setUserInput(input);
     } else {
       let str = input;
-      let substr = str.substring(0, 30);
+      let substr = str.substring(0, 90);
       setUserInput(substr);
+    }
+  }
+
+  function changeInput(e: any) {
+    if (e.key === `Enter`) {
+      submitAdd();
+    } else {
+      return;
     }
   }
 
@@ -49,6 +57,7 @@ const AddTask: React.FC<Props> = props => {
         type="text"
         value={userInput}
         onChange={e => setUser(e.target.value)}
+        onKeyDown={e => changeInput(e)}
         placeholder="Task"
       />
       <div className="inline_buttons">

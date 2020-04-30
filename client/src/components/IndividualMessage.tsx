@@ -14,10 +14,10 @@ export const IndividualMessage: React.FC<Props> = props => {
   useEffect(() => {
     if (props.userid == props.sender) {
       setMessageColor("#ffdfee");
-      setUserLabel({ label: "You", color: "#BBBBBB" });
+      setUserLabel({ label: "You:", color: "#BBBBBB" });
     } else {
       setMessageColor("#e3f7ff");
-      setUserLabel({ label: `#${props.sender.toString()}`, color: "#a1a1a1" });
+      setUserLabel({ label: `#${props.sender.toString()}:`, color: "#a1a1a1" });
     }
   }, [props.sender]);
 
