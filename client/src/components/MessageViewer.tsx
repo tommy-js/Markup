@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { MessageBox } from "./MessageBox";
+import MessageBox from "./MessageBox";
 import UserSearchBlock from "./UserSearchBlock";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "../App.scss";
@@ -25,7 +25,6 @@ export const MessageViewer: React.FC<Props> = props => {
   } else {
     return (
       <div className="message_viewer">
-        <h1 className="message_viewer_header">Your Messages</h1>
         <Switch>
           {props.friends.map((el: any) => (
             <Route exact path={`/home/${el.id}`}>

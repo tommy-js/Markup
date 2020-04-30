@@ -85,14 +85,21 @@ html {
   vertical-align: top;
 }
 
+.horizontal_push {
+  position: relative;
+  height: 100%;
+  margin-left: 15px;
+  vertical-align: top;
+}
+
 .task_box {
   position: relative;
   vertical-align: middle;
   margin-left: auto;
   margin-right: auto;
   width: 85%;
-  min-width: 350px;
-  height: 85%;
+  min-width: 300px;
+  height: 100%;
   @include testing;
 }
 
@@ -127,8 +134,8 @@ html {
 
 .message_box {
   position: relative;
-  width: 85%;
-  height: 85%;
+  width: 100%;
+  height: 100%;
   margin-left: auto;
   margin-right: auto;
   vertical-align: middle;
@@ -212,6 +219,21 @@ input[type="checkbox"] {
   display: inline-block;
   width: 250px;
   bottom: 0;
+  margin-bottom: 2%;
+}
+
+.tasklist_container {
+  position: relative;
+  height: 80%;
+  width: 100%;
+  overflow: hidden;
+  @include testing;
+}
+
+.tasklist_container:hover {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scrollbar-width: thin;
 }
 
 .inner_task_block {
@@ -219,8 +241,9 @@ input[type="checkbox"] {
   display: inline-block;
   margin-top: 5px;
   margin-bottom: 5px;
-  height: 25px;
+  height: auto;
   width: 75%;
+  overflow-wrap: break-word;
   transition: 0.3s;
   @include testing;
 }
@@ -228,9 +251,10 @@ input[type="checkbox"] {
 .inner_task_checkbox {
   position: relative;
   display: inline-block;
+  margin-top: 5px;
   height: 25px;
   width: 25px;
-  vertical-align: middle;
+  vertical-align: top;
   @include testing;
 }
 
@@ -258,9 +282,9 @@ input[type="checkbox"] {
   left: 0;
   right: 0;
   bottom: 0;
-  margin-bottom: 25px;
+  margin-bottom: 2%;
   width: 90%;
-  height: 100px;
+  height: 8%;
 }
 
 .div_message_input_box_button {
@@ -283,6 +307,11 @@ input[type="checkbox"] {
   width: 100%;
   vertical-align: top;
   transition: 0.3s;
+}
+
+.send_enter_button {
+  height: 25px;
+  width: 25px;
 }
 
 .div_button_top {
@@ -378,4 +407,26 @@ input[type="checkbox"] {
 .add_user_button {
   height: 20px;
   width: 20px;
+}
+
+.message_container {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  height: 88%;
+  width: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  @include testing;
+}
+
+.individual_message {
+  position: relative;
+  width: 80%;
+  padding: 10px;
+  border-radius: 5px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }

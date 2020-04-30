@@ -50,14 +50,16 @@ const Tasks: React.FC<Props> = props => {
   } else {
     return (
       <div className="task_box">
-        {stateTasks.map((task: any) => (
-          <IndividualTask
-            key={task.id}
-            id={task.id}
-            task={task.content}
-            displayTask={displayTask}
-          />
-        ))}
+        <div className="tasklist_container">
+          {stateTasks.map((task: any) => (
+            <IndividualTask
+              key={task.id}
+              id={task.id}
+              task={task.content}
+              displayTask={displayTask}
+            />
+          ))}
+        </div>
         <div className="task_buttons">
           <AddTask addTasks={addTasks} clearTasks={clearTasks} />
         </div>

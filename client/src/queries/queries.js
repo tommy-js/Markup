@@ -9,6 +9,17 @@ const messageQuery = gql`
   }
 `;
 
+const getMessageQuery = gql`
+  query($toId: ID!, $fromId: ID!) {
+    getMessages(toId: $toId, fromId: $fromId) {
+      to
+      from
+      content
+      timestamp
+    }
+  }
+`;
+
 const userQuery = gql`
   query($username: String!) {
     user(username: $username) {
@@ -42,12 +53,19 @@ const removeTaskMutation = gql`
 `;
 
 const addMessageMutation = gql`
-  mutation($id: ID!, $content: String!, $to: ID!, $from: ID!) {
-    addMessage(id: $id, content: $content, to: $to, from: $from) {
+  mutation($id: ID!, $content: String!, $to: ID!, $from: ID!, $timestamp: ID!) {
+    addMessage(
+      id: $id
+      content: $content
+      to: $to
+      from: $from
+      timestamp: $timestamp
+    ) {
       id
       to
       from
       content
+      timestamp
     }
   }
 `;
@@ -95,6 +113,7 @@ export {
   messageQuery,
   userQuery,
   taskQuery,
+  getMessageQuery,
   allUsersQuery,
   addMessageMutation,
   addTaskMutation,

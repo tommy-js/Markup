@@ -4,7 +4,8 @@ const {
   GraphQLString,
   GraphQLID,
   GraphQLSchema,
-  GraphQLList
+  GraphQLList,
+  GraphQLInt
 } = graphql;
 const Message = require("../models/messages");
 const User = require("../models/user");
@@ -17,7 +18,8 @@ const MessageQuery = new GraphQLObjectType({
     id: { type: GraphQLID },
     from: { type: GraphQLID },
     to: { type: GraphQLID },
-    content: { type: GraphQLString }
+    content: { type: GraphQLString },
+    timestamp: { type: GraphQLID }
   })
 });
 
@@ -57,6 +59,16 @@ const RootQuery = new GraphQLObjectType({
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         return Message.find({});
+      }
+    },
+    getMessages: {
+      type: new GraphQLList(MessageQuery),
+      args: {
+        fromId: { type: GraphQLID },
+        toId: { type: GraphQLID }
+      },
+      resolve(parent, args) {
+        return Message.find({ to: args.toId, from: args.fromId });
       }
     },
     user: {
@@ -107,14 +119,16 @@ const Mutation = new GraphQLObjectType({
         id: { type: GraphQLID },
         to: { type: GraphQLID },
         from: { type: GraphQLID },
-        content: { type: GraphQLString }
+        content: { type: GraphQLString },
+        timestamp: { type: GraphQLID }
       },
       resolve(parent, args) {
         let newMessage = new Message({
           id: args.id,
           from: args.from,
           to: args.to,
-          content: args.content
+          content: args.content,
+          timestamp: args.timestamp
         });
         return newMessage.save();
       }

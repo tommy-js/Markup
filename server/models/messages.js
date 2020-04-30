@@ -5,7 +5,8 @@ const messageSchema = new Schema({
   id: Number,
   from: Number,
   to: Number,
-  content: String
+  content: String,
+  timestamp: Number
 });
 
 module.exports = mongoose.model("Message", messageSchema);
