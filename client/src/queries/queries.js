@@ -34,6 +34,15 @@ const userQuery = gql`
   }
 `;
 
+const getUsers = gql`
+  query($username: String!) {
+    getUsers(username: $username) {
+      username
+      id
+    }
+  }
+`;
+
 const taskQuery = gql`
   query($userid: ID!) {
     tasks(userid: $userid) {
@@ -115,6 +124,7 @@ export {
   taskQuery,
   getMessageQuery,
   allUsersQuery,
+  getUsers,
   addMessageMutation,
   addTaskMutation,
   addUserMutation,

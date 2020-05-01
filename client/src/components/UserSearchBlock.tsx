@@ -2,17 +2,20 @@ import React, { useState, useEffect } from "react";
 import AddUserComponent from "./AddUserComponent";
 import { graphql } from "react-apollo";
 import { useQuery } from "@apollo/react-hooks";
-import { allUsersQuery } from "../queries/queries";
+import { getUsers } from "../queries/queries";
 import "../App.scss";
 import { flowRight as compose } from "lodash";
 import { Route, BrowserRouter as Router } from "react-router-dom";
 
 interface Props {
   allUsersQuery: () => object;
+  searchVector: string;
 }
 
 const UserSearchBlock: React.FC<Props> = props => {
-  const { data, loading } = useQuery(allUsersQuery);
+  const { data, loading } = useQuery(getUsers, {
+    variables: { username: props.searchVector }
+  });
   console.log(data);
 
   if (loading) {
@@ -24,7 +27,7 @@ const UserSearchBlock: React.FC<Props> = props => {
   } else {
     return (
       <div className="search_user_block">
-        {data.users.map((user: any) => (
+        {data.getUsers.map((user: any) => (
           <AddUserComponent user={user.username} id={user.id} key={user.id} />
         ))}
       </div>
@@ -32,6 +35,6 @@ const UserSearchBlock: React.FC<Props> = props => {
   }
 };
 
-export default compose(graphql(allUsersQuery, { name: "allUsersQuery" }))(
+export default compose(graphql(getUsers, { name: "getUsers" }))(
   UserSearchBlock
 );

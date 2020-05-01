@@ -8,6 +8,7 @@ interface Props {
   searching: boolean;
   viewMessages: () => void;
   friends: any;
+  searchVector: string;
 }
 
 export const MessageViewer: React.FC<Props> = props => {
@@ -19,7 +20,7 @@ export const MessageViewer: React.FC<Props> = props => {
     return (
       <div className="message_viewer">
         <button onClick={() => backButton()}>Back</button>
-        <UserSearchBlock />
+        <UserSearchBlock searchVector={props.searchVector} />
       </div>
     );
   } else {

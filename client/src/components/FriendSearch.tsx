@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../App.scss";
 
 interface Props {
-  searchingForFriends: () => void;
+  searchingForFriends: (searchEntry: string) => void;
 }
 
 export const FriendSearch: React.FC<Props> = props => {
@@ -10,8 +10,8 @@ export const FriendSearch: React.FC<Props> = props => {
 
   function searchFriends(e: any) {
     e.preventDefault();
+    props.searchingForFriends(entry);
     setEntry("");
-    props.searchingForFriends();
   }
 
   return (

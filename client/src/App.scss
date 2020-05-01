@@ -443,3 +443,21 @@ input[type="checkbox"] {
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
+.load_if_empty {
+  position: relative;
+  top: 20%;
+  font-size: 22px;
+  color: #878787;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  opacity: 0;
+  @include testing;
+  transition: 0.3s;
+}
+
+.task_box:hover .load_if_empty {
+  opacity: 1;
+  transition: 0.3s;
+}

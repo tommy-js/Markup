@@ -7,7 +7,7 @@ import { userContext } from "../App";
 import { addTaskMutation } from "../queries/queries";
 
 interface Props {
-  addTasks: (userInput: string) => void;
+  addTasks: (userInput: string, id: number) => void;
   clearTasks: () => void;
   addTaskMutation: (variables: object) => void;
 }
@@ -19,15 +19,16 @@ const AddTask: React.FC<Props> = props => {
   console.log(userVal);
 
   function submitAdd() {
+    let id = Math.floor(Math.random() * 1000000);
     if (userInput.length > 0) {
       props.addTaskMutation({
         variables: {
           content: userInput,
-          id: Math.floor(Math.random() * 1000000),
+          id: id,
           userid: userVal.id
         }
       });
-      props.addTasks(userInput);
+      props.addTasks(userInput, id);
       setUserInput("");
     }
   }

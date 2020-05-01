@@ -19,23 +19,29 @@ const Tasks: React.FC<Props> = props => {
     variables: { userid: userVal.id }
   });
   const [displayTask, setDisplayTask] = useState(true);
-  const [stateTasks, setStateTasks] = useState();
-  const [loadIfEmpty, setLoadIfEmpty] = useState("");
+  const [stateTasks, setStateTasks] = useState([{}]);
+  const [loadIfEmpty, setLoadIfEmpty] = useState("Add a task to start...");
+  const [emptyContainer, setEmptyContainer] = useState(true);
 
   useEffect(() => {
     if (!loading) {
-      if (data.tasks.length > 0) {
-        setStateTasks(data.tasks);
-        setLoadIfEmpty("");
-      } else {
-        setLoadIfEmpty("Add a task to start...");
-      }
+      setStateTasks(data.tasks);
     }
   }, [data]);
 
-  function addTasks(addParam: string) {
+  useEffect(() => {
+    if (!loading) {
+      if (stateTasks.length > 0) {
+        setEmptyContainer(false);
+      } else {
+        setEmptyContainer(true);
+      }
+    }
+  }, [stateTasks]);
+
+  function addTasks(addParam: string, id: number) {
     let idLength = Math.floor(Math.random() * 1000000);
-    let newTask = { content: addParam, id: idLength };
+    let newTask = { content: addParam, id: id };
     setStateTasks((prev: any) => [...prev, newTask]);
   }
 
@@ -50,24 +56,34 @@ const Tasks: React.FC<Props> = props => {
       </div>
     );
   } else {
-    return (
-      <div className="task_box">
-        <div className="tasklist_container">
-          <p>{loadIfEmpty}</p>
-          {stateTasks.map((task: any) => (
-            <IndividualTask
-              key={task.id}
-              id={task.id}
-              task={task.content}
-              displayTask={displayTask}
-            />
-          ))}
+    if (emptyContainer) {
+      return (
+        <div className="task_box">
+          <p className="load_if_empty">{loadIfEmpty}</p>
+          <div className="task_buttons">
+            <AddTask addTasks={addTasks} clearTasks={clearTasks} />
+          </div>
         </div>
-        <div className="task_buttons">
-          <AddTask addTasks={addTasks} clearTasks={clearTasks} />
+      );
+    } else {
+      return (
+        <div className="task_box">
+          <div className="tasklist_container">
+            {stateTasks.map((task: any) => (
+              <IndividualTask
+                key={task.id}
+                id={task.id}
+                task={task.content}
+                displayTask={displayTask}
+              />
+            ))}
+          </div>
+          <div className="task_buttons">
+            <AddTask addTasks={addTasks} clearTasks={clearTasks} />
+          </div>
         </div>
-      </div>
-    );
+      );
+    }
   }
 };
 

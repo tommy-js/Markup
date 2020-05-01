@@ -22,6 +22,7 @@ function InputBox(props) {
       }
     });
     setUserInput("");
+    props.refetchQuery();
   }
 
   return (

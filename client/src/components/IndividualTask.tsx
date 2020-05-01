@@ -34,6 +34,7 @@ const IndividualTask: React.FC<Props> = props => {
       setCheckState(checked);
       setDecorator("line-through");
       setWhiteBox("pink");
+      console.log(props.id);
     }
   }, [checking]);
 

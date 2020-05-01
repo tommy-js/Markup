@@ -21,14 +21,18 @@ const MessageBox: React.FC<Props> = props => {
   const [recMessage, setRecMessage] = useState([]);
   const [sortedArray, setSortedArray] = useState([]);
   const { userVal, setUserVal } = useContext(userContext);
-  const { loading: loading1, data: data1 } = useQuery(getMessageQuery, {
-    variables: { toId: props.id, fromId: userVal.id }
-  });
+  const { loading: loading1, data: data1, refetch } = useQuery(
+    getMessageQuery,
+    {
+      variables: { toId: props.id, fromId: userVal.id }
+    }
+  );
   const { loading: loading2, data: data2 } = useQuery(getMessageQuery, {
     variables: {
       toId: userVal.id,
       fromId: props.id
-    }
+    },
+    pollInterval: 500
   });
 
   useEffect(() => {
@@ -54,6 +58,10 @@ const MessageBox: React.FC<Props> = props => {
     setSortedArray(matrixArray);
   }
 
+  function refetchQuery() {
+    refetch();
+  }
+
   if (!loading1 && !loading2) {
     return (
       <div className="message_box">
@@ -68,7 +76,7 @@ const MessageBox: React.FC<Props> = props => {
             />
           ))}
         </div>
-        <InputBox userId={props.id} />
+        <InputBox userId={props.id} refetchQuery={refetchQuery} />
       </div>
     );
   } else {
