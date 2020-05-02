@@ -2,27 +2,19 @@ import React, { useState } from "react";
 import "../App.scss";
 
 interface Props {
-  searchingForFriends: (searchEntry: string) => void;
+  searchingForFriends: () => void;
 }
 
 export const FriendSearch: React.FC<Props> = props => {
   const [entry, setEntry] = useState("");
 
-  function searchFriends(e: any) {
-    e.preventDefault();
-    props.searchingForFriends(entry);
-    setEntry("");
+  function searchFriends() {
+    props.searchingForFriends();
   }
 
   return (
     <div className="friend_search">
-      <input
-        value={entry}
-        type="text"
-        onChange={e => setEntry(e.target.value)}
-        placeholder="Add friend... "
-      />
-      <button onClick={e => searchFriends(e)}>Add</button>
+      <button onClick={() => searchFriends()}>Add</button>
     </div>
   );
 };

@@ -7,15 +7,13 @@ import "../App.scss";
 export const HomePage: React.FC = () => {
   const [friends, setFriends] = useState([]);
   const [searching, setSearching] = useState(false);
-  const [searchVector, setSearchVector] = useState("");
 
   function passFriends(friends: any) {
     setFriends(friends);
   }
 
-  function searchingForFriends(searchEntry: string) {
+  function searchingForFriends() {
     setSearching(true);
-    setSearchVector(searchEntry);
   }
 
   function viewMessages() {
@@ -33,7 +31,6 @@ export const HomePage: React.FC = () => {
           friends={friends}
           searching={searching}
           viewMessages={viewMessages}
-          searchVector={searchVector}
         />
         <TaskList />
       </div>

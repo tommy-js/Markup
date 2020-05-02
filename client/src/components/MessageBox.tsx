@@ -73,6 +73,7 @@ const MessageBox: React.FC<Props> = props => {
               sender={messages.from}
               key={Math.floor(Math.random() * 10000)}
               message={messages.content}
+              timestamp={messages.timestamp}
             />
           ))}
         </div>

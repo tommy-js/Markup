@@ -6,7 +6,7 @@ import { ProfileAccessor } from "./ProfileAccessor";
 import "../App.scss";
 
 interface Props {
-  searchingForFriends: (searchEntry: string) => void;
+  searchingForFriends: () => void;
   passFriends: (friends: any) => void;
 }
 

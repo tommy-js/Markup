@@ -461,3 +461,36 @@ input[type="checkbox"] {
   opacity: 1;
   transition: 0.3s;
 }
+
+.message_timestamp {
+  position: relative;
+  float: right;
+}
+
+.search_user_input_block {
+  position: relative;
+  width: 320px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.user_search_input {
+  position: relative;
+  width: 250px;
+  padding: 5px;
+  font-size: 18px;
+  border: none;
+  display: inline-block;
+  transition: 0.3s;
+}
+
+.user_search_input:focus {
+  border-bottom: 1px solid pink;
+  transition: 0.3s;
+}
+
+.user_search_button {
+  position: relative;
+  width: 60px;
+  display: inline-block;
+}

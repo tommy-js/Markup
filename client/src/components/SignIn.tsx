@@ -43,8 +43,6 @@ const SignIn: React.FC<Props> = props => {
     passUser({ variables: { username: username } });
   }
 
-  console.log(data);
-
   return (
     <div>
       <div className="userform">

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import MessageBox from "./MessageBox";
-import UserSearchBlock from "./UserSearchBlock";
+import { SearchForUser } from "./SearchForUser";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "../App.scss";
 
@@ -8,7 +8,6 @@ interface Props {
   searching: boolean;
   viewMessages: () => void;
   friends: any;
-  searchVector: string;
 }
 
 export const MessageViewer: React.FC<Props> = props => {
@@ -20,7 +19,7 @@ export const MessageViewer: React.FC<Props> = props => {
     return (
       <div className="message_viewer">
         <button onClick={() => backButton()}>Back</button>
-        <UserSearchBlock searchVector={props.searchVector} />
+        <SearchForUser />
       </div>
     );
   } else {
