@@ -3,9 +3,10 @@ import AddUserComponent from "./AddUserComponent";
 import { graphql } from "react-apollo";
 import { useLazyQuery } from "@apollo/react-hooks";
 import { getUsers } from "../queries/queries";
-import "../App.scss";
 import { flowRight as compose } from "lodash";
 import { Route, BrowserRouter as Router } from "react-router-dom";
+import "../App.scss";
+import search from "../icons/search.png";
 
 interface Props {
   allUsersQuery: () => object;
@@ -22,6 +23,12 @@ const UserSearchBlock: React.FC<Props> = props => {
     }
   }, [data]);
 
+  function setPassin(e: any) {
+    if (e.key === "Enter") {
+      passinSearchParam();
+    }
+  }
+
   function passinSearchParam() {
     searchUser({ variables: { username: searchVector } });
   }
@@ -35,13 +42,11 @@ const UserSearchBlock: React.FC<Props> = props => {
           className="user_search_input"
           value={searchVector}
           onChange={e => setSearchVector(e.target.value)}
+          onKeyDown={e => setPassin(e)}
         />
-        <button
-          className="user_search_button"
-          onClick={() => passinSearchParam()}
-        >
-          Search
-        </button>
+        <div className="search_image_block" onClick={() => passinSearchParam()}>
+          <img src={search} className="search_image" />
+        </div>
       </div>
       {users.map((user: any) => (
         <AddUserComponent user={user.username} id={user.id} key={user.id} />

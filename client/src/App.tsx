@@ -11,24 +11,28 @@ const client = new ApolloClient({
 });
 
 export const userContext = createContext<any>({});
+export const friendContext = createContext<any>({});
 
 function App(): JSX.Element {
   const [userVal, setUserVal] = useState<any>({});
+  const [userFriends, setUserFriends] = useState<any>([]);
   return (
-    <userContext.Provider value={{ userVal, setUserVal }}>
-      <ApolloProvider client={client}>
-        <Router>
-          <div className="App">
-            <Route exact path="/">
-              <InitialScreen />
-            </Route>
-            <Route path="/home">
-              <HomePage />
-            </Route>
-          </div>
-        </Router>
-      </ApolloProvider>
-    </userContext.Provider>
+    <friendContext.Provider value={{ userFriends, setUserFriends }}>
+      <userContext.Provider value={{ userVal, setUserVal }}>
+        <ApolloProvider client={client}>
+          <Router>
+            <div className="App">
+              <Route exact path="/">
+                <InitialScreen />
+              </Route>
+              <Route path="/home">
+                <HomePage />
+              </Route>
+            </div>
+          </Router>
+        </ApolloProvider>
+      </userContext.Provider>
+    </friendContext.Provider>
   );
 }
 

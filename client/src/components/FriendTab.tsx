@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Friend } from "./Friend";
+import Friend from "./Friend";
 import { userQuery } from "../queries/queries";
 import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
 import { useQuery } from "@apollo/react-hooks";
 import { userContext } from "../App";
+import { friendContext } from "../App";
 import "../App.scss";
 
 interface Props {
@@ -13,26 +14,28 @@ interface Props {
 
 const FriendTab: React.FC<Props> = props => {
   const { userVal, setUserVal } = useContext(userContext);
+  const { userFriends, setUserFriends } = useContext(friendContext);
   const { loading, data } = useQuery(userQuery, {
-    variables: { username: userVal.username }
+    variables: { username: userVal.username },
+    pollInterval: 100
   });
-  const [friends, setFriends] = useState([]);
 
   useEffect(() => {
     if (!loading) {
-      setFriends(data.user.friends);
+      setUserFriends(data.user.friends);
       props.passFriends(data.user.friends);
     }
   }, [loading]);
 
   if (!loading) {
     return (
-      <div>
-        {friends.map((person: any) => (
+      <div className="friend_class_container">
+        {data.user.friends.map((person: any) => (
           <Friend
             key={Math.floor(Math.random() * 10000)}
             id={person.id}
             name={person.name}
+            userId={userVal.id}
           />
         ))}
       </div>

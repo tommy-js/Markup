@@ -184,10 +184,14 @@ const Mutation = new GraphQLObjectType({
     removeFriend: {
       type: FriendQuery,
       args: {
+        userId: { type: GraphQLID },
         id: { type: GraphQLID }
       },
       resolve(parent, args) {
-        return Friend.findOneAndDelete({ id: args.id });
+        return User.update(
+          { id: args.userId },
+          { $pull: { friends: { id: args.id } } }
+        );
       }
     }
   }

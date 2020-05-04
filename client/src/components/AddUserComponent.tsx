@@ -4,6 +4,7 @@ import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
 import { useLazyQuery } from "@apollo/react-hooks";
 import { userContext } from "../App";
+import { friendContext } from "../App";
 import plus from "../icons/plus.png";
 import "../App.scss";
 
@@ -15,6 +16,7 @@ interface Props {
 
 const AddUserComponent: React.FC<Props> = props => {
   const { userVal, setUserVal } = useContext(userContext);
+  const { userFriends, setUserFriends } = useContext(friendContext);
 
   function addFriend() {
     props.addFriendMutation({

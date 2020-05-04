@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { FriendList } from "./FriendList";
 import { MessageViewer } from "./MessageViewer";
 import { TaskList } from "./TaskList";
+import { Navbar } from "./Navbar";
 import "../App.scss";
 
 export const HomePage: React.FC = () => {
@@ -23,16 +24,19 @@ export const HomePage: React.FC = () => {
   if (friends) {
     return (
       <div className="home_page">
-        <FriendList
-          searchingForFriends={searchingForFriends}
-          passFriends={passFriends}
-        />
-        <MessageViewer
-          friends={friends}
-          searching={searching}
-          viewMessages={viewMessages}
-        />
-        <TaskList />
+        <Navbar />
+        <div className="fixed_under">
+          <FriendList
+            searchingForFriends={searchingForFriends}
+            passFriends={passFriends}
+          />
+          <MessageViewer
+            friends={friends}
+            searching={searching}
+            viewMessages={viewMessages}
+          />
+          <TaskList />
+        </div>
       </div>
     );
   } else {

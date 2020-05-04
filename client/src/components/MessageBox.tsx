@@ -55,6 +55,7 @@ const MessageBox: React.FC<Props> = props => {
     matrixArray.sort(function(a: any, b: any) {
       return a.timestamp - b.timestamp;
     });
+    matrixArray.length = 50;
     setSortedArray(matrixArray);
   }
 
