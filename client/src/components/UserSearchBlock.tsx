@@ -15,7 +15,7 @@ interface Props {
 const UserSearchBlock: React.FC<Props> = props => {
   const [searchVector, setSearchVector] = useState("");
   const [searchUser, { data, loading }] = useLazyQuery(getUsers);
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState([{}]);
 
   useEffect(() => {
     if (data) {
@@ -33,6 +33,20 @@ const UserSearchBlock: React.FC<Props> = props => {
     searchUser({ variables: { username: searchVector } });
   }
 
+  function returnResults() {
+    if (users.length > 0) {
+      return (
+        <div>
+          {users.map((user: any) => (
+            <AddUserComponent user={user.username} id={user.id} key={user.id} />
+          ))}
+        </div>
+      );
+    } else {
+      return <div className="user_search_none_found">None Found</div>;
+    }
+  }
+
   return (
     <div className="search_user_block">
       <div className="search_user_input_block">
@@ -48,9 +62,7 @@ const UserSearchBlock: React.FC<Props> = props => {
           <img src={search} className="search_image" />
         </div>
       </div>
-      {users.map((user: any) => (
-        <AddUserComponent user={user.username} id={user.id} key={user.id} />
-      ))}
+      {returnResults()}
     </div>
   );
 };

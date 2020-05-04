@@ -408,7 +408,6 @@ input[type="checkbox"] {
   width: 20px;
   border-radius: 50%;
   border: 1px solid black;
-  display: inline-block;
   transition: 0.3s;
 }
 
@@ -549,4 +548,11 @@ input[type="checkbox"] {
   display: inline-block;
   margin-left: 5px;
   width: 15%;
+}
+
+.user_search_none_found {
+  position: relative;
+  width: 100%;
+  text-align: center;
+  margin-top: 50px;
 }

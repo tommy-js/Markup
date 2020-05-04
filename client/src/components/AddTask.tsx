@@ -16,8 +16,6 @@ const AddTask: React.FC<Props> = props => {
   const [userInput, setUserInput] = useState("");
   const { userVal, setUserVal } = useContext(userContext);
 
-  console.log(userVal);
-
   function submitAdd() {
     let id = Math.floor(Math.random() * 1000000);
     if (userInput.length > 0) {

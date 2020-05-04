@@ -17,7 +17,7 @@ const FriendTab: React.FC<Props> = props => {
   const { userFriends, setUserFriends } = useContext(friendContext);
   const { loading, data } = useQuery(userQuery, {
     variables: { username: userVal.username },
-    pollInterval: 100
+    pollInterval: 500
   });
 
   useEffect(() => {
@@ -26,6 +26,7 @@ const FriendTab: React.FC<Props> = props => {
       props.passFriends(data.user.friends);
     }
   }, [loading]);
+  console.log(userFriends);
 
   if (!loading) {
     return (

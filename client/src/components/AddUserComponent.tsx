@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { addFriendMutation } from "../queries/queries";
 import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
@@ -17,6 +17,7 @@ interface Props {
 const AddUserComponent: React.FC<Props> = props => {
   const { userVal, setUserVal } = useContext(userContext);
   const { userFriends, setUserFriends } = useContext(friendContext);
+  const [addDisplay, setAddDisplay] = useState("inline-block");
 
   function addFriend() {
     props.addFriendMutation({
@@ -32,7 +33,11 @@ const AddUserComponent: React.FC<Props> = props => {
     <div className="add_user_component">
       <div>
         {props.user} #{props.id}
-        <div className="add_user" onClick={() => addFriend()}>
+        <div
+          style={{ display: addDisplay }}
+          className="add_user"
+          onClick={() => addFriend()}
+        >
           <img className="add_user_button" src={plus} />
         </div>
       </div>
