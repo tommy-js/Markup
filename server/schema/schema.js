@@ -29,7 +29,8 @@ const UserQuery = new GraphQLObjectType({
     id: { type: GraphQLID },
     username: { type: GraphQLString },
     password: { type: GraphQLString },
-    friends: { type: new GraphQLList(FriendQuery) }
+    friends: { type: new GraphQLList(FriendQuery) },
+    tasks: { type: new GraphQLList(TaskQuery) }
   })
 });
 
@@ -46,7 +47,7 @@ const TaskQuery = new GraphQLObjectType({
   name: "Task",
   fields: () => ({
     id: { type: GraphQLID },
-    userid: { type: GraphQLID },
+    userId: { type: GraphQLID },
     content: { type: GraphQLString }
   })
 });
@@ -91,13 +92,6 @@ const RootQuery = new GraphQLObjectType({
       type: new GraphQLList(UserQuery),
       resolve(parent, args) {
         return User.find({});
-      }
-    },
-    tasks: {
-      type: new GraphQLList(TaskQuery),
-      args: { userid: { type: GraphQLID } },
-      resolve(parent, args) {
-        return Task.find({ userid: args.userid });
       }
     }
   }
@@ -146,25 +140,27 @@ const Mutation = new GraphQLObjectType({
       type: TaskQuery,
       args: {
         id: { type: GraphQLID },
-        userid: { type: GraphQLID },
+        userId: { type: GraphQLID },
         content: { type: GraphQLString }
       },
       resolve(parent, args) {
-        let newTask = new Task({
-          id: args.id,
-          userid: args.userid,
-          content: args.content
-        });
-        return newTask.save();
+        return User.update(
+          { id: args.userId },
+          { $push: { tasks: { id: args.id, content: args.content } } }
+        );
       }
     },
     deleteTask: {
       type: TaskQuery,
       args: {
+        userId: { type: GraphQLID },
         id: { type: GraphQLID }
       },
       resolve(parent, args) {
-        return Task.findOneAndDelete({ id: args.id });
+        return User.update(
+          { id: args.userId },
+          { $pull: { tasks: { id: args.id } } }
+        );
       }
     },
     addFriend: {

@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const taskSchema = new Schema({
   id: Number,
-  userid: Number,
+  userId: Number,
   content: String
 });
 

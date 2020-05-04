@@ -10,6 +10,19 @@ html {
   border: 1px solid red;
 }
 
+@mixin standardTransition {
+  transition: 0.3s;
+}
+
+@mixin noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 .userform {
   position: relative;
   top: 200px;
@@ -199,12 +212,12 @@ input[type="checkbox"] {
   font-size: 16px;
   width: 100%;
   border-bottom: 1px solid black;
-  transition: 0.3s;
+  @include standardTransition;
 }
 
 .add_task_styles:focus {
   border-bottom: 1px solid pink;
-  transition: 0.3s;
+  @include standardTransition;
 }
 
 .add_task_buttons {
@@ -216,12 +229,12 @@ input[type="checkbox"] {
   margin-left: 5px;
   border-radius: 5px;
   cursor: pointer;
-  transition: 0.3s;
+  @include standardTransition;
 }
 
 .add_task_buttons:hover {
   background-color: pink;
-  transition: 0.3s;
+  @include standardTransition;
 }
 
 .task_buttons {
@@ -257,7 +270,7 @@ input[type="checkbox"] {
   height: auto;
   width: 230px;
   overflow-wrap: break-word;
-  transition: 0.3s;
+  @include standardTransition;
   @include testing;
 }
 
@@ -319,7 +332,7 @@ input[type="checkbox"] {
   height: 50%;
   width: 100%;
   vertical-align: top;
-  transition: 0.3s;
+  @include standardTransition;
 }
 
 .send_enter_button {
@@ -337,7 +350,7 @@ input[type="checkbox"] {
 
 .div_message_button:hover {
   background-color: pink;
-  transition: 0.3s;
+  @include standardTransition;
 }
 
 .person_comp {
@@ -393,12 +406,12 @@ input[type="checkbox"] {
   border-radius: 5px;
   border: 1px solid grey;
   cursor: pointer;
-  transition: 0.3s;
+  @include standardTransition;
 }
 
 .add_user_component:hover {
   background-color: pink;
-  transition: 0.3s;
+  @include standardTransition;
 }
 
 .add_user {
@@ -408,12 +421,12 @@ input[type="checkbox"] {
   width: 20px;
   border-radius: 50%;
   border: 1px solid black;
-  transition: 0.3s;
+  @include standardTransition;
 }
 
 .add_user:hover {
   background-color: yellow;
-  transition: 0.3s;
+  @include standardTransition;
 }
 
 .add_user_button {
@@ -454,12 +467,12 @@ input[type="checkbox"] {
   text-align: center;
   opacity: 0;
   @include testing;
-  transition: 0.3s;
+  @include standardTransition;
 }
 
 .task_box:hover .load_if_empty {
   opacity: 1;
-  transition: 0.3s;
+  @include standardTransition;
 }
 
 .message_timestamp {
@@ -487,12 +500,12 @@ input[type="checkbox"] {
   letter-spacing: 1px;
   border-bottom: 1px solid grey;
   display: inline-block;
-  transition: 0.3s;
+  @include standardTransition;
 }
 
 .user_search_input:focus {
   border-bottom: 1px solid pink;
-  transition: 0.3s;
+  @include standardTransition;
 }
 
 .user_search_button {
@@ -554,5 +567,20 @@ input[type="checkbox"] {
   position: relative;
   width: 100%;
   text-align: center;
-  margin-top: 50px;
+  top: 25px;
+  font-size: 22px;
+  @include noselect;
+  animation-name: userNotFound;
+  animation-duration: 1s;
+}
+
+@keyframes userNotFound {
+  from {
+    opacity: 0;
+    top: 0;
+  }
+  to {
+    opacity: 1;
+    top: 25px;
+  }
 }

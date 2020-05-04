@@ -9,6 +9,7 @@ import "../App.scss";
 interface Props {
   task: string;
   id: number;
+  userId: number;
   displayTask: boolean;
   removeTaskMutation: (variables: object) => void;
 }
@@ -42,7 +43,9 @@ const IndividualTask: React.FC<Props> = props => {
       setDisplayed("block");
     } else {
       setDisplayed("none");
-      props.removeTaskMutation({ variables: { id: props.id } });
+      props.removeTaskMutation({
+        variables: { userId: props.userId, id: props.id }
+      });
     }
   }, [showTask]);
 

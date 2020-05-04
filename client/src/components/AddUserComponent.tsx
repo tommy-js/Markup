@@ -29,6 +29,15 @@ const AddUserComponent: React.FC<Props> = props => {
     });
   }
 
+  useEffect(() => {
+    let checkId = props.id.toString();
+    for (let k = 0; k < userFriends.length; k++) {
+      if (userFriends[k].id === checkId) {
+        setAddDisplay("none");
+      }
+    }
+  }, [userFriends]);
+
   return (
     <div className="add_user_component">
       <div>

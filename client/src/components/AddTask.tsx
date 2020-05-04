@@ -7,7 +7,6 @@ import { userContext } from "../App";
 import { addTaskMutation } from "../queries/queries";
 
 interface Props {
-  addTasks: (userInput: string, id: number) => void;
   clearTasks: () => void;
   addTaskMutation: (variables: object) => void;
 }
@@ -23,10 +22,9 @@ const AddTask: React.FC<Props> = props => {
         variables: {
           content: userInput,
           id: id,
-          userid: userVal.id
+          userId: userVal.id
         }
       });
-      props.addTasks(userInput, id);
       setUserInput("");
     }
   }

@@ -26,7 +26,6 @@ const FriendTab: React.FC<Props> = props => {
       props.passFriends(data.user.friends);
     }
   }, [loading]);
-  console.log(userFriends);
 
   if (!loading) {
     return (
