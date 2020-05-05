@@ -16,8 +16,7 @@ const FriendTab: React.FC<Props> = props => {
   const { userVal, setUserVal } = useContext(userContext);
   const { userFriends, setUserFriends } = useContext(friendContext);
   const { loading, data } = useQuery(userQuery, {
-    variables: { username: userVal.username },
-    pollInterval: 500
+    variables: { username: userVal.username }
   });
 
   useEffect(() => {
@@ -25,12 +24,12 @@ const FriendTab: React.FC<Props> = props => {
       setUserFriends(data.user.friends);
       props.passFriends(data.user.friends);
     }
-  }, [loading]);
+  }, [data]);
 
   if (!loading) {
     return (
       <div className="friend_class_container">
-        {data.user.friends.map((person: any) => (
+        {userFriends.map((person: any) => (
           <Friend
             key={Math.floor(Math.random() * 10000)}
             id={person.id}

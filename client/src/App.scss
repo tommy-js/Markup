@@ -424,6 +424,11 @@ input[type="checkbox"] {
   @include standardTransition;
 }
 
+.self_user {
+  position: relative;
+  float: right;
+}
+
 .add_user:hover {
   background-color: yellow;
   @include standardTransition;

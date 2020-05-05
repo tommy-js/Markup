@@ -18,38 +18,66 @@ const AddUserComponent: React.FC<Props> = props => {
   const { userVal, setUserVal } = useContext(userContext);
   const { userFriends, setUserFriends } = useContext(friendContext);
   const [addDisplay, setAddDisplay] = useState("inline-block");
+  const [checkUser, setCheckUser] = useState(false);
+  const [selfDisplay, setSelfDisplay] = useState("block");
 
   function addFriend() {
-    props.addFriendMutation({
-      variables: {
-        userId: userVal.id,
-        id: props.id,
-        name: props.user
-      }
-    });
+    if (!checkUser) {
+      props.addFriendMutation({
+        variables: {
+          userId: userVal.id,
+          id: props.id,
+          name: props.user
+        }
+      });
+      setAddDisplay("none");
+    }
+  }
+
+  function checkPerson() {
+    if (userVal.id === props.id) {
+      return (
+        <div>
+          {props.user} #{props.id}
+          <div className="self_user">You</div>
+        </div>
+      );
+      setSelfDisplay("none");
+    } else {
+      return (
+        <div>
+          {props.user} #{props.id}
+          <div
+            style={{ display: addDisplay }}
+            className="add_user"
+            onClick={() => addFriend()}
+          >
+            <img className="add_user_button" src={plus} />
+          </div>
+        </div>
+      );
+    }
   }
 
   useEffect(() => {
     let checkId = props.id.toString();
+    let checkForUser = false;
     for (let k = 0; k < userFriends.length; k++) {
       if (userFriends[k].id === checkId) {
-        setAddDisplay("none");
+        checkForUser = true;
       }
     }
+    if (checkForUser) {
+      setAddDisplay("none");
+    } else {
+      setAddDisplay("inline-block");
+    }
+    setCheckUser(checkForUser);
   }, [userFriends]);
 
   return (
-    <div className="add_user_component">
-      <div>
-        {props.user} #{props.id}
-        <div
-          style={{ display: addDisplay }}
-          className="add_user"
-          onClick={() => addFriend()}
-        >
-          <img className="add_user_button" src={plus} />
-        </div>
-      </div>
+    <div style={{ display: selfDisplay }} className="add_user_component">
+      {checkPerson()}
     </div>
   );
 };
