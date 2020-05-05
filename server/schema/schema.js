@@ -30,6 +30,7 @@ const UserQuery = new GraphQLObjectType({
     username: { type: GraphQLString },
     password: { type: GraphQLString },
     friends: { type: new GraphQLList(FriendQuery) },
+    teammates: { type: new GraphQLList(FriendQuery) },
     tasks: { type: new GraphQLList(TaskQuery) }
   })
 });
@@ -187,6 +188,33 @@ const Mutation = new GraphQLObjectType({
         return User.update(
           { id: args.userId },
           { $pull: { friends: { id: args.id } } }
+        );
+      }
+    },
+    addTeammate: {
+      type: FriendQuery,
+      args: {
+        userId: { type: GraphQLID },
+        id: { type: GraphQLID },
+        name: { type: GraphQLString }
+      },
+      resolve(parent, args) {
+        return User.update(
+          { id: args.userId },
+          { $push: { teammates: { id: args.id, name: args.name } } }
+        );
+      }
+    },
+    removeTeammate: {
+      type: FriendQuery,
+      args: {
+        userId: { type: GraphQLID },
+        id: { type: GraphQLID }
+      },
+      resolve(parent, args) {
+        return User.update(
+          { id: args.userId },
+          { $pull: { teammates: { id: args.id } } }
         );
       }
     }

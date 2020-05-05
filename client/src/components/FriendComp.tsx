@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import FriendTab from "./FriendTab";
-import { TeamTab } from "./TeamTab";
+import TeamTab from "./TeamTab";
 import "../App.scss";
 
 interface Props {

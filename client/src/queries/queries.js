@@ -34,6 +34,10 @@ const userQuery = gql`
         id
         content
       }
+      teammates {
+        id
+        name
+      }
     }
   }
 `;
@@ -94,6 +98,16 @@ const addFriendMutation = gql`
   }
 `;
 
+const addTeammateMutation = gql`
+  mutation($userId: ID!, $id: ID!, $name: String!) {
+    addTeammate(userId: $userId, id: $id, name: $name) {
+      userId
+      id
+      name
+    }
+  }
+`;
+
 const removeFriendMutation = gql`
   mutation($userId: ID!, $id: ID!) {
     removeFriend(userId: $userId, id: $id) {
@@ -133,5 +147,6 @@ export {
   addUserMutation,
   removeTaskMutation,
   addFriendMutation,
+  addTeammateMutation,
   removeFriendMutation
 };

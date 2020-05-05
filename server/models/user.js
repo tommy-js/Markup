@@ -6,6 +6,7 @@ const userSchema = new Schema({
   username: String,
   password: String,
   friends: [{ id: Number, name: String }],
+  teammates: [{ id: Number, name: String }],
   tasks: [{ id: Number, content: String }]
 });
 

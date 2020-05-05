@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import Friend from "./Friend";
+import { Friend } from "./Friend";
 import { userQuery } from "../queries/queries";
 import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
@@ -25,6 +25,8 @@ const FriendTab: React.FC<Props> = props => {
       props.passFriends(data.user.friends);
     }
   }, [data]);
+
+  console.log(data);
 
   if (!loading) {
     if (userFriends.length > 0) {
