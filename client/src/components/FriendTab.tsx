@@ -27,18 +27,26 @@ const FriendTab: React.FC<Props> = props => {
   }, [data]);
 
   if (!loading) {
-    return (
-      <div className="friend_class_container">
-        {userFriends.map((person: any) => (
-          <Friend
-            key={Math.floor(Math.random() * 10000)}
-            id={person.id}
-            name={person.name}
-            userId={userVal.id}
-          />
-        ))}
-      </div>
-    );
+    if (userFriends.length > 0) {
+      return (
+        <div className="friend_class_container">
+          {userFriends.map((person: any) => (
+            <Friend
+              key={Math.floor(Math.random() * 10000)}
+              id={person.id}
+              name={person.name}
+              userId={userVal.id}
+            />
+          ))}
+        </div>
+      );
+    } else {
+      return (
+        <div className="friend_class_container task_box">
+          <p className="load_if_empty">Add friends to start...</p>
+        </div>
+      );
+    }
   } else {
     return (
       <div>

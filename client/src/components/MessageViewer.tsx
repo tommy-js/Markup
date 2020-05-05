@@ -23,16 +23,24 @@ export const MessageViewer: React.FC<Props> = props => {
       </div>
     );
   } else {
-    return (
-      <div className="message_viewer">
-        <Switch>
-          {props.friends.map((el: any) => (
-            <Route exact path={`/home/${el.id}`}>
-              <MessageBox name={el.name} id={el.id} />
-            </Route>
-          ))}
-        </Switch>
-      </div>
-    );
+    if (props.friends.length > 0) {
+      return (
+        <div className="message_viewer">
+          <Switch>
+            {props.friends.map((el: any) => (
+              <Route exact path={`/home/${el.id}`}>
+                <MessageBox name={el.name} id={el.id} />
+              </Route>
+            ))}
+          </Switch>
+        </div>
+      );
+    } else {
+      return (
+        <div className="message_viewer">
+          <MessageBox />
+        </div>
+      );
+    }
   }
 };

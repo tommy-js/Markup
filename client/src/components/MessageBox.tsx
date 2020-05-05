@@ -32,7 +32,7 @@ const MessageBox: React.FC<Props> = props => {
       toId: userVal.id,
       fromId: props.id
     },
-    pollInterval: 500
+    pollInterval: 200
   });
 
   useEffect(() => {
@@ -49,8 +49,6 @@ const MessageBox: React.FC<Props> = props => {
 
   function setMessageBounds() {
     let matrixArray = [];
-    // matrixArray.push(data1.getMessages);
-    // matrixArray.push(data2.getMessages);
     matrixArray = data1.getMessages.concat(data2.getMessages);
     matrixArray.sort(function(a: any, b: any) {
       return a.timestamp - b.timestamp;
@@ -64,23 +62,41 @@ const MessageBox: React.FC<Props> = props => {
   }
 
   if (!loading1 && !loading2) {
-    return (
-      <div className="message_box">
-        <div className="message_container">
-          {sortedArray.map((messages: any) => (
-            <IndividualMessage
-              userid={userVal.id}
-              receiver={messages.to}
-              sender={messages.from}
-              key={Math.floor(Math.random() * 10000)}
-              message={messages.content}
-              timestamp={messages.timestamp}
-            />
-          ))}
+    if (sortedArray.length == 0) {
+      return (
+        <div className="message_box">
+          <div className="message_box_information_header">
+            Welcome to <span className="info_header_span">Saturnia!</span>
+          </div>
+          <div className="message_box_under_info">
+            <span className="info_header_span">Saturnia</span> is a website
+            aimed at providing new software engineers with the experience they
+            need in order to get into the job market. To get started, add a
+            friend to your left, or a task to your right. If you're interested
+            in seeing currently available projects, check out the "projects
+            page" above.
+          </div>
         </div>
-        <InputBox userId={props.id} refetchQuery={refetchQuery} />
-      </div>
-    );
+      );
+    } else {
+      return (
+        <div className="message_box">
+          <div className="message_container">
+            {sortedArray.map((messages: any) => (
+              <IndividualMessage
+                userid={userVal.id}
+                receiver={messages.to}
+                sender={messages.from}
+                key={Math.floor(Math.random() * 10000)}
+                message={messages.content}
+                timestamp={messages.timestamp}
+              />
+            ))}
+          </div>
+          <InputBox userId={props.id} refetchQuery={refetchQuery} />
+        </div>
+      );
+    }
   } else {
     return <div>Loading...</div>;
   }
