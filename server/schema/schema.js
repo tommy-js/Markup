@@ -31,7 +31,17 @@ const UserQuery = new GraphQLObjectType({
     password: { type: GraphQLString },
     friends: { type: new GraphQLList(FriendQuery) },
     teammates: { type: new GraphQLList(FriendQuery) },
-    tasks: { type: new GraphQLList(TaskQuery) }
+    tasks: { type: new GraphQLList(TaskQuery) },
+    projects: { type: new GraphQLList(ProjectQuery) }
+  })
+});
+
+const ProjectQuery = new GraphQLObjectType({
+  name: "Project",
+  fields: () => ({
+    id: { type: GraphQLID },
+    title: { type: GraphQLString },
+    content: { type: GraphQLString }
   })
 });
 

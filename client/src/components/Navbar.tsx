@@ -5,9 +5,18 @@ import "../App.scss";
 export const Navbar: React.FC = props => {
   return (
     <div className="navbar">
-      <Link to="/home">Home</Link>
-      <Link to="/About">About</Link>
-      <Link to="/Projects">Projects</Link>
+      <Link className="nav_item" to="/home">
+        Home
+      </Link>
+      <Link className="nav_item" to="/about">
+        About
+      </Link>
+      <Link className="niv_item" to="/contact">
+        Contact
+      </Link>
+      <Link className="nav_item" to="/projects">
+        Projects
+      </Link>
     </div>
   );
 };

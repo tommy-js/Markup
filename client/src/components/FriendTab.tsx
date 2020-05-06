@@ -5,7 +5,7 @@ import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
 import { useQuery } from "@apollo/react-hooks";
 import { userContext } from "../App";
-import { friendContext } from "../App";
+import { friendContext, teammateContext } from "../App";
 import "../App.scss";
 
 interface Props {
@@ -15,6 +15,7 @@ interface Props {
 const FriendTab: React.FC<Props> = props => {
   const { userVal, setUserVal } = useContext(userContext);
   const { userFriends, setUserFriends } = useContext(friendContext);
+  const { userTeammates, setUserTeammates } = useContext(teammateContext);
   const { loading, data } = useQuery(userQuery, {
     variables: { username: userVal.username }
   });
@@ -22,11 +23,10 @@ const FriendTab: React.FC<Props> = props => {
   useEffect(() => {
     if (!loading) {
       setUserFriends(data.user.friends);
+      setUserTeammates(data.user.teammates);
       props.passFriends(data.user.friends);
     }
   }, [data]);
-
-  console.log(data);
 
   if (!loading) {
     if (userFriends.length > 0) {

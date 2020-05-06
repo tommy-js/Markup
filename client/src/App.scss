@@ -4,6 +4,7 @@ body {
 
 html {
   font-family: "Roboto", sans-serif;
+  margin: 0;
 }
 
 @mixin testing {
@@ -536,15 +537,23 @@ input[type="checkbox"] {
 }
 
 .navbar {
-  position: relative;
-  height: 5%;
+  position: fixed;
+  height: 40px;
   width: 100%;
+  top: 0;
+  z-index: 99;
   background-color: grey;
+}
+
+.under_header {
+  position: relative;
+  margin-top: 40px;
 }
 
 .fixed_under {
   position: relative;
   width: 100%;
+  margin-top: 40px;
   height: 95%;
 }
 
@@ -610,4 +619,101 @@ input[type="checkbox"] {
   font-size: 18px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.nav_item {
+  position: relative;
+  margin-left: 25px;
+  margin-right: 25px;
+}
+
+.about_header {
+  position: relative;
+  text-align: center;
+}
+
+.about_body {
+  position: relative;
+  width: 40%;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 18px;
+}
+
+.contact_header {
+  position: relative;
+  text-align: center;
+}
+
+.contact_list {
+  position: relative;
+  width: 40%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.inline_contact_info {
+  position: relative;
+  width: 250px;
+  @include testing;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 25px;
+}
+
+.contact_input {
+  padding: 5px;
+  font-size: 16px;
+}
+
+.contact_textarea {
+  position: relative;
+  display: block;
+  resize: none;
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto;
+  height: 200px;
+  padding: 15px;
+  font-size: 18px;
+}
+
+.contact_label {
+  margin-right: 15px;
+  font-size: 16px;
+}
+
+.project_main {
+  height: 2000px;
+}
+
+.project_header {
+  position: relative;
+  text-align: center;
+  margin-top: 40px;
+  @include testing;
+  height: 120px;
+  background-color: pink;
+}
+
+.under_carriage {
+  position: relative;
+}
+
+.side_search_bar {
+  position: fixed;
+  display: inline-block;
+  float: left;
+  @include testing;
+  width: 33.3%;
+}
+
+.project_opening {
+  position: absolute;
+  @include testing2;
+  width: 33.3%;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
 }
