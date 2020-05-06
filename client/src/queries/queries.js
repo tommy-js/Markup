@@ -20,6 +20,20 @@ const getMessageQuery = gql`
   }
 `;
 
+const getOpenProjectsQuery = gql`
+  query($stack: String) {
+    getOpenProjects(stack: $stack) {
+      stack
+      timestamp
+      joined
+      total
+      title
+      content
+      id
+    }
+  }
+`;
+
 const userQuery = gql`
   query($username: String!) {
     user(username: $username) {
@@ -141,6 +155,7 @@ export {
   userQuery,
   getMessageQuery,
   allUsersQuery,
+  getOpenProjectsQuery,
   getUsers,
   addMessageMutation,
   addTaskMutation,

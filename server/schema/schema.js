@@ -11,6 +11,7 @@ const Message = require("../models/messages");
 const User = require("../models/user");
 const Friend = require("../models/friends");
 const Task = require("../models/tasks");
+const Project = require("../models/project");
 
 const MessageQuery = new GraphQLObjectType({
   name: "Message",
@@ -41,7 +42,11 @@ const ProjectQuery = new GraphQLObjectType({
   fields: () => ({
     id: { type: GraphQLID },
     title: { type: GraphQLString },
-    content: { type: GraphQLString }
+    content: { type: GraphQLString },
+    joined: { type: GraphQLInt },
+    total: { type: GraphQLInt },
+    timestamp: { type: GraphQLInt },
+    stack: { type: GraphQLString }
   })
 });
 
@@ -90,6 +95,15 @@ const RootQuery = new GraphQLObjectType({
       },
       resolve(parent, args) {
         return Message.find({ to: args.toId, from: args.fromId });
+      }
+    },
+    getOpenProjects: {
+      type: new GraphQLList(ProjectQuery),
+      args: {
+        stack: { type: GraphQLString }
+      },
+      resolve(parent, args) {
+        return Project.find({ stack: args.stack });
       }
     },
     user: {
