@@ -1,16 +1,42 @@
-import React, { useContext, useState } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { Navbar } from "./Navbar";
 import { userContext } from "../App";
+import { userQuery } from "../queries/queries";
+import { flowRight as compose } from "lodash";
+import { graphql } from "react-apollo";
+import { useQuery } from "@apollo/react-hooks";
+import { AdminProjectListing } from "./AdminProjectListing";
 
-export const Profile: React.FC = () => {
+interface Props {
+  adminDriller: (userProjects: any) => void;
+}
+
+const Profile: React.FC<Props> = props => {
   const [projects, setProjects] = useState();
   const { userVal, setUserVal } = useContext(userContext);
+  const { loading, data } = useQuery(userQuery, {
+    variables: {
+      username: userVal.username
+    }
+  });
+
+  useEffect(() => {
+    if (data) {
+      setProjects(data.user.userprojects);
+      props.adminDriller(data.user.userprojects);
+    }
+  }, [data]);
+
+  console.log(data);
+  console.log(projects);
 
   function currentProjects() {
     if (projects) {
       return (
         <div>
-          <p>Your Projects</p>
+          {projects.map((el: any) => (
+            <AdminProjectListing key={el.id} title={el.title} id={el.id} />
+          ))}
         </div>
       );
     } else {
@@ -35,3 +61,5 @@ export const Profile: React.FC = () => {
     </div>
   );
 };
+
+export default compose(graphql(userQuery, { name: "userQuery" }))(Profile);

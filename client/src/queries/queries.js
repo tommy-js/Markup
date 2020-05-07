@@ -52,6 +52,12 @@ const userQuery = gql`
         id
         name
       }
+      userprojects {
+        id
+        timestamp
+        title
+        content
+      }
     }
   }
 `;
