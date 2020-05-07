@@ -5,9 +5,11 @@ import SignUp from "./SignUp.js";
 
 export const AccountCreation: React.FC = () => {
   return (
-    <div>
-      <SignUp />
-      <SignIn />
+    <div className="account_creation_block">
+      <div className="account_creation">
+        <SignUp />
+        <SignIn />
+      </div>
     </div>
   );
 };

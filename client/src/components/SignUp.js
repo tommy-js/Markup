@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import "../App.scss";
 import { useHistory } from "react-router-dom";
 import { addUserMutation } from "../queries/queries";
@@ -10,20 +10,33 @@ function SignUp(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { userVal, setUserVal } = useContext(userContext);
+  const [validPassword, setValidPassword] = useState(false);
+  const [validUsername, setValidUsername] = useState(false);
   const history = useHistory();
+
+  useEffect(() => {
+    if (password.length > 8 && password.includes(`a`)) {
+      setValidPassword(true);
+    }
+    if (username.length > 8) {
+      setValidUsername(true);
+    }
+  }, [username, password]);
 
   function newUser(e) {
     e.preventDefault();
-    let id = Math.floor(Math.random() * 1000000000);
-    props.addUserMutation({
-      variables: {
-        id: id,
-        username: username,
-        password: password
-      }
-    });
-    setUserVal({ username: username, password: password, id: id });
-    logIn();
+    if (validPassword && validUsername) {
+      let id = Math.floor(Math.random() * 1000000000);
+      props.addUserMutation({
+        variables: {
+          id: id,
+          username: username,
+          password: password
+        }
+      });
+      setUserVal({ username: username, password: password, id: id });
+      logIn();
+    }
   }
 
   function logIn() {

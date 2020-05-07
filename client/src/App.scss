@@ -11,6 +11,10 @@ html {
   // border: 1px solid red;
 }
 
+@mixin testing2 {
+  // border: 1px solid blue;
+}
+
 @mixin standardTransition {
   transition: 0.3s ease-in-out all;
 }
@@ -30,11 +34,9 @@ html {
 
 .userform {
   position: relative;
-  top: 200px;
   margin-left: auto;
   margin-right: auto;
   width: 400px;
-  border: 1px solid grey;
   height: 250px;
 }
 
@@ -49,7 +51,19 @@ html {
 .user_input_fields {
   width: 175px;
   height: 25px;
+  font-size: 16px;
+  padding: 5px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid grey;
   @include page_fields;
+  @include standardTransition;
+}
+
+.user_input_fields:focus {
+  border-bottom: 1px solid pink;
+  @include standardTransition;
 }
 
 .signup_field {
@@ -561,10 +575,6 @@ input[type="checkbox"] {
   height: 95%;
 }
 
-@mixin testing2 {
-  border: 1px solid blue;
-}
-
 .friend_class_container {
   position: relative;
   height: 90%;
@@ -784,7 +794,10 @@ input[type="checkbox"] {
 .sign_in_button {
   position: relative;
   display: block;
-  width: 100px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: orange;
+  font-size: 16px;
   margin-left: auto;
   margin-right: auto;
   border: none;
@@ -796,4 +809,17 @@ input[type="checkbox"] {
 .sign_in_button:hover {
   background-color: pink;
   @include standardTransition;
+}
+
+.account_creation_block {
+  display: flex;
+  justify-content: center;
+  height: 90vh;
+  width: 100%;
+  @include testing;
+}
+
+.account_creation {
+  align-self: center;
+  @include testing2;
 }

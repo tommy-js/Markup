@@ -196,6 +196,24 @@ const addUserMutation = gql`
       id
       username
       password
+      friends {
+        id
+        name
+      }
+      tasks {
+        id
+        content
+      }
+      teammates {
+        id
+        name
+      }
+      userprojects {
+        id
+        timestamp
+        title
+        content
+      }
     }
   }
 `;

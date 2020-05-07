@@ -16,7 +16,6 @@ const SignIn: React.FC<Props> = props => {
   const [password, setPassword] = useState("");
   const [passUser, { loading, data }] = useLazyQuery(userQuery);
   const [user, setUser] = useState(null);
-  const [bordering, setBordering] = useState("1px solid black");
   const { userVal, setUserVal } = useContext(userContext);
   const history = useHistory();
 
@@ -28,7 +27,7 @@ const SignIn: React.FC<Props> = props => {
     if (data) {
       let { user } = data;
       if (user.password == password) {
-        setBordering("1px solid blue");
+        // setBordering("1px solid blue");
         setUserVal({
           username: user.username,
           password: user.password,
@@ -36,7 +35,7 @@ const SignIn: React.FC<Props> = props => {
         });
         logIn();
       } else {
-        setBordering("1px solid red");
+        // setBordering("1px solid red");
       }
     }
   }, [data]);
@@ -56,14 +55,12 @@ const SignIn: React.FC<Props> = props => {
         <label className="signup_field">Log in</label>
         <input
           className="user_input_fields"
-          style={{ border: bordering }}
           type="text"
           placeholder="username"
           onChange={e => setUsername(e.target.value)}
         />
         <input
           className="user_input_fields"
-          style={{ border: bordering }}
           type="text"
           placeholder="password"
           onChange={e => setPassword(e.target.value)}
