@@ -8,6 +8,7 @@ import { ApolloProvider } from "react-apollo";
 import { About } from "./components/About";
 import { Contact } from "./components/Contact";
 import { Projects } from "./components/Projects";
+import { Profile } from "./components/Profile";
 
 const client = new ApolloClient({
   uri: "http://localhost:4000/graphql"
@@ -42,6 +43,9 @@ function App(): JSX.Element {
                 </Route>
                 <Route path="/projects">
                   <Projects />
+                </Route>
+                <Route path="/profile">
+                  <Profile />
                 </Route>
               </div>
             </Router>

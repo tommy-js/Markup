@@ -21,8 +21,8 @@ const getMessageQuery = gql`
 `;
 
 const getOpenProjectsQuery = gql`
-  query($stack: String) {
-    getOpenProjects(stack: $stack) {
+  query($stack: String!) {
+    projects(stack: $stack) {
       stack
       timestamp
       joined
@@ -70,6 +70,36 @@ const removeTaskMutation = gql`
     deleteTask(userId: $userId, id: $id) {
       id
       userId
+    }
+  }
+`;
+
+const addProjectMutation = gql`
+  mutation(
+    $timestamp: ID!
+    $total: ID!
+    $joined: ID!
+    $stack: String
+    $content: String!
+    $title: String!
+    $id: ID!
+  ) {
+    addProject(
+      timestamp: $timestamp
+      total: $total
+      joined: $joined
+      stack: $stack
+      content: $content
+      title: $title
+      id: $id
+    ) {
+      timestamp
+      id
+      content
+      title
+      total
+      joined
+      stack
     }
   }
 `;
@@ -163,5 +193,6 @@ export {
   removeTaskMutation,
   addFriendMutation,
   addTeammateMutation,
+  addProjectMutation,
   removeFriendMutation
 };

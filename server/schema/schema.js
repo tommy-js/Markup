@@ -43,9 +43,9 @@ const ProjectQuery = new GraphQLObjectType({
     id: { type: GraphQLID },
     title: { type: GraphQLString },
     content: { type: GraphQLString },
-    joined: { type: GraphQLInt },
-    total: { type: GraphQLInt },
-    timestamp: { type: GraphQLInt },
+    joined: { type: GraphQLID },
+    total: { type: GraphQLID },
+    timestamp: { type: GraphQLID },
     stack: { type: GraphQLString }
   })
 });
@@ -97,7 +97,7 @@ const RootQuery = new GraphQLObjectType({
         return Message.find({ to: args.toId, from: args.fromId });
       }
     },
-    getOpenProjects: {
+    projects: {
       type: new GraphQLList(ProjectQuery),
       args: {
         stack: { type: GraphQLString }
@@ -139,6 +139,30 @@ const Mutation = new GraphQLObjectType({
           password: args.password
         });
         return newUser.save();
+      }
+    },
+    addProject: {
+      type: ProjectQuery,
+      args: {
+        title: { type: GraphQLString },
+        content: { type: GraphQLString },
+        joined: { type: GraphQLID },
+        total: { type: GraphQLID },
+        timestamp: { type: GraphQLID },
+        stack: { type: GraphQLString },
+        id: { type: GraphQLID }
+      },
+      resolve(parent, args) {
+        let newProject = new Project({
+          title: args.title,
+          content: args.content,
+          joined: args.joined,
+          total: args.total,
+          timestamp: args.timestamp,
+          stack: args.stack,
+          id: args.id
+        });
+        return newProject.save();
       }
     },
     addMessage: {
