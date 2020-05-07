@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import OpenProject from "./OpenProject";
 import { Navbar } from "./Navbar";
 import { SideSearchBar } from "./SideSearchBar";
+import { userContext } from "../App";
+import { useHistory } from "react-router-dom";
 import "../App.scss";
 
 interface Props {
@@ -10,6 +12,15 @@ interface Props {
 
 export const Projects: React.FC<Props> = props => {
   const [searchSettings, setSearchSettings] = useState<any>();
+  const { userVal, setUserVal } = useContext(userContext);
+  const history = useHistory();
+
+  useEffect(() => {
+    if (!userVal.username) {
+      let path = "/";
+      history.push(path);
+    }
+  });
 
   function setSearch(submittedStack: object) {
     setSearchSettings(submittedStack);

@@ -1,13 +1,24 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { FriendList } from "./FriendList";
 import { MessageViewer } from "./MessageViewer";
 import { TaskList } from "./TaskList";
 import { Navbar } from "./Navbar";
+import { userContext } from "../App";
+import { useHistory } from "react-router-dom";
 import "../App.scss";
 
 export const HomePage: React.FC = () => {
   const [friends, setFriends] = useState([]);
+  const { userVal, setUserVal } = useContext(userContext);
   const [searching, setSearching] = useState(false);
+  const history = useHistory();
+
+  useEffect(() => {
+    if (!userVal.username) {
+      let path = "/";
+      history.push(path);
+    }
+  });
 
   function passFriends(friends: any) {
     setFriends(friends);

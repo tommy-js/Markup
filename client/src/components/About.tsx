@@ -1,7 +1,19 @@
-import React from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { Navbar } from "./Navbar";
+import { userContext } from "../App";
+import { useHistory } from "react-router-dom";
 
 export const About: React.FC = () => {
+  const history = useHistory();
+  const { userVal, setUserVal } = useContext(userContext);
+
+  useEffect(() => {
+    if (!userVal.username) {
+      let path = "/";
+      history.push(path);
+    }
+  });
+
   return (
     <div>
       <Navbar />

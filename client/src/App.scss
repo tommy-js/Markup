@@ -8,11 +8,15 @@ html {
 }
 
 @mixin testing {
-  border: 1px solid red;
+  // border: 1px solid red;
 }
 
 @mixin standardTransition {
   transition: 0.3s ease-in-out all;
+}
+
+@mixin fastTransition {
+  transition: 0.15s ease-in-out all;
 }
 
 @mixin noselect {
@@ -630,11 +634,21 @@ input[type="checkbox"] {
   font-size: 18px;
   text-decoration: none;
   height: 40px;
-  vertical-align: top;
+  vertical-align: middle;
+  cursor: pointer;
   @include testing;
+  @include fastTransition;
+}
+
+.nav_item:hover {
+  color: pink;
+  @include fastTransition;
 }
 
 .middle_align {
+  position: relative;
+  display: inline-block;
+  height: 20px;
   vertical-align: middle;
   @include testing;
 }

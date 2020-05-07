@@ -6,6 +6,7 @@ import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
 import { useQuery } from "@apollo/react-hooks";
 import { AdminProjectListing } from "./AdminProjectListing";
+import { useHistory } from "react-router-dom";
 
 interface Props {
   adminDriller: (userProjects: any) => void;
@@ -14,6 +15,15 @@ interface Props {
 const Profile: React.FC<Props> = props => {
   const [projects, setProjects] = useState();
   const { userVal, setUserVal } = useContext(userContext);
+  const history = useHistory();
+
+  useEffect(() => {
+    if (!userVal.username) {
+      let path = "/";
+      history.push(path);
+    }
+  });
+
   const { loading, data } = useQuery(userQuery, {
     variables: {
       username: userVal.username

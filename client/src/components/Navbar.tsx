@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import favicon from "../icons/favicon-32x32.png";
 import "../App.scss";
+import { userContext } from "../App";
 
 export const Navbar: React.FC = props => {
+  const { userVal, setUserVal } = useContext(userContext);
   const history = useHistory();
 
   function logOut() {
+    setUserVal();
     let path = "/";
     history.push(path);
   }
@@ -34,24 +37,24 @@ export const Navbar: React.FC = props => {
         activeClassName="nav_item_active"
         to="/projects"
       >
-        Projects
+        <div className="middle_align">Projects</div>
       </NavLink>
       <NavLink
         className="nav_item"
         activeClassName="nav_item_active"
         to="/about"
       >
-        About
+        <div className="middle_align">About</div>
       </NavLink>
       <NavLink
         className="nav_item"
         activeClassName="nav_item_active"
         to="/contact"
       >
-        Contact
+        <div className="middle_align">Contact</div>
       </NavLink>
       <div onClick={() => logOut()} className="nav_item">
-        Log Out
+        <div className="middle_align">Log Out</div>
       </div>
     </div>
   );
