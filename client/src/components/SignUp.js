@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import "../App.scss";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { addUserMutation } from "../queries/queries";
 import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
@@ -10,6 +10,7 @@ function SignUp(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { userVal, setUserVal } = useContext(userContext);
+  const history = useHistory();
 
   function newUser(e) {
     e.preventDefault();
@@ -22,7 +23,14 @@ function SignUp(props) {
       }
     });
     setUserVal({ username: username, password: password, id: id });
+    logIn();
   }
+
+  function logIn() {
+    let path = "/home";
+    history.push(path);
+  }
+
   return (
     <div>
       <form className="userform">
@@ -39,10 +47,9 @@ function SignUp(props) {
           placeholder="password"
           onChange={e => setPassword(e.target.value)}
         />
-        <Link to="/home">
-          <button>Bypass</button>
-        </Link>
-        <button onClick={e => newUser(e)}>Create Account</button>
+        <button className="sign_in_button" onClick={e => newUser(e)}>
+          Create Account
+        </button>
       </form>
     </div>
   );

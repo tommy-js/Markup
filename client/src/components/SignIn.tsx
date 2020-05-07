@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import "../App.scss";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { userQuery } from "../queries/queries";
 import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
@@ -18,6 +18,7 @@ const SignIn: React.FC<Props> = props => {
   const [user, setUser] = useState(null);
   const [bordering, setBordering] = useState("1px solid black");
   const { userVal, setUserVal } = useContext(userContext);
+  const history = useHistory();
 
   if (data && data.username) {
     setUser(data);
@@ -33,11 +34,17 @@ const SignIn: React.FC<Props> = props => {
           password: user.password,
           id: user.id
         });
+        logIn();
       } else {
         setBordering("1px solid red");
       }
     }
   }, [data]);
+
+  function logIn() {
+    let path = "/home";
+    history.push(path);
+  }
 
   function getUser() {
     passUser({ variables: { username: username } });
@@ -61,10 +68,9 @@ const SignIn: React.FC<Props> = props => {
           placeholder="password"
           onChange={e => setPassword(e.target.value)}
         />
-        <Link to="/home">
-          <button>Bypass</button>
-        </Link>
-        <button onClick={() => getUser()}>Sign in</button>
+        <button className="sign_in_button" onClick={() => getUser()}>
+          Sign in
+        </button>
       </div>
     </div>
   );

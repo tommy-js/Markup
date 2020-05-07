@@ -9,7 +9,7 @@ interface Props {
 export const AdminProjectListing: React.FC<Props> = props => {
   return (
     <div>
-      <Link to={`/${props.id}`}>
+      <Link to={`/contributor/${props.id}`}>
         <div className="open_project">
           <h2>{props.title}</h2>
           <p>"Description"</p>

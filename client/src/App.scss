@@ -623,8 +623,41 @@ input[type="checkbox"] {
 
 .nav_item {
   position: relative;
+  display: inline-block;
   margin-left: 15px;
   margin-right: 15px;
+  color: black;
+  font-size: 18px;
+  text-decoration: none;
+  height: 40px;
+  vertical-align: top;
+  @include testing;
+}
+
+.middle_align {
+  vertical-align: middle;
+  @include testing;
+}
+
+.nav_item_active {
+  color: pink;
+}
+
+.header_image_block {
+  width: 30px;
+  height: 30px;
+  margin-top: 5px;
+  vertical-align: middle;
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.header_image {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  vertical-align: middle;
 }
 
 .about_header {
@@ -732,4 +765,21 @@ input[type="checkbox"] {
   margin-left: auto;
   margin-right: auto;
   @include testing;
+}
+
+.sign_in_button {
+  position: relative;
+  display: block;
+  width: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  border: none;
+  cursor: pointer;
+  margin-top: 15px;
+  @include standardTransition;
+}
+
+.sign_in_button:hover {
+  background-color: pink;
+  @include standardTransition;
 }

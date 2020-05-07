@@ -2,7 +2,7 @@ import React, { createContext, useState } from "react";
 import "./App.scss";
 import ApolloClient from "apollo-boost";
 import { InitialScreen } from "./components/InitialScreen";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { HomePage } from "./components/HomePage";
 import { ApolloProvider } from "react-apollo";
 import { About } from "./components/About";
@@ -61,24 +61,28 @@ function App(): JSX.Element {
                 <Route path="/profile">
                   <Profile adminDriller={adminDriller} />
                 </Route>
-                {userProjects.map((el: any) => (
-                  <Route exact path={`/${el.id}`}>
-                    <AdminProjectPage
-                      id={el.id}
-                      title={el.title}
-                      content={el.content}
-                    />
-                  </Route>
-                ))}
-                {projectMapper.map((el: any) => (
-                  <Route path={`/${el.id}`}>
-                    <ProjectPage
-                      id={el.id}
-                      title={el.title}
-                      content={el.content}
-                    />
-                  </Route>
-                ))}
+                <Switch>
+                  {userProjects.map((el: any) => (
+                    <Route exact path={`/contributor/${el.id}`}>
+                      <AdminProjectPage
+                        id={el.id}
+                        title={el.title}
+                        content={el.content}
+                      />
+                    </Route>
+                  ))}
+                </Switch>
+                <Switch>
+                  {projectMapper.map((el: any) => (
+                    <Route path={`/${el.id}`}>
+                      <ProjectPage
+                        id={el.id}
+                        title={el.title}
+                        content={el.content}
+                      />
+                    </Route>
+                  ))}
+                </Switch>
               </div>
             </Router>
           </ApolloProvider>
