@@ -33,7 +33,7 @@ const UserQuery = new GraphQLObjectType({
     friends: { type: new GraphQLList(FriendQuery) },
     teammates: { type: new GraphQLList(FriendQuery) },
     tasks: { type: new GraphQLList(TaskQuery) },
-    projects: { type: new GraphQLList(ProjectQuery) }
+    userprojects: { type: new GraphQLList(ProjectQuery) }
   })
 });
 
@@ -196,6 +196,31 @@ const Mutation = new GraphQLObjectType({
         return User.update(
           { id: args.userId },
           { $push: { tasks: { id: args.id, content: args.content } } }
+        );
+      }
+    },
+    addUserProject: {
+      type: ProjectQuery,
+      args: {
+        id: { type: GraphQLID },
+        userId: { type: GraphQLID },
+        title: { type: GraphQLString },
+        content: { type: GraphQLString },
+        timestamp: { type: GraphQLID }
+      },
+      resolve(parent, args) {
+        return User.update(
+          { id: args.userId },
+          {
+            $push: {
+              userprojects: {
+                id: args.id,
+                content: args.content,
+                title: args.title,
+                timestamp: args.timestamp
+              }
+            }
+          }
         );
       }
     },

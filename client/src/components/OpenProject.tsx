@@ -7,10 +7,11 @@ import { getOpenProjectsQuery } from "../queries/queries";
 
 interface Props {
   searchSettings: any;
+  routeDriller: (projects: object) => void;
 }
 
 const OpenProject: React.FC<Props> = props => {
-  const [projects, setProjects] = useState([{ id: 0 }]);
+  const [projects, setProjects] = useState([]);
   const [placeholder, setPlaceholder] = useState();
   const [callProjects, { loading, data }] = useLazyQuery(getOpenProjectsQuery, {
     pollInterval: 500
@@ -33,6 +34,7 @@ const OpenProject: React.FC<Props> = props => {
   useEffect(() => {
     if (data) {
       setProjects(data.projects);
+      props.routeDriller(data.projects);
       console.log(data);
     }
   }, [data]);
@@ -41,7 +43,7 @@ const OpenProject: React.FC<Props> = props => {
     return (
       <div className="project_opening">
         {projects.map((el: any) => (
-          <p key={el.id}>{el.title}</p>
+          <ProjectListing key={el.id} title={el.title} id={el.id} />
         ))}
       </div>
     );

@@ -1,10 +1,20 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-export const ProjectListing: React.FC = () => {
+interface Props {
+  title: string;
+  id: number;
+}
+
+export const ProjectListing: React.FC<Props> = props => {
   return (
-    <div className="open_project">
-      <h2>"Name"</h2>
-      <p>"Description"</p>
+    <div>
+      <Link to={`/${props.id}`}>
+        <div className="open_project">
+          <h2>{props.title}</h2>
+          <p>"Description"</p>
+        </div>
+      </Link>
     </div>
   );
 };

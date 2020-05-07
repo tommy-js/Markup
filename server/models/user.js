@@ -8,7 +8,9 @@ const userSchema = new Schema({
   friends: [{ id: Number, name: String }],
   teammates: [{ id: Number, name: String }],
   tasks: [{ id: Number, content: String }],
-  projects: [{ id: Number }]
+  userprojects: [
+    { id: Number, content: String, title: String, timestamp: Number }
+  ]
 });
 
 module.exports = mongoose.model("User", userSchema);

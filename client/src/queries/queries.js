@@ -104,6 +104,29 @@ const addProjectMutation = gql`
   }
 `;
 
+const addProjectUserMutation = gql`
+  mutation(
+    $timestamp: ID!
+    $id: ID!
+    $title: String
+    $content: String
+    $userId: ID!
+  ) {
+    addUserProject(
+      timestamp: $timestamp
+      id: $id
+      title: $title
+      content: $content
+      userId: $userId
+    ) {
+      timestamp
+      id
+      title
+      content
+    }
+  }
+`;
+
 const addMessageMutation = gql`
   mutation($id: ID!, $content: String!, $to: ID!, $from: ID!, $timestamp: ID!) {
     addMessage(
@@ -194,5 +217,6 @@ export {
   addFriendMutation,
   addTeammateMutation,
   addProjectMutation,
-  removeFriendMutation
+  removeFriendMutation,
+  addProjectUserMutation
 };

@@ -9,6 +9,7 @@ import { About } from "./components/About";
 import { Contact } from "./components/Contact";
 import { Projects } from "./components/Projects";
 import { Profile } from "./components/Profile";
+import ProjectPage from "./components/ProjectPage";
 
 const client = new ApolloClient({
   uri: "http://localhost:4000/graphql"
@@ -22,6 +23,13 @@ function App(): JSX.Element {
   const [userVal, setUserVal] = useState<any>({});
   const [userFriends, setUserFriends] = useState<any>([]);
   const [userTeammates, setUserTeammates] = useState<any>([]);
+
+  const [projectMapper, setProjectMapper] = useState([]);
+
+  function routeDriller(projects: any) {
+    setProjectMapper(projects);
+  }
+
   return (
     <teammateContext.Provider value={{ userTeammates, setUserTeammates }}>
       <friendContext.Provider value={{ userFriends, setUserFriends }}>
@@ -42,11 +50,20 @@ function App(): JSX.Element {
                   <Contact />
                 </Route>
                 <Route path="/projects">
-                  <Projects />
+                  <Projects routeDriller={routeDriller} />
                 </Route>
                 <Route path="/profile">
                   <Profile />
                 </Route>
+                {projectMapper.map((el: any) => (
+                  <Route path={`/${el.id}`}>
+                    <ProjectPage
+                      id={el.id}
+                      title={el.title}
+                      content={el.content}
+                    />
+                  </Route>
+                ))}
               </div>
             </Router>
           </ApolloProvider>
