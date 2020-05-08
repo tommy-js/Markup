@@ -218,6 +218,22 @@ const addUserMutation = gql`
   }
 `;
 
+const addSessionIDMutation = gql`
+  mutation($session_id: String!) {
+    addSessionId(session_id: $session_id) {
+      session_id
+    }
+  }
+`;
+
+const getSessionIDQuery = gql`
+  query($session_id: String!) {
+    getSessionID(session_id: $session_id) {
+      session_id
+    }
+  }
+`;
+
 const allUsersQuery = gql`
   {
     users {
@@ -234,6 +250,7 @@ export {
   allUsersQuery,
   getOpenProjectsQuery,
   getUsers,
+  getSessionIDQuery,
   addMessageMutation,
   addTaskMutation,
   addUserMutation,
@@ -242,5 +259,6 @@ export {
   addTeammateMutation,
   addProjectMutation,
   removeFriendMutation,
-  addProjectUserMutation
+  addProjectUserMutation,
+  addSessionIDMutation
 };

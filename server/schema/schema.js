@@ -12,6 +12,7 @@ const User = require("../models/user");
 const Friend = require("../models/friends");
 const Task = require("../models/tasks");
 const Project = require("../models/project");
+const Session = require("../models/session");
 
 const MessageQuery = new GraphQLObjectType({
   name: "Message",
@@ -34,6 +35,13 @@ const UserQuery = new GraphQLObjectType({
     teammates: { type: new GraphQLList(FriendQuery) },
     tasks: { type: new GraphQLList(TaskQuery) },
     userprojects: { type: new GraphQLList(ProjectQuery) }
+  })
+});
+
+const SessionQuery = new GraphQLObjectType({
+  name: "Session",
+  fields: () => ({
+    session_id: { type: GraphQLString }
   })
 });
 
@@ -118,6 +126,15 @@ const RootQuery = new GraphQLObjectType({
       resolve(parent, args) {
         return User.find({});
       }
+    },
+    getSessionID: {
+      type: GraphQLString,
+      args: {
+        session_id: { type: GraphQLString }
+      },
+      resolve(parent, args) {
+        return Session.find({ session_id: args.session_id });
+      }
     }
   }
 });
@@ -139,6 +156,18 @@ const Mutation = new GraphQLObjectType({
           password: args.password
         });
         return newUser.save();
+      }
+    },
+    addSessionId: {
+      type: SessionQuery,
+      args: {
+        session_id: { type: GraphQLString }
+      },
+      resolve(parent, args) {
+        let newSession = new Session({
+          session_id: args.session_id
+        });
+        return newSession.save();
       }
     },
     addProject: {

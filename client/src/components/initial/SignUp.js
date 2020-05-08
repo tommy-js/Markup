@@ -1,11 +1,12 @@
 import React, { useState, useContext, useEffect } from "react";
 import "../../App.scss";
 import { useHistory } from "react-router-dom";
-import { addUserMutation } from "../../queries/queries";
+import { addUserMutation, addSessionIDMutation } from "../../queries/queries";
 import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
 import { userContext } from "../../App";
 import { useCookies } from "react-cookie";
+const aes256 = require("aes256");
 
 function SignUp(props) {
   const [username, setUsername] = useState("");
@@ -14,7 +15,7 @@ function SignUp(props) {
   const [validPassword, setValidPassword] = useState(false);
   const [validUsername, setValidUsername] = useState(true);
   const history = useHistory();
-  const [cookies, setCookie] = useCookies("SESS_ID");
+  const [cookies, setCookie] = useCookies(["SESS_ID", "SESS_KEY"]);
 
   useEffect(() => {
     if (password.length >= 8 && password.includes(`&`)) {
@@ -36,7 +37,16 @@ function SignUp(props) {
         }
       });
       setUserVal({ username: username, password: password, id: id });
-      setCookie("SESS_ID", username, { path: "/" });
+      let strId = id.toString();
+      let plain = username;
+      let encrypted = aes256.encrypt(strId, plain);
+      setCookie("SESS_ID", encrypted, { path: "/" });
+      setCookie("SESS_KEY", strId, { path: "/" });
+      props.addSessionIDMutation({
+        variables: {
+          session_id: encrypted
+        }
+      });
       logIn();
     }
   }
@@ -73,6 +83,7 @@ function SignUp(props) {
   );
 }
 
-export default compose(graphql(addUserMutation, { name: "addUserMutation" }))(
-  SignUp
-);
+export default compose(
+  graphql(addUserMutation, { name: "addUserMutation" }),
+  graphql(addSessionIDMutation, { name: "addSessionIDMutation" })
+)(SignUp);

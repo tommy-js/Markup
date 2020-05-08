@@ -5,20 +5,47 @@ import { TaskList } from "./tasks/TaskList";
 import { Navbar } from "../navigation/Navbar";
 import { userContext } from "../../App";
 import { useHistory } from "react-router-dom";
+import { userQuery } from "../../queries/queries";
+import { flowRight as compose } from "lodash";
+import { graphql } from "react-apollo";
+import { useLazyQuery } from "@apollo/react-hooks";
+import Cookies from "universal-cookie";
+import { CookiesProvider, useCookies } from "react-cookie";
 import "../../App.scss";
+const aes256 = require("aes256");
 
-export const HomePage: React.FC = () => {
+const HomePage: React.FC = () => {
   const [friends, setFriends] = useState([]);
   const { userVal, setUserVal } = useContext(userContext);
   const [searching, setSearching] = useState(false);
   const history = useHistory();
+  const [decrypt, setDecrypt] = useState();
+  const [passInUser, { data, loading }] = useLazyQuery(userQuery);
+  const cookies = new Cookies();
+
+  const [projectMapper, setProjectMapper] = useState([]);
+  const [userProjects, setUserProjectMapper] = useState([]);
 
   useEffect(() => {
-    if (!userVal.username) {
-      let path = "/";
-      history.push(path);
+    if (cookies.get("SESS_ID") && cookies.get("SESS_KEY")) {
+      let sessionid = cookies.get("SESS_ID");
+      let key = cookies.get("SESS_KEY").toString();
+      let dec = aes256.decrypt(key, sessionid);
+      console.log(dec);
+      passInUser({
+        variables: {
+          username: dec
+        }
+      });
     }
-  });
+  }, []);
+
+  useEffect(() => {
+    if (data) {
+      console.log("data");
+      setUserVal({ username: data.user.username, id: data.user.id });
+    }
+  }, [data]);
 
   function passFriends(friends: any) {
     setFriends(friends);
@@ -54,3 +81,5 @@ export const HomePage: React.FC = () => {
     return <div>Loading...</div>;
   }
 };
+
+export default compose(graphql(userQuery, { name: "userQuery" }))(HomePage);
