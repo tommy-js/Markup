@@ -8,6 +8,7 @@ import { ApolloProvider } from "react-apollo";
 import { About } from "./components/About";
 import { Contact } from "./components/Contact";
 import { Projects } from "./components/Projects";
+import { Redirect } from "./components/Redirect";
 import Profile from "./components/Profile";
 import ProjectPage from "./components/ProjectPage";
 import { AdminProjectPage } from "./components/AdminProjectPage";
@@ -55,11 +56,14 @@ function App(): JSX.Element {
                 <Route path="/contact">
                   <Contact />
                 </Route>
+                <Route path="/Profile">
+                  <Redirect />
+                </Route>
                 <Route path="/projects">
                   <Projects routeDriller={routeDriller} />
                 </Route>
-                <Route path="/profile">
-                  <Profile adminDriller={adminDriller} />
+                <Route path={`/profile/projects/${userVal.id}`}>
+                  <Profile passedId={userVal.id} adminDriller={adminDriller} />
                 </Route>
                 <Switch>
                   {userProjects.map((el: any) => (

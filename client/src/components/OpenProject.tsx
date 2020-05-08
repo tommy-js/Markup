@@ -40,15 +40,23 @@ const OpenProject: React.FC<Props> = props => {
   }, [data]);
 
   if (!loading) {
-    return (
-      <div className="project_opening">
-        {projects.map((el: any) => (
-          <ProjectListing key={el.id} title={el.title} id={el.id} />
-        ))}
-      </div>
-    );
+    if (projects.length > 0) {
+      return (
+        <div className="project_opening">
+          {projects.map((el: any) => (
+            <ProjectListing key={el.id} title={el.title} id={el.id} />
+          ))}
+        </div>
+      );
+    } else {
+      return (
+        <div className="project_opening">
+          <p className="none_found">None found</p>
+        </div>
+      );
+    }
   } else {
-    return <div>Loading</div>;
+    return <div className="project_opening">Loading</div>;
   }
 };
 

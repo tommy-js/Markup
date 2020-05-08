@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { FriendComp } from "./FriendComp";
 import { userContext } from "../App";
 import { FriendSearch } from "./FriendSearch";
-import { ProfileAccessor } from "./ProfileAccessor";
 import "../App.scss";
 
 interface Props {
@@ -17,7 +16,6 @@ export const FriendList: React.FC<Props> = props => {
     <div className="friend_list">
       <FriendComp passFriends={props.passFriends} />
       <FriendSearch searchingForFriends={props.searchingForFriends} />
-      <ProfileAccessor profileName={userVal.username} />
     </div>
   );
 };

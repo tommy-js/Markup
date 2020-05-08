@@ -11,15 +11,14 @@ function SignUp(props) {
   const [password, setPassword] = useState("");
   const { userVal, setUserVal } = useContext(userContext);
   const [validPassword, setValidPassword] = useState(false);
-  const [validUsername, setValidUsername] = useState(false);
+  const [validUsername, setValidUsername] = useState(true);
   const history = useHistory();
 
   useEffect(() => {
-    if (password.length > 8 && password.includes(`a`)) {
-      setValidPassword(true);
-    }
-    if (username.length > 8) {
-      setValidUsername(true);
+    if (password.length >= 8 && password.includes(`&`)) {
+      if (password.includes(`&`) || password.includes(`%`)) {
+        setValidPassword(true);
+      }
     }
   }, [username, password]);
 
@@ -57,9 +56,12 @@ function SignUp(props) {
         <input
           className="user_input_fields"
           type="text"
-          placeholder="password"
+          placeholder="password*"
           onChange={e => setPassword(e.target.value)}
         />
+        <p className="password_criteria">
+          *At least 8 characters including two or more non-letter characters.
+        </p>
         <button className="sign_in_button" onClick={e => newUser(e)}>
           Create Account
         </button>

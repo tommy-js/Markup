@@ -16,20 +16,22 @@ export const SideSearchBar: React.FC<Props> = props => {
 
   return (
     <div className="side_search_bar">
-      <p>Search Settings</p>
-      <form onSubmit={e => passSearchParams(e)}>
-        <input
-          type="text"
-          value={searchSettings.stack}
-          onChange={e =>
-            setSearchSettings({
-              stack: e.target.value
-            })
-          }
-          placeholder="Stack"
-        />
-        <button>Search</button>
-      </form>
+      <div className="side_search_bar_container">
+        <p>Search Settings</p>
+        <form onSubmit={e => passSearchParams(e)}>
+          <input
+            type="text"
+            value={searchSettings.stack}
+            onChange={e =>
+              setSearchSettings({
+                stack: e.target.value
+              })
+            }
+            placeholder="Stack"
+          />
+          <button>Search</button>
+        </form>
+      </div>
     </div>
   );
 };

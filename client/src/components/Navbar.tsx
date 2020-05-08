@@ -28,7 +28,7 @@ export const Navbar: React.FC = props => {
       <NavLink
         className="nav_item"
         activeClassName="nav_item_active"
-        to="/profile"
+        to={`/profile/projects/${userVal.id}`}
       >
         <div className="middle_align">Profile</div>
       </NavLink>

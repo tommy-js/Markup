@@ -6,10 +6,11 @@ import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
 import { useQuery } from "@apollo/react-hooks";
 import { AdminProjectListing } from "./AdminProjectListing";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 interface Props {
   adminDriller: (userProjects: any) => void;
+  passedId: number;
 }
 
 const Profile: React.FC<Props> = props => {
@@ -18,8 +19,11 @@ const Profile: React.FC<Props> = props => {
   const history = useHistory();
 
   useEffect(() => {
+    let path = "/";
+    if (props.passedId != userVal.id) {
+      history.push(path);
+    }
     if (!userVal.username) {
-      let path = "/";
       history.push(path);
     }
   });
@@ -62,11 +66,19 @@ const Profile: React.FC<Props> = props => {
     <div>
       <Navbar />
       <div className="under_header profile_block">
-        <h2>Your Profile</h2>
-        <h3>
-          {userVal.username} #{userVal.id}
-        </h3>
-        <div>{currentProjects()}</div>
+        <div className="profile_settings">
+          <h2>Your Profile</h2>
+          <h3>
+            {userVal.username} #{userVal.id}
+          </h3>
+          <Link to={`/profile/projects/${userVal.id}`}>
+            <div className="profile_item">Projects</div>
+          </Link>
+          <Link to={`/profile/settings/${userVal.id}`}>
+            <div className="profile_item">Settings</div>
+          </Link>
+        </div>
+        <div className="profile_project_listings">{currentProjects()}</div>
       </div>
     </div>
   );

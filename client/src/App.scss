@@ -8,11 +8,11 @@ html {
 }
 
 @mixin testing {
-  // border: 1px solid red;
+  border: 1px solid red;
 }
 
 @mixin testing2 {
-  // border: 1px solid blue;
+  border: 1px solid blue;
 }
 
 @mixin standardTransition {
@@ -68,6 +68,7 @@ html {
 
 .signup_field {
   text-align: center;
+  font-size: 18px;
   @include page_fields;
 }
 
@@ -405,10 +406,11 @@ input[type="checkbox"] {
   position: relative;
   bottom: 0;
   width: 85%;
+  height: 50px;
   margin-left: auto;
   margin-right: auto;
   padding-top: 15px;
-  @include testing;
+  @include testing2;
 }
 
 .search_user_block {
@@ -765,6 +767,14 @@ input[type="checkbox"] {
   width: 33.3%;
 }
 
+.side_search_bar_container {
+  position: relative;
+  float: right;
+  padding: 10px;
+  margin-right: 15px;
+  @include testing;
+}
+
 .project_opening {
   position: absolute;
   @include testing2;
@@ -821,5 +831,116 @@ input[type="checkbox"] {
 
 .account_creation {
   align-self: center;
+  @include testing2;
+}
+
+.none_found {
+  position: relative;
+  text-align: center;
+  font-size: 22px;
+  font-family: "Roboto", sans-serif;
+}
+
+.add_friend_button {
+  position: absolute;
+  background-color: orange;
+  border: none;
+  right: 0;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  @include fastTransition;
+}
+
+.add_friend_button:hover {
+  background-color: pink;
+  @include fastTransition;
+}
+
+.add_friend_image_container {
+  position: relative;
+  float: right;
+  height: 35px;
+  width: 35px;
+}
+
+.add_friend_image {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.password_criteria {
+  width: 225px;
+  font-size: 14px;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: "Roboto", sans-serif;
+  color: #838383;
+}
+
+.user_info {
+  position: absolute;
+  font-size: 18px;
+  display: inline-block;
+  height: 100%;
+  top: 0;
+  margin-top: 0;
+  font-family: "Roboto", sans-serif;
+  vertical-align: top;
+  @include testing;
+}
+
+.user_main_page {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.user_settings {
+  position: relative;
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  overflow: hidden;
+  vertical-align: middle;
+  margin-left: 10px;
+  cursor: pointer;
+  transform: rotate(0);
+  transition: 0.5s;
+}
+
+.user_settings:hover {
+  animation-name: rotate;
+  transform: rotate(180deg);
+  transition: 0.5s;
+}
+
+.user_settings_button {
+  height: 100%;
+  width: 100%;
+}
+
+.profile_settings {
+  position: fixed;
+  display: inline-block;
+  width: 10%;
+  @include testing2;
+}
+
+.profile_item {
+  position: relative;
+  width: 100%;
+  display: block;
+  height: 40px;
+  border: 1px solid grey;
+  margin-top: 25px;
+}
+
+.profile_project_listings {
+  position: relative;
+  display: inline-block;
+  width: 70%;
+  float: right;
   @include testing2;
 }

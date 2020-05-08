@@ -14,13 +14,21 @@ const TeamTab: React.FC = () => {
   });
 
   if (!loading) {
-    return (
-      <div className="friend_class_container">
-        {userTeammates.map((members: any) => (
-          <Member name={members.name} />
-        ))}
-      </div>
-    );
+    if (userTeammates.length > 0) {
+      return (
+        <div className="friend_class_container">
+          {userTeammates.map((members: any) => (
+            <Member name={members.name} />
+          ))}
+        </div>
+      );
+    } else {
+      return (
+        <div className="friend_class_container task_box">
+          <p className="load_if_empty">Add teammates to start...</p>
+        </div>
+      );
+    }
   } else {
     return <div>Loading...</div>;
   }
