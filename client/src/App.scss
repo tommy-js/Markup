@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  background-color: rgb(244, 244, 244);
 }
 
 html {
@@ -934,7 +935,19 @@ input[type="checkbox"] {
   display: block;
   height: 40px;
   border: 1px solid grey;
+  text-align: center;
+  font-size: 18px;
+  text-decoration: none;
   margin-top: 25px;
+}
+
+.profile_sidebar_navlink {
+  text-decoration: none;
+  color: black;
+}
+
+.profile_sidebar_navlink_active {
+  color: pink;
 }
 
 .profile_project_listings {

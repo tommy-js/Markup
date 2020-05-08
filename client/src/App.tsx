@@ -1,17 +1,17 @@
 import React, { createContext, useState } from "react";
 import "./App.scss";
 import ApolloClient from "apollo-boost";
-import { InitialScreen } from "./components/InitialScreen";
+import { InitialScreen } from "./components/initial/InitialScreen";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { HomePage } from "./components/HomePage";
+import { HomePage } from "./components/homepage/HomePage";
 import { ApolloProvider } from "react-apollo";
-import { About } from "./components/About";
-import { Contact } from "./components/Contact";
-import { Projects } from "./components/Projects";
-import { Redirect } from "./components/Redirect";
-import Profile from "./components/Profile";
-import ProjectPage from "./components/ProjectPage";
-import { AdminProjectPage } from "./components/AdminProjectPage";
+import { About } from "./components/about/About";
+import { Contact } from "./components/contact/Contact";
+import { Projects } from "./components/projects/Projects";
+import { Redirect } from "./components/navigation/Redirect";
+import { Profile } from "./components/profile/Profile";
+import ProjectPage from "./components/projects/ProjectPage";
+import { AdminProjectPage } from "./components/projects/AdminProjectPage";
 
 const client = new ApolloClient({
   uri: "http://localhost:4000/graphql"
@@ -62,7 +62,7 @@ function App(): JSX.Element {
                 <Route path="/projects">
                   <Projects routeDriller={routeDriller} />
                 </Route>
-                <Route path={`/profile/projects/${userVal.id}`}>
+                <Route path={`/profile`}>
                   <Profile passedId={userVal.id} adminDriller={adminDriller} />
                 </Route>
                 <Switch>
