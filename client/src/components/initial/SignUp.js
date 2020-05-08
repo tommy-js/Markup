@@ -5,6 +5,7 @@ import { addUserMutation } from "../../queries/queries";
 import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
 import { userContext } from "../../App";
+import { useCookies } from "react-cookie";
 
 function SignUp(props) {
   const [username, setUsername] = useState("");
@@ -13,6 +14,7 @@ function SignUp(props) {
   const [validPassword, setValidPassword] = useState(false);
   const [validUsername, setValidUsername] = useState(true);
   const history = useHistory();
+  const [cookies, setCookie] = useCookies("SESS_ID");
 
   useEffect(() => {
     if (password.length >= 8 && password.includes(`&`)) {
@@ -34,6 +36,7 @@ function SignUp(props) {
         }
       });
       setUserVal({ username: username, password: password, id: id });
+      setCookie("SESS_ID", username, { path: "/" });
       logIn();
     }
   }
