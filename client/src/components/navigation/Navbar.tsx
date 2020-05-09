@@ -3,15 +3,20 @@ import { NavLink, useHistory } from "react-router-dom";
 import favicon from "../../icons/favicon-32x32.png";
 import "../../App.scss";
 import { userContext } from "../../App";
+import Cookies from "universal-cookie";
+import { CookiesProvider, useCookies } from "react-cookie";
 
 export const Navbar: React.FC = props => {
   const { userVal, setUserVal } = useContext(userContext);
   const history = useHistory();
+  const cookies = new Cookies();
 
   function logOut() {
     setUserVal();
     let path = "/";
     history.push(path);
+    cookies.remove("SESS_ID");
+    cookies.remove("SESS_KEY");
   }
 
   return (
