@@ -1,0 +1,59 @@
+@import "../../utils.scss";
+
+.navbar {
+  position: fixed;
+  height: 40px;
+  width: 100%;
+  top: 0;
+  z-index: 99;
+  background-color: grey;
+}
+
+.nav_item {
+  position: relative;
+  display: inline-block;
+  margin-left: 15px;
+  margin-right: 15px;
+  color: black;
+  font-size: 18px;
+  text-decoration: none;
+  height: 40px;
+  vertical-align: middle;
+  cursor: pointer;
+  @include testing;
+  @include fastTransition;
+}
+
+.nav_item:hover {
+  color: pink;
+  @include fastTransition;
+}
+
+.nav_item_active {
+  color: pink;
+}
+
+.header_image_block {
+  width: 30px;
+  height: 30px;
+  margin-top: 5px;
+  vertical-align: middle;
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.header_image {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  vertical-align: middle;
+}
+
+.middle_align {
+  position: relative;
+  display: inline-block;
+  height: 20px;
+  vertical-align: middle;
+  @include testing;
+}

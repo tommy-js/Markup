@@ -1,0 +1,59 @@
+@import "../../utils";
+
+.project_opening {
+  position: absolute;
+  @include testing2;
+  width: 33.3%;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+}
+
+.open_project {
+  position: relative;
+  width: 80%;
+  display: block;
+  height: 200px;
+  @include testing;
+}
+
+.none_found {
+  position: relative;
+  text-align: center;
+  font-size: 22px;
+  font-family: "Roboto", sans-serif;
+}
+
+.project_main {
+  height: 2000px;
+}
+
+.project_header {
+  position: relative;
+  text-align: center;
+  margin-top: 40px;
+  @include testing;
+  height: 120px;
+  background-color: pink;
+}
+
+.under_carriage {
+  position: relative;
+}
+
+.side_search_bar {
+  position: fixed;
+  display: inline-block;
+  float: left;
+  @include testing;
+  width: 33.3%;
+}
+
+.side_search_bar_container {
+  position: relative;
+  float: right;
+  padding: 10px;
+  margin-right: 15px;
+  @include testing;
+}
