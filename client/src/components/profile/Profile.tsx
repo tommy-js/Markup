@@ -31,7 +31,6 @@ const Profile: React.FC<Props> = props => {
         let sessionid = cookies.get("SESS_ID");
         let key = cookies.get("SESS_KEY").toString();
         let dec = aes256.decrypt(key, sessionid);
-        console.log(dec);
         passInUser({
           variables: {
             username: dec
@@ -44,6 +43,12 @@ const Profile: React.FC<Props> = props => {
       }
     }
   }, []);
+
+  useEffect(() => {
+    if (data) {
+      setUserVal({ username: data.user.username, id: data.user.id });
+    }
+  }, [data]);
 
   return (
     <div>

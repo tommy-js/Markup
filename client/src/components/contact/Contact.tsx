@@ -18,6 +18,7 @@ const Contact: React.FC = () => {
   const history = useHistory();
   const { loggedIn, setLoggedIn } = useContext(loggedInContext);
   const [passInUser, { data, loading }] = useLazyQuery(userQuery);
+  const { userVal, setUserVal } = useContext(userContext);
   const cookies = new Cookies();
 
   useEffect(() => {
@@ -39,6 +40,12 @@ const Contact: React.FC = () => {
       }
     }
   }, []);
+
+  useEffect(() => {
+    if (data) {
+      setUserVal({ username: data.user.username, id: data.user.id });
+    }
+  }, [data]);
 
   return (
     <div>

@@ -3,6 +3,7 @@ import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
 import { addTeammateMutation } from "../../../queries/queries";
 import { teammateContext } from "../../../App";
+import addToTeammates from "../../../icons/add_to_teammates.png";
 import "../../../App.scss";
 
 interface Props {
@@ -38,7 +39,9 @@ const AddTeammateButton: React.FC<Props> = props => {
 
   return (
     <button className="remove_friend_button" onClick={() => addTeammate()}>
-      Add Teammate
+      <div className="add_to_teammates_container">
+        <img className="add_to_teammates_image" src={addToTeammates} />
+      </div>
     </button>
   );
 };

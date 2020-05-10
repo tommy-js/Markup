@@ -11,15 +11,22 @@
 .remove_friend_button {
   position: relative;
   display: inline-block;
+  vertical-align: top;
   margin-left: 5px;
-  width: 15%;
+  height: 25px;
+  width: 25px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.remove_friend_button:hover {
+  background-color: teal;
 }
 
 .person_container {
   position: relative;
-  width: 175px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  width: 95%;
   margin-left: auto;
   margin-right: auto;
 }
@@ -28,15 +35,22 @@
   color: black;
   display: inline-block;
   text-decoration: none;
+  width: 100%;
 }
 
 .person {
   position: relative;
-  width: 85%;
-  border-radius: 5px;
+  display: inline-block;
+  width: 95%;
   padding: 10px;
-  background-color: #c24e3d;
+  border-bottom: 1px solid grey;
   cursor: pointer;
+  transition: 0.6s;
+}
+
+.person:hover {
+  background-color: orange;
+  transition: 0.6s;
 }
 
 .person_comp {
@@ -173,7 +187,7 @@
   overflow-y: scroll;
   scrollbar-width: thin;
   scrollbar-color: #ffcbec #fff4fb;
-  @include testing2;
+  border-right: 1px dashed grey;
 }
 
 .load_if_empty {
@@ -195,10 +209,7 @@
   vertical-align: middle;
   margin-left: auto;
   margin-right: auto;
-  width: 85%;
   min-width: 300px;
-  height: 100%;
-  @include testing;
 }
 
 .task_box:hover .load_if_empty {
@@ -547,4 +558,24 @@
   overflow-x: hidden;
   scrollbar-width: thin;
   scrollbar-color: #ffcbec #fff4fb;
+}
+
+.remove_team_button {
+  position: relative;
+  display: inline-block;
+}
+
+.add_to_teammates_container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 25px;
+  height: 25px;
+  overflow: hidden;
+}
+
+.add_to_teammates_image {
+  position: relative;
+  width: 100%;
+  height: 100%;
 }

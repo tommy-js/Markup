@@ -18,18 +18,18 @@ export const Friend: React.FC<Props> = props => {
           <span>
             {props.name} #{props.id}
           </span>
+          <AddTeammateButton
+            name={props.name}
+            id={props.id}
+            userId={props.userId}
+          />
+          <RemoveFriendButton
+            name={props.name}
+            id={props.id}
+            userId={props.userId}
+          />
         </div>
       </Link>
-      <AddTeammateButton
-        name={props.name}
-        id={props.id}
-        userId={props.userId}
-      />
-      <RemoveFriendButton
-        name={props.name}
-        id={props.id}
-        userId={props.userId}
-      />
     </div>
   );
 };
