@@ -6,7 +6,7 @@ import "../../../App.scss";
 import { Link } from "react-router-dom";
 
 interface Props {
-  searchingForFriends: () => void;
+  searchingForFriends: (searching: boolean) => void;
 }
 
 export const FriendSearch: React.FC<Props> = props => {
@@ -14,7 +14,7 @@ export const FriendSearch: React.FC<Props> = props => {
   const { userVal, setUserVal } = useContext(userContext);
 
   function searchFriends() {
-    props.searchingForFriends();
+    props.searchingForFriends(true);
   }
 
   return (

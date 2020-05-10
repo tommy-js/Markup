@@ -58,8 +58,8 @@ const HomePage: React.FC = () => {
     setFriends(friends);
   }
 
-  function searchingForFriends() {
-    setSearching(true);
+  function searchingForFriends(searching: boolean) {
+    setSearching(searching);
   }
 
   function viewMessages() {

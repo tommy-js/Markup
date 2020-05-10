@@ -18,7 +18,6 @@ export const MessageViewer: React.FC<Props> = props => {
   if (props.searching) {
     return (
       <div className="message_viewer">
-        <button onClick={() => backButton()}>Back</button>
         <SearchForUser />
       </div>
     );

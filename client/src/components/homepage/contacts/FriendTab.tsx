@@ -9,6 +9,7 @@ import { friendContext, teammateContext } from "../../../App";
 import "../../../App.scss";
 
 interface Props {
+  searchingForFriends: (searching: boolean) => void;
   passFriends: (friends: any) => void;
 }
 
@@ -38,6 +39,7 @@ const FriendTab: React.FC<Props> = props => {
               id={person.id}
               name={person.name}
               userId={userVal.id}
+              searchingForFriends={props.searchingForFriends}
             />
           ))}
         </div>

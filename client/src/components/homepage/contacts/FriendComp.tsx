@@ -4,6 +4,7 @@ import TeamTab from "./TeamTab";
 import "../../../App.scss";
 
 interface Props {
+  searchingForFriends: (searching: boolean) => void;
   passFriends: (friends: any) => void;
 }
 
@@ -24,7 +25,10 @@ export const FriendComp: React.FC<Props> = props => {
           >
             Teammates
           </button>
-          <FriendTab passFriends={props.passFriends} />
+          <FriendTab
+            passFriends={props.passFriends}
+            searchingForFriends={props.searchingForFriends}
+          />
         </div>
       </div>
     );
