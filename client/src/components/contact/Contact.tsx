@@ -2,21 +2,43 @@ import React, { useEffect, useContext, useState } from "react";
 import { Navbar } from "../navigation/Navbar";
 import { userContext } from "../../App";
 import { useHistory } from "react-router-dom";
+import Cookies from "universal-cookie";
+import { userQuery } from "../../queries/queries";
+import { flowRight as compose } from "lodash";
+import { graphql } from "react-apollo";
+import { useLazyQuery } from "@apollo/react-hooks";
+import { loggedInContext } from "../../App";
+const aes256 = require("aes256");
 
-export const Contact: React.FC = () => {
+const Contact: React.FC = () => {
   function sendContactInfo() {
     // This function sends to administrator dashboard
   }
 
   const history = useHistory();
-  const { userVal, setUserVal } = useContext(userContext);
+  const { loggedIn, setLoggedIn } = useContext(loggedInContext);
+  const [passInUser, { data, loading }] = useLazyQuery(userQuery);
+  const cookies = new Cookies();
 
   useEffect(() => {
-    if (!userVal.username) {
-      let path = "/";
-      history.push(path);
+    if (!loggedIn) {
+      if (cookies.get("SESS_ID") && cookies.get("SESS_KEY")) {
+        let sessionid = cookies.get("SESS_ID");
+        let key = cookies.get("SESS_KEY").toString();
+        let dec = aes256.decrypt(key, sessionid);
+        console.log(dec);
+        passInUser({
+          variables: {
+            username: dec
+          }
+        });
+        setLoggedIn(true);
+      } else {
+        let path = "/";
+        history.push(path);
+      }
     }
-  });
+  }, []);
 
   return (
     <div>
@@ -46,3 +68,5 @@ export const Contact: React.FC = () => {
     </div>
   );
 };
+
+export default compose(graphql(userQuery, { name: "userQuery" }))(Contact);

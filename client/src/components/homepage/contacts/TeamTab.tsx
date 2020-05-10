@@ -13,12 +13,18 @@ const TeamTab: React.FC = () => {
     variables: { username: userVal.username }
   });
 
+  useEffect(() => {
+    if (!loading) {
+      setUserTeammates(data.user.teammates);
+    }
+  }, [data]);
+
   if (!loading) {
     if (userTeammates.length > 0) {
       return (
         <div className="friend_class_container">
           {userTeammates.map((members: any) => (
-            <Member name={members.name} />
+            <Member name={members.name} id={members.id} userId={userVal.id} />
           ))}
         </div>
       );

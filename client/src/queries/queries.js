@@ -190,6 +190,15 @@ const removeFriendMutation = gql`
   }
 `;
 
+const removeTeammateMutation = gql`
+  mutation($userId: ID!, $id: ID!) {
+    removeTeammate(userId: $userId, id: $id) {
+      userId
+      id
+    }
+  }
+`;
+
 const addUserMutation = gql`
   mutation($id: ID!, $username: String!, $password: String!) {
     addUser(id: $id, username: $username, password: $password) {
@@ -259,6 +268,7 @@ export {
   addTeammateMutation,
   addProjectMutation,
   removeFriendMutation,
+  removeTeammateMutation,
   addProjectUserMutation,
   addSessionIDMutation
 };

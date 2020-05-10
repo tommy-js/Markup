@@ -4,9 +4,8 @@ import favicon from "../../icons/favicon-32x32.png";
 import "../../App.scss";
 import { userContext } from "../../App";
 import Cookies from "universal-cookie";
-import { CookiesProvider, useCookies } from "react-cookie";
 
-export const Navbar: React.FC = props => {
+export const Navbar: React.FC = () => {
   const { userVal, setUserVal } = useContext(userContext);
   const history = useHistory();
   const cookies = new Cookies();

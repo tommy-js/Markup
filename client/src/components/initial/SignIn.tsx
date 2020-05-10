@@ -6,6 +6,7 @@ import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
 import { useLazyQuery } from "@apollo/react-hooks";
 import { userContext } from "../../App";
+import { loggedInContext } from "../../App";
 
 interface Props {
   userQuery: (variables: string) => object;
@@ -17,6 +18,7 @@ const SignIn: React.FC<Props> = props => {
   const [passUser, { loading, data }] = useLazyQuery(userQuery);
   const [user, setUser] = useState(null);
   const { userVal, setUserVal } = useContext(userContext);
+  const { loggedIn, setLoggedIn } = useContext(loggedInContext);
   const history = useHistory();
 
   if (data && data.username) {
@@ -33,6 +35,7 @@ const SignIn: React.FC<Props> = props => {
           password: user.password,
           id: user.id
         });
+        setLoggedIn(true);
         logIn();
       } else {
         // setBordering("1px solid red");
