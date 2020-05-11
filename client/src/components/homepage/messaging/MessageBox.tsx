@@ -6,6 +6,7 @@ import { userContext } from "../../../App";
 import { getMessageQuery } from "../../../queries/queries";
 import { useQuery } from "@apollo/react-hooks";
 import InputBox from "./InputBox.js";
+import { InitialBox } from "./InitialBox";
 import "../../../App.scss";
 
 interface Props {
@@ -61,21 +62,23 @@ const MessageBox: React.FC<Props> = props => {
     refetch();
   }
 
+  if (recMessage.length == 0 && userMessages.length == 0) {
+    return (
+      <div>
+        <div className="message_container">
+          <p className="start_of_messages">
+            This is the start of your messages...
+          </p>
+        </div>
+        <InputBox userId={props.id} refetchQuery={refetchQuery} />
+      </div>
+    );
+  }
   if (!loading1 && !loading2) {
-    if (sortedArray.length == 0) {
+    if (sortedArray.length < 1) {
       return (
         <div className="message_box">
-          <div className="message_box_information_header">
-            Welcome to <span className="info_header_span">Saturnia!</span>
-          </div>
-          <div className="message_box_under_info">
-            <span className="info_header_span">Saturnia</span> is a website
-            aimed at providing new software engineers with the experience they
-            need in order to get into the job market. To get started, add a
-            friend to your left, or a task to your right. If you're interested
-            in seeing currently available projects, check out the "projects
-            page" above.
-          </div>
+          <InitialBox />
         </div>
       );
     } else {
