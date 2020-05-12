@@ -31,6 +31,7 @@ const UserQuery = new GraphQLObjectType({
     id: { type: GraphQLID },
     username: { type: GraphQLString },
     password: { type: GraphQLString },
+    salt: { type: GraphQLString },
     friends: { type: new GraphQLList(FriendQuery) },
     teammates: { type: new GraphQLList(FriendQuery) },
     tasks: { type: new GraphQLList(TaskQuery) },
@@ -147,13 +148,15 @@ const Mutation = new GraphQLObjectType({
       args: {
         id: { type: GraphQLID },
         username: { type: GraphQLString },
-        password: { type: GraphQLString }
+        password: { type: GraphQLString },
+        salt: { type: GraphQLString }
       },
       resolve(parent, args) {
         let newUser = new User({
           id: args.id,
           username: args.username,
-          password: args.password
+          password: args.password,
+          salt: args.salt
         });
         return newUser.save();
       }

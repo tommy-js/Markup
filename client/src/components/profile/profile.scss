@@ -43,3 +43,11 @@
 .profile_sidebar_navlink_active {
   color: pink;
 }
+
+.profile_contact {
+  position: relative;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  @include testing;
+}

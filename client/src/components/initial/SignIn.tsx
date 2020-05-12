@@ -7,6 +7,7 @@ import { graphql } from "react-apollo";
 import { useLazyQuery } from "@apollo/react-hooks";
 import { userContext } from "../../App";
 import { loggedInContext } from "../../App";
+const bcrypt = require("bcryptjs");
 
 interface Props {
   userQuery: (variables: string) => object;
@@ -28,8 +29,9 @@ const SignIn: React.FC<Props> = props => {
   useEffect(() => {
     if (data) {
       let { user } = data;
-      if (user.password == password) {
-        // setBordering("1px solid blue");
+      let hash = user.password;
+      let comparison = bcrypt.compareSync(password, hash);
+      if (comparison) {
         setUserVal({
           username: user.username,
           password: user.password,

@@ -25,6 +25,13 @@ export const ProfileSidebar: React.FC = () => {
       >
         <div className="profile_item">Settings</div>
       </NavLink>
+      <NavLink
+        className="profile_sidebar_navlink"
+        activeClassName="profile_sidebar_navlink_active"
+        to={`/profile/contact/${userVal.id}`}
+      >
+        <div className="profile_item">Contact</div>
+      </NavLink>
     </div>
   );
 };

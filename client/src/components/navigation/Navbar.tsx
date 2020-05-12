@@ -50,13 +50,6 @@ export const Navbar: React.FC = () => {
       >
         <div className="middle_align">About</div>
       </NavLink>
-      <NavLink
-        className="nav_item"
-        activeClassName="nav_item_active"
-        to="/contact"
-      >
-        <div className="middle_align">Contact</div>
-      </NavLink>
       <div onClick={() => logOut()} className="nav_item">
         <div className="middle_align">Log Out</div>
       </div>

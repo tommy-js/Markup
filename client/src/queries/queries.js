@@ -200,11 +200,12 @@ const removeTeammateMutation = gql`
 `;
 
 const addUserMutation = gql`
-  mutation($id: ID!, $username: String!, $password: String!) {
-    addUser(id: $id, username: $username, password: $password) {
+  mutation($id: ID!, $username: String!, $password: String!, $salt: String!) {
+    addUser(id: $id, username: $username, password: $password, salt: $salt) {
       id
       username
       password
+      salt
       friends {
         id
         name

@@ -7,6 +7,7 @@ import { graphql } from "react-apollo";
 import { userContext } from "../../App";
 import { useCookies } from "react-cookie";
 const aes256 = require("aes256");
+const bcrypt = require("bcryptjs");
 
 function SignUp(props) {
   const [username, setUsername] = useState("");
@@ -29,11 +30,14 @@ function SignUp(props) {
     e.preventDefault();
     if (validPassword && validUsername) {
       let id = Math.floor(Math.random() * 1000000000);
+      var salt = bcrypt.genSaltSync(10);
+      var hash = bcrypt.hashSync(password, salt);
       props.addUserMutation({
         variables: {
           id: id,
           username: username,
-          password: password
+          password: hash,
+          salt: salt
         }
       });
       setUserVal({ username: username, password: password, id: id });
