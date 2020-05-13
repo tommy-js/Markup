@@ -7,7 +7,9 @@ import { graphql } from "react-apollo";
 import { useLazyQuery } from "@apollo/react-hooks";
 import { userContext } from "../../App";
 import { loggedInContext } from "../../App";
+import { useCookies } from "react-cookie";
 const bcrypt = require("bcryptjs");
+const aes256 = require("aes256");
 
 interface Props {
   userQuery: (variables: string) => object;
@@ -21,6 +23,7 @@ const SignIn: React.FC<Props> = props => {
   const { userVal, setUserVal } = useContext(userContext);
   const { loggedIn, setLoggedIn } = useContext(loggedInContext);
   const history = useHistory();
+  const [cookies, setCookie] = useCookies(["SESS_ID", "SESS_KEY"]);
 
   if (data && data.username) {
     setUser(data);
@@ -37,6 +40,11 @@ const SignIn: React.FC<Props> = props => {
           password: user.password,
           id: user.id
         });
+        let strId = user.id;
+        let plain = username;
+        let encrypted = aes256.encrypt(strId, plain);
+        setCookie("SESS_ID", encrypted, { path: "/" });
+        setCookie("SESS_KEY", strId, { path: "/" });
         setLoggedIn(true);
         logIn();
       } else {
