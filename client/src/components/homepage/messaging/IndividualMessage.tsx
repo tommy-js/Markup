@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import edit from "../../../icons/edit.png";
 
 interface Props {
   message: string;
@@ -16,7 +17,7 @@ export const IndividualMessage: React.FC<Props> = props => {
   useEffect(() => {
     if (props.userid == props.sender) {
       setMessageColor("#ffdfee");
-      setUserLabel({ label: "You:", color: "#BBBBBB" });
+      setUserLabel({ label: "You: ", color: "#BBBBBB" });
     } else {
       setMessageColor("#e3f7ff");
       setUserLabel({ label: `#${props.sender.toString()}:`, color: "#a1a1a1" });
@@ -46,15 +47,20 @@ export const IndividualMessage: React.FC<Props> = props => {
   }, []);
 
   return (
-    <div>
-      <p
-        style={{ backgroundColor: messageColor }}
-        className="individual_message"
-      >
+    <div
+      style={{ backgroundColor: messageColor }}
+      className="individual_message"
+    >
+      <div className="message">
         <span style={{ color: userLabel.color }}>{userLabel.label}</span>
         {props.message}
+      </div>
+      <div className="right_align">
+        <span className="message_edit_button">
+          <img src={edit} className="edit_image" />
+        </span>
         <span className="message_timestamp">{time}</span>
-      </p>
+      </div>
     </div>
   );
 };

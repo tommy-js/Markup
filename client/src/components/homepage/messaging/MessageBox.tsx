@@ -32,8 +32,7 @@ const MessageBox: React.FC<Props> = props => {
     variables: {
       toId: userVal.id,
       fromId: props.id
-    },
-    pollInterval: 200
+    }
   });
 
   useEffect(() => {
@@ -105,6 +104,9 @@ const MessageBox: React.FC<Props> = props => {
   }
 };
 
-export default compose(graphql(getMessageQuery, { name: "getMessages" }))(
-  MessageBox
-);
+export default compose(
+  graphql(getMessageQuery, {
+    name: "getMessages",
+    options: { pollInterval: 200 }
+  })
+)(MessageBox);
