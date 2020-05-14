@@ -11,7 +11,8 @@ const userSchema = new Schema({
   tasks: [{ id: Number, content: String }],
   userprojects: [
     { id: Number, content: String, title: String, timestamp: Number }
-  ]
+  ],
+  usersettings: [{ savedata: Boolean }]
 });
 
 module.exports = mongoose.model("User", userSchema);

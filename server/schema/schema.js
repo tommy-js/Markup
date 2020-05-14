@@ -5,6 +5,7 @@ const {
   GraphQLID,
   GraphQLSchema,
   GraphQLList,
+  GraphQLBoolean,
   GraphQLInt
 } = graphql;
 const Message = require("../models/messages");
@@ -25,6 +26,13 @@ const MessageQuery = new GraphQLObjectType({
   })
 });
 
+const SettingsQuery = new GraphQLObjectType({
+  name: "Settings",
+  fields: () => ({
+    savedata: { type: GraphQLBoolean }
+  })
+});
+
 const UserQuery = new GraphQLObjectType({
   name: "User",
   fields: () => ({
@@ -35,7 +43,8 @@ const UserQuery = new GraphQLObjectType({
     friends: { type: new GraphQLList(FriendQuery) },
     teammates: { type: new GraphQLList(FriendQuery) },
     tasks: { type: new GraphQLList(TaskQuery) },
-    userprojects: { type: new GraphQLList(ProjectQuery) }
+    userprojects: { type: new GraphQLList(ProjectQuery) },
+    usersettings: { type: new GraphQLList(SettingsQuery) }
   })
 });
 

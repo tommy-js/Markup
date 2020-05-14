@@ -59,6 +59,9 @@ const userQuery = gql`
         title
         content
       }
+      usersettings {
+        savedata
+      }
     }
   }
 `;
@@ -233,6 +236,9 @@ const addUserMutation = gql`
         timestamp
         title
         content
+      }
+      usersettings {
+        savedata
       }
     }
   }

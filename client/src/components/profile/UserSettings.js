@@ -1,21 +1,29 @@
 import React, { useState } from "react";
 
-export const UserSettings: React.FC = () => {
-  const [saveData, setSaveData] = useState(false);
+export const UserSettings = () => {
+  const [saveData, setSaveData] = useState(true);
+
+  function submitForm() {
+    if (saveData === false) {
+    }
+  }
 
   return (
     <div className="profile_settings_block">
       <h2 className="profile_settings_header">Settings</h2>
       <div className="profile_setting_option">
-        <form>
+        <form onSubmit={() => submitForm()}>
           <input
             className="setting_checkbox"
+            name="save_user_data"
             type="checkbox"
             checked={saveData}
             onChange={() => setSaveData(!saveData)}
           />
-          <label className="setting_spec">Save User Info</label>
-          <button>Save Settings</button>
+          <label htmlFor="save_user_data" className="setting_spec">
+            Save User Login
+          </label>
+          <button className="save_settings_button">Save Settings</button>
         </form>
       </div>
     </div>
