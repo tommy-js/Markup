@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { IndividualMessage } from "./IndividualMessage";
+import IndividualMessage from "./IndividualMessage";
 import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
 import { userContext } from "../../../App";
@@ -92,6 +92,7 @@ const MessageBox: React.FC<Props> = props => {
                 key={Math.floor(Math.random() * 10000)}
                 message={messages.content}
                 timestamp={messages.timestamp}
+                id={messages.id}
               />
             ))}
           </div>

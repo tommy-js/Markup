@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
 import edit from "../../../icons/edit.png";
+import check from "../../../icons/checkmark.png";
+import { flowRight as compose } from "lodash";
+import { graphql } from "react-apollo";
+import { changeMessageMutation } from "../../../queries/queries";
 
 interface Props {
   message: string;
@@ -7,12 +11,17 @@ interface Props {
   userid: number;
   receiver: number;
   timestamp: number;
+  id: number;
+  changeMessageMutation: (variables: object) => void;
 }
 
-export const IndividualMessage: React.FC<Props> = props => {
+const IndividualMessage: React.FC<Props> = props => {
   const [messageColor, setMessageColor] = useState();
   const [userLabel, setUserLabel] = useState({ label: "", color: "" });
   const [time, setTime] = useState("");
+  const [editing, setEditing] = useState(false);
+  const [image, setImage] = useState(edit);
+  const [modMessage, setModMessage] = useState(props.message);
 
   useEffect(() => {
     if (props.userid == props.sender) {
@@ -46,6 +55,38 @@ export const IndividualMessage: React.FC<Props> = props => {
     }
   }, []);
 
+  function checkEditing() {
+    if (editing) {
+      return (
+        <div>
+          <input
+            type="text"
+            value={modMessage}
+            onChange={e => setModMessage(e.target.value)}
+          />
+        </div>
+      );
+    } else {
+      return <div>{props.message}</div>;
+    }
+  }
+
+  function modEdits() {
+    setEditing(!editing);
+    console.log(props.id);
+    if (editing === false) {
+      setImage(check);
+    } else if (editing === true) {
+      props.changeMessageMutation({
+        variables: {
+          id: props.id,
+          content: modMessage
+        }
+      });
+      setImage(edit);
+    }
+  }
+
   return (
     <div
       style={{ backgroundColor: messageColor }}
@@ -53,14 +94,18 @@ export const IndividualMessage: React.FC<Props> = props => {
     >
       <div className="message">
         <span style={{ color: userLabel.color }}>{userLabel.label}</span>
-        {props.message}
+        {checkEditing()}
       </div>
       <div className="right_align">
-        <span className="message_edit_button">
-          <img src={edit} className="edit_image" />
+        <span className="message_edit_button" onClick={() => modEdits()}>
+          <img src={image} className="edit_image" />
         </span>
         <span className="message_timestamp">{time}</span>
       </div>
     </div>
   );
 };
+
+export default compose(
+  graphql(changeMessageMutation, { name: "changeMessageMutation" })
+)(IndividualMessage);

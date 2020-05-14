@@ -34,6 +34,7 @@ const SignIn: React.FC<Props> = props => {
       let { user } = data;
       let hash = user.password;
       let comparison = bcrypt.compareSync(password, hash);
+      console.log(comparison);
       if (comparison) {
         setUserVal({
           username: user.username,

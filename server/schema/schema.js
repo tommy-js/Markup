@@ -231,6 +231,20 @@ const Mutation = new GraphQLObjectType({
         );
       }
     },
+    changeMessage: {
+      type: MessageQuery,
+      args: {
+        id: { type: GraphQLID },
+        content: { type: GraphQLString }
+      },
+      resolve(parent, args) {
+        return Message.findOneAndUpdate(
+          { id: args.id },
+          { $set: { content: args.content } },
+          { upsert: true, new: true }
+        );
+      }
+    },
     addUserProject: {
       type: ProjectQuery,
       args: {

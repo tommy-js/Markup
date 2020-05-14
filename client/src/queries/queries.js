@@ -16,6 +16,7 @@ const getMessageQuery = gql`
       from
       content
       timestamp
+      id
     }
   }
 `;
@@ -151,6 +152,15 @@ const addMessageMutation = gql`
   }
 `;
 
+const changeMessageMutation = gql`
+  mutation($content: String!, $id: ID!) {
+    changeMessage(content: $content, id: $id) {
+      content
+      id
+    }
+  }
+`;
+
 const addTaskMutation = gql`
   mutation($id: ID!, $userId: ID!, $content: String!) {
     addTask(id: $id, userId: $userId, content: $content) {
@@ -266,6 +276,7 @@ export {
   addUserMutation,
   removeTaskMutation,
   addFriendMutation,
+  changeMessageMutation,
   addTeammateMutation,
   addProjectMutation,
   removeFriendMutation,
