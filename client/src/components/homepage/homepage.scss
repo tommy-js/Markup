@@ -594,8 +594,11 @@
 }
 
 .message {
+  position: relative;
   width: 80%;
   display: inline-block;
+  font-size: 16px;
+  vertical-align: top;
   // @include testing;
 }
 
@@ -627,4 +630,16 @@
 .message_timestamp {
   position: relative;
   vertical-align: top;
+}
+
+.change_message_input {
+  width: 100%;
+  resize: none;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid grey;
+}
+
+.inner_message_container {
+  display: inline-block;
 }

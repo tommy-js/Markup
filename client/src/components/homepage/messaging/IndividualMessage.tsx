@@ -58,16 +58,16 @@ const IndividualMessage: React.FC<Props> = props => {
   function checkEditing() {
     if (editing) {
       return (
-        <div>
-          <input
-            type="text"
+        <div className="inner_message_container">
+          <textarea
+            className="change_message_input"
             value={modMessage}
             onChange={e => setModMessage(e.target.value)}
           />
         </div>
       );
     } else {
-      return <div>{props.message}</div>;
+      return <div className="inner_message_container">{props.message}</div>;
     }
   }
 

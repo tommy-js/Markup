@@ -45,10 +45,6 @@ const HomePage: React.FC = () => {
         history.push(path);
       }
     }
-    if (!userVal) {
-      let path = "/";
-      history.push(path);
-    }
   }, []);
 
   useEffect(() => {
