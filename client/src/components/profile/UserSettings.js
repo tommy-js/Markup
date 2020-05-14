@@ -1,6 +1,13 @@
 import React, { useState } from "react";
+import Cookies from "universal-cookie";
+import { userQuery } from "../../queries/queries";
+import { flowRight as compose } from "lodash";
+import { graphql } from "react-apollo";
+import { useLazyQuery } from "@apollo/react-hooks";
+import { useHistory, Link, Route } from "react-router-dom";
+const aes256 = require("aes256");
 
-export const UserSettings = () => {
+const UserSettings = () => {
   const [saveData, setSaveData] = useState(true);
 
   function submitForm() {
@@ -29,3 +36,5 @@ export const UserSettings = () => {
     </div>
   );
 };
+
+export default UserSettings;

@@ -5,7 +5,6 @@ import { flowRight as compose } from "lodash";
 import { addMessageMutation } from "../../../queries/queries";
 import { userContext } from "../../../App";
 import send from "../../../icons/send.png";
-import enter from "../../../icons/enter.png";
 
 function InputBox(props) {
   const [userInput, setUserInput] = useState("");
@@ -35,8 +34,11 @@ function InputBox(props) {
         placeholder="Enter text..."
       />
       <div className="div_message_input_box_button">
-        <button className="div_message_button div_button_top">
-          <img src={enter} className="send_enter_button" />
+        <button
+          onClick={() => props.entryButton(true)}
+          className="div_message_button div_button_top"
+        >
+          <img src={props.entryImage} className="send_enter_button" />
         </button>
         <button
           className="div_message_button div_button_bottom"

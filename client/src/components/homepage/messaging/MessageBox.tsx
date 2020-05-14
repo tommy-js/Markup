@@ -7,6 +7,8 @@ import { getMessageQuery } from "../../../queries/queries";
 import { useQuery } from "@apollo/react-hooks";
 import InputBox from "./InputBox.js";
 import { InitialBox } from "./InitialBox";
+import alphabet from "../../../icons/alphabet.png";
+import addCode from "../../../icons/code.png";
 import "../../../App.scss";
 
 interface Props {
@@ -21,6 +23,8 @@ const MessageBox: React.FC<Props> = props => {
   ]);
   const [recMessage, setRecMessage] = useState([]);
   const [sortedArray, setSortedArray] = useState([]);
+  const [val, setVal] = useState(false);
+  const [entryImage, setEntryImage] = useState(addCode);
   const { userVal, setUserVal } = useContext(userContext);
   const { loading: loading1, data: data1, refetch } = useQuery(
     getMessageQuery,
@@ -57,8 +61,34 @@ const MessageBox: React.FC<Props> = props => {
     setSortedArray(matrixArray);
   }
 
+  function entryButton(checkVal: boolean) {
+    if (entryImage === alphabet) {
+      setEntryImage(addCode);
+      setVal(checkVal);
+      console.log(checkVal);
+    } else if (entryImage === addCode) {
+      setEntryImage(alphabet);
+      setVal(checkVal);
+      console.log(checkVal);
+    }
+  }
+
   function refetchQuery() {
     refetch();
+  }
+
+  function modal() {
+    if (val === true) {
+      return (
+        <div className="code_modal">
+          <textarea className="code_modal_textarea" />
+          <button onClick={() => entryButton(false)}>x</button>
+          <button>Save</button>
+        </div>
+      );
+    } else {
+      return null;
+    }
   }
 
   if (recMessage.length == 0 && userMessages.length == 0) {
@@ -83,6 +113,7 @@ const MessageBox: React.FC<Props> = props => {
     } else {
       return (
         <div className="message_box">
+          {modal()}
           <div className="message_container">
             {sortedArray.map((messages: any) => (
               <IndividualMessage
@@ -96,7 +127,13 @@ const MessageBox: React.FC<Props> = props => {
               />
             ))}
           </div>
-          <InputBox userId={props.id} refetchQuery={refetchQuery} />
+          <InputBox
+            userId={props.id}
+            refetchQuery={refetchQuery}
+            val={val}
+            entryImage={entryImage}
+            entryButton={entryButton}
+          />
         </div>
       );
     }
