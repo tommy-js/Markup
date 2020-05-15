@@ -16,8 +16,7 @@ interface Props {
 }
 
 const IndividualMessage: React.FC<Props> = props => {
-  const [messageColor, setMessageColor] = useState();
-  const [userLabel, setUserLabel] = useState({ label: "", color: "" });
+  const [userLabel, setUserLabel] = useState({ label: "" });
   const [time, setTime] = useState("");
   const [editing, setEditing] = useState(false);
   const [image, setImage] = useState(edit);
@@ -25,11 +24,9 @@ const IndividualMessage: React.FC<Props> = props => {
 
   useEffect(() => {
     if (props.userid == props.sender) {
-      setMessageColor("#ffdfee");
-      setUserLabel({ label: "You: ", color: "#BBBBBB" });
+      setUserLabel({ label: "You: " });
     } else {
-      setMessageColor("#e3f7ff");
-      setUserLabel({ label: `#${props.sender.toString()}:`, color: "#a1a1a1" });
+      setUserLabel({ label: `#${props.sender.toString()}:` });
     }
   }, [props.sender]);
 
@@ -88,12 +85,9 @@ const IndividualMessage: React.FC<Props> = props => {
   }
 
   return (
-    <div
-      style={{ backgroundColor: messageColor }}
-      className="individual_message"
-    >
+    <div className="individual_message">
       <div className="message">
-        <span style={{ color: userLabel.color }}>{userLabel.label}</span>
+        <span>{userLabel.label}</span>
         {checkEditing()}
       </div>
       <div className="right_align">

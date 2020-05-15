@@ -57,3 +57,10 @@
   margin-right: 15px;
   @include testing;
 }
+
+.under_header_projects {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  @include testing;
+}

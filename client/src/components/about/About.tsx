@@ -90,6 +90,8 @@ const About: React.FC = () => {
             <li>Separable friend and team lists</li>
             <li>Improved mobile experience</li>
             <li>Code optimization</li>
+            <li>Message change log</li>
+            <li>Separable friend and team chats</li>
           </ul>
         </div>
       </div>

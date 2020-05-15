@@ -1,24 +1,51 @@
 import React, { useState, useEffect, useContext } from "react";
 import { AdminProjectListing } from "../projects/AdminProjectListing";
-import { userQuery } from "../../queries/queries";
 import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
-import { useQuery } from "@apollo/react-hooks";
+import { useLazyQuery } from "@apollo/react-hooks";
 import { userContext } from "../../App";
+import Cookies from "universal-cookie";
+import { useHistory, Link, Route } from "react-router-dom";
+import { loggedInContext } from "../../App";
+import { userQuery } from "../../queries/queries";
+const aes256 = require("aes256");
 
 interface Props {
   adminDriller: (userProjects: any) => void;
 }
 
 const ProfileProjects: React.FC<Props> = props => {
-  const { userVal, setUserVal } = useContext(userContext);
   const [projects, setProjects] = useState();
+  const { userVal, setUserVal } = useContext(userContext);
+  const { loggedIn, setLoggedIn } = useContext(loggedInContext);
+  const history = useHistory();
+  const [passInUser, { data, loading }] = useLazyQuery(userQuery);
+  const cookies = new Cookies();
 
-  const { loading, data } = useQuery(userQuery, {
-    variables: {
-      username: userVal.username
+  useEffect(() => {
+    if (!loggedIn) {
+      if (cookies.get("SESS_ID") && cookies.get("SESS_KEY")) {
+        let sessionid = cookies.get("SESS_ID");
+        let key = cookies.get("SESS_KEY").toString();
+        let dec = aes256.decrypt(key, sessionid);
+        passInUser({
+          variables: {
+            username: dec
+          }
+        });
+        setLoggedIn(true);
+      } else {
+        let path = "/";
+        history.push(path);
+      }
     }
-  });
+  }, []);
+
+  useEffect(() => {
+    if (data) {
+      setUserVal({ username: data.user.username, id: data.user.id });
+    }
+  }, [data]);
 
   useEffect(() => {
     if (data) {

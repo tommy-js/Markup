@@ -52,7 +52,7 @@ const Projects: React.FC<Props> = props => {
   return (
     <div className="project_main">
       <Navbar />
-      <div className="under_header">
+      <div className="under_header_projects">
         <h1 className="project_header">Open Projects</h1>
         <div className="under_carriage">
           <SideSearchBar setSearch={setSearch} />
