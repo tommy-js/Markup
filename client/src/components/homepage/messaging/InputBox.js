@@ -25,13 +25,23 @@ function InputBox(props) {
     setUserInput("");
   }
 
+  function checkKey(keyPressed) {
+    if (keyPressed.keyCode === 13 && keyPressed.keyCode === 16) {
+      return;
+    }
+    if (keyPressed.keyCode === 13) {
+      sendMessage();
+    }
+  }
+
   return (
     <div className="div_message_input_box">
-      <textarea
+      <input
         className="input_message_container"
         onChange={e => setUserInput(e.target.value)}
         value={userInput}
         placeholder="Enter text..."
+        onKeyDown={e => checkKey(e)}
       />
       <div className="div_message_input_box_button">
         <button
