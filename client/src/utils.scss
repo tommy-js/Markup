@@ -2,6 +2,12 @@
   border: 1px solid red;
 }
 
+@mixin standardFont {
+  font-family: "Roboto", sans-serif;
+  color: white;
+  opacity: 0.9;
+}
+
 @mixin testing2 {
   border: 1px solid blue;
 }

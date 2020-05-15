@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect } from "react";
-import IndividualMessage from "./IndividualMessage";
 import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
 import { userContext } from "../../../App";
@@ -9,6 +8,7 @@ import InputBox from "./InputBox.js";
 import { InitialBox } from "./InitialBox";
 import alphabet from "../../../icons/alphabet.png";
 import addCode from "../../../icons/code.png";
+import { MessageBoot } from "./MessageBoot";
 import "../../../App.scss";
 
 interface Props {
@@ -111,7 +111,12 @@ const MessageBox: React.FC<Props> = props => {
             This is the start of your messages...
           </p>
         </div>
-        <InputBox userId={props.id} refetchQuery={refetchQuery} />
+        <InputBox
+          userId={props.id}
+          refetchQuery={refetchQuery}
+          val={val}
+          entryImage={entryImage}
+        />
       </div>
     );
   }
@@ -126,18 +131,8 @@ const MessageBox: React.FC<Props> = props => {
       return (
         <div className="message_box">
           {modal()}
-          <div className="message_container">
-            {sortedArray.map((messages: any) => (
-              <IndividualMessage
-                userid={userVal.id}
-                receiver={messages.to}
-                sender={messages.from}
-                key={Math.floor(Math.random() * 10000)}
-                message={messages.content}
-                timestamp={messages.timestamp}
-                id={messages.id}
-              />
-            ))}
+          <div>
+            <MessageBoot sortedArray={sortedArray} userVal={userVal.id} />
           </div>
           <InputBox
             userId={props.id}

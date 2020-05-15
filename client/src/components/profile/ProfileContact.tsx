@@ -6,8 +6,8 @@ export const ProfileContact: React.FC = () => {
     <div className="profile_contact">
       <h1 className="contact_header">Contact us!</h1>
       <h3 className="contact_subheader">
-        Tell us about bugs, suggestions you have for the app, and changes you
-        would like to see in the future!
+        Tell us about bugs you've found, suggestions you have for the app, and
+        changes you would like to see in the future!
       </h3>
       <form className="contact_fillin_div">
         <textarea className="contact_fillin" />

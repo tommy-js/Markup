@@ -66,7 +66,7 @@ const ProfileProjects: React.FC<Props> = props => {
     } else {
       return (
         <div>
-          <p>Join a project to see it here</p>
+          <p className="center_join_project">Join a project to see it here</p>
         </div>
       );
     }
