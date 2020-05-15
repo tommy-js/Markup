@@ -211,7 +211,6 @@
   text-align: center;
   opacity: 0;
   @include noselect;
-  @include testing;
   @include standardTransition;
 }
 
@@ -235,7 +234,17 @@
 }
 
 .add_user:hover {
-  background-color: yellow;
+  background-color: pink;
+  @include standardTransition;
+}
+
+.add_user {
+  position: relative;
+  float: right;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  border: 1px solid transparent;
   @include standardTransition;
 }
 
@@ -255,7 +264,7 @@
 }
 
 .add_user_component:hover {
-  background-color: pink;
+  color: pink;
   @include standardTransition;
 }
 
@@ -377,7 +386,13 @@
   height: 85%;
   overflow-y: scroll;
   scrollbar-color: #ffcbec transparent;
-  // @include testing;
+}
+
+.search_user_block {
+  position: relative;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .message_viewer {
@@ -420,6 +435,8 @@
   letter-spacing: 1px;
   border-bottom: 1px solid grey;
   display: inline-block;
+  @include standardFont;
+  @include standardBackgroundColor;
   @include standardTransition;
 }
 
@@ -488,13 +505,11 @@
   display: inline-block;
   margin-top: 5px;
   margin-bottom: 5px;
-  padding: 5px;
   font-size: 18px;
   height: auto;
   width: 230px;
   overflow-wrap: break-word;
   @include standardTransition;
-  @include testing;
 }
 
 .inner_task_checkbox {
@@ -504,7 +519,6 @@
   height: 25px;
   width: 25px;
   vertical-align: top;
-  @include testing;
 }
 
 .whitebox_cover {
@@ -522,6 +536,7 @@
   height: 25px;
   width: 25px;
   cursor: pointer;
+  vertical-align: middle;
 }
 
 .task_list {
@@ -593,7 +608,8 @@
   text-align: center;
   margin-top: 200px;
   font-size: 22px;
-  color: #6f6b9b;
+  @include noselect;
+  @include standardFont;
 }
 
 .right_align {
@@ -601,7 +617,6 @@
   display: inline-block;
   width: 18%;
   height: 30px;
-  // @include testing;
 }
 
 .message_edit_button {
@@ -618,20 +633,18 @@
   display: inline-block;
   font-size: 16px;
   vertical-align: top;
-  // @include testing;
 }
 
 .edit_image {
   height: 15px;
   width: 15px;
-  border: 1px solid orange;
   border-radius: 50%;
   padding: 2.5px;
   transition: 0.2s;
 }
 
 .edit_image:hover {
-  background-color: orange;
+  background-color: pink;
   transition: 0.2s;
 }
 
@@ -658,7 +671,8 @@
   font-size: 16px;
   border-radius: 5px;
   border: 1px solid grey;
-  @include standardFont;
+  color: black;
+  font-family: "Roboto", sans-serif;
 }
 
 .inner_message_container {
@@ -688,6 +702,7 @@
   position: relative;
   display: block;
   resize: none;
+  border-radius: 10px;
   width: 100%;
   height: 100%;
   font-size: 18px;

@@ -59,10 +59,7 @@ const IndividualTask: React.FC<Props> = props => {
           className="checkbox_container"
           onClick={() => setChecking(!checking)}
         >
-          <div
-            className="whitebox_cover"
-            style={{ backgroundColor: whitebox }}
-          ></div>
+          <div className="whitebox_cover"></div>
           <img src={checkState} className="checkbox_image" />
         </div>
       </div>

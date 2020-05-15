@@ -2,6 +2,10 @@
   border: 1px solid red;
 }
 
+@mixin standardBackgroundColor {
+  background-color: #3d3b56;
+}
+
 @mixin standardFont {
   font-family: "Roboto", sans-serif;
   color: white;

@@ -20,7 +20,7 @@ export const FriendSearch: React.FC<Props> = props => {
   return (
     <div className="friend_search">
       <div className="user_info">
-        <Link to={`profile/projects/${userVal.id}`}>
+        <Link to={`/profile/projects/${userVal.id}`}>
           <p className="user_main_page">
             {userVal.username} #{userVal.id}
           </p>
