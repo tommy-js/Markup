@@ -20,9 +20,11 @@ export const FriendSearch: React.FC<Props> = props => {
   return (
     <div className="friend_search">
       <div className="user_info">
-        <p className="user_main_page">
-          {userVal.username} #{userVal.id}
-        </p>
+        <Link to={`profile/projects/${userVal.id}`}>
+          <p className="user_main_page">
+            {userVal.username} #{userVal.id}
+          </p>
+        </Link>
         <Link to={`/profile/settings/${userVal.id}`}>
           <div className="user_settings">
             <img src={gear} className="user_settings_button" />

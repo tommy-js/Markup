@@ -92,6 +92,8 @@ const About: React.FC = () => {
             <li>Code optimization</li>
             <li>Message change log</li>
             <li>Separable friend and team chats</li>
+            <li>Image messages</li>
+            <li>Profile icons</li>
           </ul>
         </div>
       </div>
