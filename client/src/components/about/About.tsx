@@ -40,12 +40,58 @@ const About: React.FC = () => {
     <div>
       <Navbar />
       <div className="under_header">
-        <h1 className="about_header">About Us</h1>
-        <p className="about_body">
-          Saturnia is a webapp designed to make getting into software
-          development easier. We provide you with a number of projects to work
-          on and give you a more objective view of your progress and abilities.
-        </p>
+        <div className="about_sidebar">
+          <div className="about_sidebar_buttons"></div>
+        </div>
+        <div className="about_text">
+          <h1 className="about_header">About Us</h1>
+          <p className="about_body">
+            Saturnia is a webapp designed to make getting into software
+            development easier. We provide you with a number of projects to work
+            on and give you a more objective view of your progress and
+            abilities.
+          </p>
+          <p className="about_body">
+            Currently our app is in alpha-stages. We've provided a rough
+            timeline below, which we hope to follow to the best of our ability.
+          </p>
+          <h1 className="about_header">Alpha</h1>
+          <p className="about_body">
+            We began work on the app on April 23, 2020. Because the alpha
+            version simply includes all work up to present day, we don't count
+            any specific features as belonging to it. During this time there was
+            one developer working on the project, and the purpose of it was
+            mostly personal interest.
+          </p>
+          <h1 className="about_header">Version 1.0</h1>
+          <p className="about_body">
+            Version 1.0 is the first widely usable and stable version. This
+            release was created by one developer as a personal project.
+          </p>
+          <p className="about_body">
+            Expected Release:
+            <span className="expected_release_date"> June 27, 2020</span>
+          </p>
+          <h2 className="about_features">Release Features</h2>
+          <ul className="features_bullets">
+            <li>Tasks and lists of tasks</li>
+            <li>Friendlist and teammate list</li>
+            <li>Messaging and message editing</li>
+            <li>Code editing and sharing</li>
+            <li>Project joining and posting</li>
+            <li>Mobile version</li>
+          </ul>
+          <h2 className="about_features">Future Features</h2>
+          <ul className="features_bullets">
+            <li>Group chats</li>
+            <li>Group code editing</li>
+            <li>Improved code editing UI</li>
+            <li>Shared tasks</li>
+            <li>Separable friend and team lists</li>
+            <li>Improved mobile experience</li>
+            <li>Code optimization</li>
+          </ul>
+        </div>
       </div>
     </div>
   );

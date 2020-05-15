@@ -642,6 +642,8 @@
 
 .inner_message_container {
   display: inline-block;
+  word-wrap: break-word;
+  width: 100%;
 }
 
 .code_modal {

@@ -3,6 +3,26 @@
 .under_header {
   position: relative;
   margin-top: 40px;
+  width: 45%;
+  margin-left: auto;
+  margin-right: auto;
+  @include testing;
+}
+
+.about_sidebar {
+  position: fixed;
+  width: 10%;
+  height: 80%;
+  display: inline-block;
+  @include testing;
+}
+
+.about_text {
+  position: relative;
+  display: inline-block;
+  width: 75%;
+  float: right;
+  @include testing;
 }
 
 .about_header {
@@ -12,8 +32,12 @@
 
 .about_body {
   position: relative;
-  width: 40%;
   margin-left: auto;
   margin-right: auto;
   font-size: 18px;
+}
+
+.expected_release_date {
+  font-size: 18px;
+  color: orange;
 }
