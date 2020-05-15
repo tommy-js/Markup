@@ -30,7 +30,7 @@ const UserSearchBlock: React.FC<Props> = props => {
   }
 
   function passinSearchParam() {
-    searchUser({ variables: { username: searchVector } });
+    searchUser({ variables: { username: searchVector.toLowerCase() } });
   }
 
   function returnResults() {

@@ -34,9 +34,10 @@ const SignIn: React.FC<Props> = props => {
       let { user } = data;
       let hash = user.password;
       let comparison = bcrypt.compareSync(password, hash);
+      let lowerCaseUsername = user.username.toLowerCase();
       if (comparison) {
         setUserVal({
-          username: user.username,
+          username: lowerCaseUsername,
           password: user.password,
           id: user.id
         });
@@ -59,7 +60,7 @@ const SignIn: React.FC<Props> = props => {
   }
 
   function getUser() {
-    passUser({ variables: { username: username } });
+    passUser({ variables: { username: username.toLowerCase() } });
   }
 
   return (

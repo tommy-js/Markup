@@ -31,16 +31,21 @@ function SignUp(props) {
     if (validPassword && validUsername) {
       let id = Math.floor(Math.random() * 1000000000);
       var salt = bcrypt.genSaltSync(10);
+      let lowerCaseUsername = username.toLowerCase();
       var hash = bcrypt.hashSync(password, salt);
       props.addUserMutation({
         variables: {
           id: id,
-          username: username,
+          username: lowerCaseUsername,
           password: hash,
           salt: salt
         }
       });
-      setUserVal({ username: username, password: password, id: id });
+      setUserVal({
+        username: lowerCaseUsername,
+        password: password,
+        id: id
+      });
       let strId = id.toString();
       let plain = username;
       let encrypted = aes256.encrypt(strId, plain);
