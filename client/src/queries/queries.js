@@ -155,9 +155,36 @@ const addMessageMutation = gql`
   }
 `;
 
+const addCodeMutation = gql`
+  mutation($id: ID!, $content: String!, $to: ID!, $from: ID!, $timestamp: ID!) {
+    addCode(
+      id: $id
+      content: $content
+      to: $to
+      from: $from
+      timestamp: $timestamp
+    ) {
+      id
+      to
+      from
+      content
+      timestamp
+    }
+  }
+`;
+
 const changeMessageMutation = gql`
   mutation($content: String!, $id: ID!) {
     changeMessage(content: $content, id: $id) {
+      content
+      id
+    }
+  }
+`;
+
+const changeCodeMutation = gql`
+  mutation($content: String!, $id: ID!) {
+    changeCode(content: $content, id: $id) {
       content
       id
     }
@@ -278,6 +305,8 @@ export {
   getUsers,
   getSessionIDQuery,
   addMessageMutation,
+  addCodeMutation,
+  changeCodeMutation,
   addTaskMutation,
   addUserMutation,
   removeTaskMutation,

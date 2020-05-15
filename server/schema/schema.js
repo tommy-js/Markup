@@ -14,6 +14,18 @@ const Friend = require("../models/friends");
 const Task = require("../models/tasks");
 const Project = require("../models/project");
 const Session = require("../models/session");
+const Code = require("../models/code");
+
+const CodeQuery = new GraphQLObjectType({
+  name: "Code",
+  fields: () => ({
+    id: { type: GraphQLID },
+    from: { type: GraphQLID },
+    to: { type: GraphQLID },
+    content: { type: GraphQLString },
+    timestamp: { type: GraphQLID }
+  })
+});
 
 const MessageQuery = new GraphQLObjectType({
   name: "Message",
@@ -113,6 +125,16 @@ const RootQuery = new GraphQLObjectType({
       },
       resolve(parent, args) {
         return Message.find({ to: args.toId, from: args.fromId });
+      }
+    },
+    getCode: {
+      type: new GraphQLList(CodeQuery),
+      args: {
+        fromId: { type: GraphQLID },
+        toId: { type: GraphQLID }
+      },
+      resolve(parent, args) {
+        return Code.find({ to: args.toId, from: args.fromId });
       }
     },
     projects: {
@@ -226,6 +248,26 @@ const Mutation = new GraphQLObjectType({
         return newMessage.save();
       }
     },
+    addCode: {
+      type: CodeQuery,
+      args: {
+        id: { type: GraphQLID },
+        to: { type: GraphQLID },
+        from: { type: GraphQLID },
+        content: { type: GraphQLString },
+        timestamp: { type: GraphQLID }
+      },
+      resolve(parent, args) {
+        let newCode = new Code({
+          id: args.id,
+          from: args.from,
+          to: args.to,
+          content: args.content,
+          timestamp: args.timestamp
+        });
+        return newCode.save();
+      }
+    },
     addTask: {
       type: TaskQuery,
       args: {
@@ -248,6 +290,20 @@ const Mutation = new GraphQLObjectType({
       },
       resolve(parent, args) {
         return Message.findOneAndUpdate(
+          { id: args.id },
+          { $set: { content: args.content } },
+          { upsert: true, new: true }
+        );
+      }
+    },
+    changeCode: {
+      type: CodeQuery,
+      args: {
+        id: { type: GraphQLID },
+        content: { type: GraphQLString }
+      },
+      resolve(parent, args) {
+        return Code.findOneAndUpdate(
           { id: args.id },
           { $set: { content: args.content } },
           { upsert: true, new: true }

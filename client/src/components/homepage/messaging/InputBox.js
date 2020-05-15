@@ -35,7 +35,7 @@ function InputBox(props) {
       />
       <div className="div_message_input_box_button">
         <button
-          onClick={() => props.entryButton(true)}
+          onClick={() => props.entryButton(!props.val)}
           className="div_message_button div_button_top"
         >
           <img src={props.entryImage} className="send_enter_button" />

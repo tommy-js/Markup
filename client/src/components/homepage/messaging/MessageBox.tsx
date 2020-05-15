@@ -24,6 +24,7 @@ const MessageBox: React.FC<Props> = props => {
   const [recMessage, setRecMessage] = useState([]);
   const [sortedArray, setSortedArray] = useState([]);
   const [val, setVal] = useState(false);
+  const [innerCode, setInnerCode] = useState("");
   const [entryImage, setEntryImage] = useState(addCode);
   const { userVal, setUserVal } = useContext(userContext);
   const { loading: loading1, data: data1, refetch } = useQuery(
@@ -73,6 +74,11 @@ const MessageBox: React.FC<Props> = props => {
     }
   }
 
+  function deleteCode() {
+    entryButton(false);
+    setInnerCode("");
+  }
+
   function refetchQuery() {
     refetch();
   }
@@ -81,9 +87,15 @@ const MessageBox: React.FC<Props> = props => {
     if (val === true) {
       return (
         <div className="code_modal">
-          <textarea className="code_modal_textarea" />
-          <button onClick={() => entryButton(false)}>x</button>
-          <button>Save</button>
+          <div className="code_modal_inner_block">
+            <textarea
+              className="code_modal_textarea"
+              value={innerCode}
+              onChange={e => setInnerCode(e.target.value)}
+            />
+            <button onClick={() => deleteCode()}>Delete</button>
+            <button>Save</button>
+          </div>
         </div>
       );
     } else {
