@@ -96,7 +96,9 @@ const About: React.FC = () => {
             <li>Profile icons</li>
             <li>Automatic code completion</li>
             <li>Code highlighting</li>
+            <li>Emojis</li>
             <li>Concept: Invisible server monitoring</li>
+            <li>Batch task selection</li>
           </ul>
         </div>
       </div>

@@ -57,7 +57,8 @@
 
 .person_comp {
   position: relative;
-  height: 75%;
+  @include sideBarHeights;
+  @include testing;
 }
 
 .friend_comp {
@@ -66,7 +67,7 @@
   margin-left: auto;
   margin-right: auto;
   height: 100%;
-  width: 85%;
+  width: 100%;
 }
 
 .tab_button {
@@ -74,6 +75,7 @@
   display: inline-block;
   width: 50%;
   height: 40px;
+  background-color: $darkBlue;
 }
 
 .tab_button_left {
@@ -90,6 +92,7 @@
   min-width: 200px;
   border-right: 1px solid grey;
   display: inline-block;
+  @include testing;
   margin: -1px;
   padding: 0;
   height: 100%;
@@ -199,33 +202,6 @@
   scrollbar-width: thin;
   border-radius: 6px;
   scrollbar-color: #ffcbec #fff4fb;
-}
-
-.load_if_empty {
-  position: relative;
-  top: 20%;
-  font-size: 22px;
-  color: #878787;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-  opacity: 0;
-  @include noselect;
-  @include standardTransition;
-}
-
-.task_box {
-  position: relative;
-  vertical-align: middle;
-  margin-left: auto;
-  margin-right: auto;
-  height: 90%;
-  min-width: 300px;
-}
-
-.task_box:hover .load_if_empty {
-  opacity: 1;
-  @include standardTransition;
 }
 
 .self_user {
@@ -564,18 +540,42 @@
   margin-bottom: 2%;
 }
 
-.tasklist_container {
-  position: relative;
-  height: 80%;
-  width: 100%;
-  overflow: hidden;
+.task_box_container {
+  @include sideBarHeights;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  @include testing;
+  scrollbar-color: #ffcbec $darkestBlue;
 }
 
-.tasklist_container:hover {
-  overflow-y: scroll;
-  overflow-x: hidden;
-  scrollbar-width: thin;
-  scrollbar-color: #ffcbec #fff4fb;
+.task_box {
+  position: relative;
+  vertical-align: middle;
+  margin-left: auto;
+  margin-right: auto;
+  min-width: 300px;
+}
+
+.load_if_empty {
+  position: relative;
+  top: 200px;
+  font-size: 22px;
+  color: #878787;
+  text-align: center;
+  opacity: 0;
+  @include noselect;
+  @include standardTransition;
+}
+
+.task_box_container:hover .load_if_empty,
+.friend_comp:hover .load_if_empty {
+  opacity: 1;
+  @include standardTransition;
+}
+
+.tasklist_container {
+  position: relative;
+  width: 100%;
 }
 
 .remove_team_button {

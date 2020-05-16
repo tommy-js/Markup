@@ -46,8 +46,10 @@ const Tasks: React.FC<Props> = props => {
   } else {
     if (emptyContainer) {
       return (
-        <div className="task_box">
-          <p className="load_if_empty">{loadIfEmpty}</p>
+        <div className="task_box_container">
+          <div className="task_box">
+            <p className="load_if_empty">{loadIfEmpty}</p>
+          </div>
           <div className="task_buttons">
             <AddTask clearTasks={clearTasks} />
           </div>
@@ -55,17 +57,19 @@ const Tasks: React.FC<Props> = props => {
       );
     } else {
       return (
-        <div className="task_box">
-          <div className="tasklist_container">
-            {data.user.tasks.map((task: any) => (
-              <IndividualTask
-                key={task.id}
-                userId={userVal.id}
-                id={task.id}
-                task={task.content}
-                displayTask={displayTask}
-              />
-            ))}
+        <div className="task_box_container">
+          <div className="task_box">
+            <div className="tasklist_container">
+              {data.user.tasks.map((task: any) => (
+                <IndividualTask
+                  key={task.id}
+                  userId={userVal.id}
+                  id={task.id}
+                  task={task.content}
+                  displayTask={displayTask}
+                />
+              ))}
+            </div>
           </div>
           <div className="task_buttons">
             <AddTask clearTasks={clearTasks} />

@@ -2,6 +2,14 @@
   border: 1px solid red;
 }
 
+$midBlue: #3d3b56;
+$darkBlue: #282c35;
+$darkestBlue: #1f2229;
+
+@mixin sideBarHeights {
+  height: 85%;
+}
+
 @mixin standardBackgroundColor {
   background-color: #3d3b56;
 }
