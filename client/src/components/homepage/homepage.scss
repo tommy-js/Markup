@@ -75,15 +75,14 @@
   display: inline-block;
   width: 50%;
   height: 40px;
-  background-color: $darkBlue;
+  background-color: $midBlue;
+  color: white;
+  cursor: pointer;
 }
 
 .tab_button_left {
-  border-radius: 0 15px 0 0;
-}
-
-.tab_button_right {
-  border-radius: 15px 0 0 0;
+  border-top: none;
+  border-right: 1px solid grey;
 }
 
 .friend_list {

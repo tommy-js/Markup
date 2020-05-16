@@ -11,6 +11,10 @@ interface Props {
 export const FriendComp: React.FC<Props> = props => {
   const [tab, setTab] = useState(true);
   const [friend, setFriends] = useState([]);
+  const [leftBorderSelected, setLeftBorderSelected] = useState("none");
+  const [rightBorderSelected, setRightBorderSelected] = useState(
+    "1px solid grey"
+  );
 
   if (tab) {
     return (
@@ -21,6 +25,7 @@ export const FriendComp: React.FC<Props> = props => {
           </button>
           <button
             className="tab_button tab_button_left"
+            style={{ borderBottom: leftBorderSelected }}
             onClick={() => setTab(!tab)}
           >
             Teammates
@@ -38,6 +43,7 @@ export const FriendComp: React.FC<Props> = props => {
         <div className="friend_comp">
           <button
             className="tab_button tab_button_right"
+            style={{ borderBottom: rightBorderSelected }}
             onClick={() => setTab(!tab)}
           >
             Friends
