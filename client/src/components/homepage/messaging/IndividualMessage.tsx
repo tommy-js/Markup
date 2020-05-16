@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import edit from "../../../icons/edit.png";
 import check from "../../../icons/checkmark.png";
+import edited from "../../../icons/edited.png";
 import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
 import { changeMessageMutation } from "../../../queries/queries";
@@ -12,6 +13,7 @@ interface Props {
   receiver: number;
   timestamp: number;
   id: number;
+  edited: boolean;
   changeMessageMutation: (variables: object) => void;
 }
 
@@ -20,6 +22,7 @@ const IndividualMessage: React.FC<Props> = props => {
   const [time, setTime] = useState("");
   const [editing, setEditing] = useState(false);
   const [image, setImage] = useState(edit);
+  const [hasBeenEdited, setHasBeenEdited] = useState(props.edited);
   const [modMessage, setModMessage] = useState(props.message);
 
   useEffect(() => {
@@ -77,10 +80,22 @@ const IndividualMessage: React.FC<Props> = props => {
       props.changeMessageMutation({
         variables: {
           id: props.id,
-          content: modMessage
+          content: modMessage,
+          edited: true
         }
       });
       setImage(edit);
+    }
+  }
+
+  function checkEdited() {
+    if (hasBeenEdited) {
+      return (
+        <div className="check_edited">
+          <img className="check_edited_image" src={edited} />
+          <span className="edited_span">edited</span>
+        </div>
+      );
     }
   }
 
@@ -95,6 +110,7 @@ const IndividualMessage: React.FC<Props> = props => {
           <img src={image} className="edit_image" />
         </span>
         <span className="message_timestamp">{time}</span>
+        {checkEdited()}
       </div>
     </div>
   );

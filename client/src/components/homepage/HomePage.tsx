@@ -33,10 +33,11 @@ const HomePage: React.FC = () => {
         let sessionid = cookies.get("SESS_ID");
         let key = cookies.get("SESS_KEY").toString();
         let dec = aes256.decrypt(key, sessionid);
+        let loweredDec = dec.toLowerCase();
         console.log(dec);
         passInUser({
           variables: {
-            username: dec
+            username: loweredDec
           }
         });
         setLoggedIn(true);

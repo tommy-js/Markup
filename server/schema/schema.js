@@ -34,7 +34,8 @@ const MessageQuery = new GraphQLObjectType({
     from: { type: GraphQLID },
     to: { type: GraphQLID },
     content: { type: GraphQLString },
-    timestamp: { type: GraphQLID }
+    timestamp: { type: GraphQLID },
+    edited: { type: GraphQLBoolean }
   })
 });
 
@@ -235,7 +236,8 @@ const Mutation = new GraphQLObjectType({
         to: { type: GraphQLID },
         from: { type: GraphQLID },
         content: { type: GraphQLString },
-        timestamp: { type: GraphQLID }
+        timestamp: { type: GraphQLID },
+        edited: { type: GraphQLBoolean }
       },
       resolve(parent, args) {
         let newMessage = new Message({
@@ -243,7 +245,8 @@ const Mutation = new GraphQLObjectType({
           from: args.from,
           to: args.to,
           content: args.content,
-          timestamp: args.timestamp
+          timestamp: args.timestamp,
+          edited: args.edited
         });
         return newMessage.save();
       }
@@ -286,12 +289,13 @@ const Mutation = new GraphQLObjectType({
       type: MessageQuery,
       args: {
         id: { type: GraphQLID },
-        content: { type: GraphQLString }
+        content: { type: GraphQLString },
+        edited: { type: GraphQLBoolean }
       },
       resolve(parent, args) {
         return Message.findOneAndUpdate(
           { id: args.id },
-          { $set: { content: args.content } },
+          { $set: { content: args.content, edited: args.edited } },
           { upsert: true, new: true }
         );
       }

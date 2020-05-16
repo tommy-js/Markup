@@ -43,7 +43,6 @@ function SignUp(props) {
       });
       setUserVal({
         username: lowerCaseUsername,
-        password: password,
         id: id
       });
       let strId = id.toString();

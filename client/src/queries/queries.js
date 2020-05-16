@@ -17,6 +17,7 @@ const getMessageQuery = gql`
       content
       timestamp
       id
+      edited
     }
   }
 `;
@@ -138,19 +139,28 @@ const addProjectUserMutation = gql`
 `;
 
 const addMessageMutation = gql`
-  mutation($id: ID!, $content: String!, $to: ID!, $from: ID!, $timestamp: ID!) {
+  mutation(
+    $id: ID!
+    $content: String!
+    $to: ID!
+    $from: ID!
+    $timestamp: ID!
+    $edited: Boolean!
+  ) {
     addMessage(
       id: $id
       content: $content
       to: $to
       from: $from
       timestamp: $timestamp
+      edited: $edited
     ) {
       id
       to
       from
       content
       timestamp
+      edited
     }
   }
 `;
@@ -174,10 +184,11 @@ const addCodeMutation = gql`
 `;
 
 const changeMessageMutation = gql`
-  mutation($content: String!, $id: ID!) {
-    changeMessage(content: $content, id: $id) {
+  mutation($content: String!, $id: ID!, $edited: Boolean!) {
+    changeMessage(content: $content, id: $id, edited: $edited) {
       content
       id
+      edited
     }
   }
 `;

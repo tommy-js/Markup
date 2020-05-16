@@ -714,3 +714,28 @@
   padding: 10px;
   background-color: #2c2b39;
 }
+
+.check_edited {
+  position: relative;
+  display: block;
+}
+
+.check_edited_image {
+  height: 15px;
+  width: 15px;
+}
+
+.check_edited:hover .edited_span {
+  opacity: 1;
+  @include fastTransition;
+}
+
+.edited_span {
+  position: relative;
+  display: inline-block;
+  font-size: 14px;
+  margin-left: 10px;
+  opacity: 0;
+  @include fastTransition;
+  @include noselect;
+}

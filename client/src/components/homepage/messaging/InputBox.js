@@ -18,7 +18,8 @@ function InputBox(props) {
           content: userInput,
           from: userVal.id,
           to: props.userId,
-          timestamp: Math.round(new Date().getTime() / 1000)
+          timestamp: Math.round(new Date().getTime() / 1000),
+          edited: false
         }
       })
       .then(props.refetchQuery());

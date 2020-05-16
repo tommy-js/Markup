@@ -6,7 +6,8 @@ const messageSchema = new Schema({
   from: Number,
   to: Number,
   content: String,
-  timestamp: Number
+  timestamp: Number,
+  edited: Boolean
 });
 
 module.exports = mongoose.model("Message", messageSchema);
