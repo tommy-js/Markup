@@ -72,7 +72,22 @@ const ProfileProjects: React.FC<Props> = props => {
     }
   }
 
-  return <div>{currentProjects()}</div>;
+  return (
+    <div>
+      <div className="start_project_block">
+        <h3 className="start_project_header">Create a project</h3>
+        <Link to={`/newproject`}>
+          <div className="new_project_button">
+            <span className="hide_on_swipe">New Project</span>
+            <div className="swipe_right">
+              <span className="show_on_swipe">New Project</span>
+            </div>
+          </div>
+        </Link>
+      </div>
+      <div className="current_projects">{currentProjects()}</div>
+    </div>
+  );
 };
 
 export default compose(graphql(userQuery, { name: "userQuery" }))(

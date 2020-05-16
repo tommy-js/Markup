@@ -133,3 +133,121 @@
   text-align: center;
   font-size: 18px;
 }
+
+.start_project_block {
+  position: relative;
+  height: 200px;
+  @include testing;
+}
+
+.start_project_header {
+  color: pink;
+  font-size: 22px;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.current_projects {
+  position: relative;
+  margin-top: 50px;
+}
+
+$buttonWidth: 125px;
+
+.new_project_button {
+  position: relative;
+  margin-top: 50px;
+  display: block;
+  width: $buttonWidth;
+  height: 40px;
+  font-size: 16px;
+  margin-left: auto;
+  margin-right: auto;
+  @include noselect;
+  @include standardFont;
+  border: none;
+  cursor: pointer;
+  background-color: white;
+}
+
+.new_project_button:hover .swipe_right {
+  width: $buttonWidth;
+  @include slowTransition;
+}
+
+.swipe_right {
+  position: absolute;
+  width: 0;
+  height: 100%;
+  @include slowTransition;
+  background-color: black;
+  overflow: hidden;
+}
+
+.hide_on_swipe {
+  position: absolute;
+  text-align: center;
+  vertical-align: middle;
+  display: inline-block;
+  line-height: 40px;
+  width: $buttonWidth;
+  color: black;
+  white-space: nowrap;
+}
+
+.show_on_swipe {
+  position: absolute;
+  text-align: center;
+  vertical-align: middle;
+  display: inline-block;
+  line-height: 40px;
+  width: $buttonWidth;
+  color: white;
+  white-space: nowrap;
+}
+
+//Code pertaining to the creation of a new project
+
+.new_project_block {
+  position: relative;
+  margin-top: 45px;
+  width: 45%;
+  margin-left: auto;
+  margin-right: auto;
+  @include testing;
+}
+
+.new_project_title {
+  position: relative;
+  font-size: 24px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 5px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.new_project_description {
+  position: relative;
+  display: block;
+  font-size: 18px;
+  padding: 5px;
+  line-height: 165%;
+  margin-top: 25px;
+  resize: none;
+  width: 100%;
+  height: 250px;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+  @include standardFontColorless;
+}
+
+.new_project_stack {
+  position: relative;
+  display: block;
+  width: 150px;
+  padding: 5px;
+  font-size: 18px;
+  margin-top: 25px;
+}
