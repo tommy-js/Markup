@@ -2,8 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Navbar } from "../navigation/Navbar";
 import plus from "../../icons/plus.png";
 import deleted from "../../icons/delete.png";
+import { addProjectMutation } from "../../queries/queries";
 
-export const NewProject: React.FC = () => {
+interface Props {
+  addProjectMutation: (variables: object) => void;
+}
+
+export const NewProject: React.FC<Props> = props => {
   const [tech, setTech] = useState([{ key: 0, input: "" }]);
   const [positions, setPositions] = useState([{ key: 0, input: "" }]);
   const [checked, setChecked] = useState(false);
@@ -58,6 +63,14 @@ export const NewProject: React.FC = () => {
     let removingPosition = [...positions];
     let filteredPosition = removingPosition.filter(el => el.key != key);
     setPositions(filteredPosition);
+  }
+
+  function submitForm() {
+    if (!validSubmit) {
+      props.addProjectMutation({
+        variables: {}
+      });
+    }
   }
 
   function openPositions() {

@@ -3,7 +3,7 @@
 .under_header {
   position: relative;
   margin-top: 40px;
-  width: 45%;
+  width: 55%;
   margin-left: auto;
   margin-right: auto;
   @include testing;
@@ -41,4 +41,36 @@
 .expected_release_date {
   font-size: 18px;
   color: orange;
+}
+
+.about_subheader {
+  position: relative;
+  text-align: center;
+}
+
+.about_example_code_block {
+  position: relative;
+  width: 100%;
+  height: 400px;
+}
+
+.about_example_code_textarea {
+  width: 300px;
+  display: inline-block;
+  height: 90%;
+  padding: 10px;
+  font-size: 18px;
+  resize: none;
+  position: relative;
+  line-height: 165%;
+  @include standardFontColorless;
+}
+
+.about_example_code_explanation {
+  display: inline-block;
+  position: relative;
+  vertical-align: top;
+  margin: 10px;
+  font-size: 18px;
+  width: 50%;
 }

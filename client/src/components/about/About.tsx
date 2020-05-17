@@ -15,6 +15,9 @@ const About: React.FC = () => {
   const { loggedIn, setLoggedIn } = useContext(loggedInContext);
   const [passInUser, { data, loading }] = useLazyQuery(userQuery);
   const cookies = new Cookies();
+  const [editableCodeInput, setEditableCodeInput] = useState(
+    `if(val) { \n setVal(!val)\n}`
+  );
 
   useEffect(() => {
     if (!loggedIn) {
@@ -44,7 +47,31 @@ const About: React.FC = () => {
           <div className="about_sidebar_buttons"></div>
         </div>
         <div className="about_text">
-          <h1 className="about_header">About Us</h1>
+          <h1 className="about_header">About Saturnia</h1>
+          <h2 className="about_subheader">
+            A webapp by developers for developers
+          </h2>
+          <div className="about_example_code_block">
+            <textarea
+              className="about_example_code_textarea"
+              placeholder="Code..."
+              value={editableCodeInput}
+              onChange={e => setEditableCodeInput(e.target.value)}
+            />
+            <div className="about_example_code_explanation">
+              Code together in snippets within your messages. Solve bugs or work
+              on features with ease, and blueprint effortlessly.
+              <h4>Features include:</h4>
+              <ul>
+                <li>Code highlighting</li>
+                <li>Code autocompletion</li>
+                <li>Basic error finding</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="about_example_message_block"></div>
+
           <p className="about_body">
             Saturnia is a webapp designed to make getting into software
             development easier. We provide you with a number of projects to work
@@ -98,6 +125,8 @@ const About: React.FC = () => {
             <li>Automatic code completion</li>
             <li>Code highlighting</li>
             <li>Emojis</li>
+            <li>Payment option for projects</li>
+            <li>Various payment methods available for project creators</li>
             <li>Concept: Invisible server monitoring</li>
             <li>Batch task selection</li>
           </ul>
