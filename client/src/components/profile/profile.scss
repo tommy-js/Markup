@@ -268,7 +268,7 @@ $buttonWidth: 125px;
 
 .new_tech_inputs {
   display: inline-block;
-  margin: 5px;
+  margin-right: 10px;
 }
 
 .inline_tech {
@@ -277,12 +277,14 @@ $buttonWidth: 125px;
 
 .inner_new_tech {
   padding: 5px;
+  font-size: 15px;
   @include standardFontColorless;
 }
 
 .appear_on_hover {
   opacity: 0;
   @include standardTransition;
+  @include standardFontColorless;
 }
 
 .project_title_block:hover .appear_on_hover.title_appear {
@@ -308,8 +310,8 @@ $buttonWidth: 125px;
 .delete_button {
   position: relative;
   display: inline-block;
-  height: 30px;
-  width: 30px;
+  height: 35px;
+  width: 35px;
   overflow: hidden;
   vertical-align: middle;
   cursor: pointer;
@@ -318,4 +320,13 @@ $buttonWidth: 125px;
 .delete_button_image {
   width: 100%;
   height: 100%;
+}
+
+.new_project_positions_block:hover .appear_on_hover.positions_appear {
+  opacity: 1;
+  @include standardTransition;
+}
+
+.positions_open {
+  margin-bottom: 10px;
 }
