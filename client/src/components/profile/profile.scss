@@ -222,6 +222,7 @@ $buttonWidth: 125px;
   font-size: 24px;
   width: 100%;
   box-sizing: border-box;
+  border-radius: 3px;
   padding: 5px;
   margin-left: auto;
   margin-right: auto;
@@ -230,8 +231,10 @@ $buttonWidth: 125px;
 .new_project_description {
   position: relative;
   display: block;
-  font-size: 18px;
   padding: 5px;
+  font-size: 18px;
+  border-radius: 5px;
+  padding: 3px;
   line-height: 165%;
   resize: none;
   width: 100%;
@@ -249,6 +252,7 @@ $buttonWidth: 125px;
   padding: 5px;
   font-size: 18px;
   display: inline-block;
+  border-radius: 3px;
   vertical-align: bottom;
 }
 
@@ -269,6 +273,7 @@ $buttonWidth: 125px;
 .new_tech_inputs {
   display: inline-block;
   margin-right: 10px;
+  border-radius: 3px;
 }
 
 .inline_tech {
@@ -310,8 +315,8 @@ $buttonWidth: 125px;
 .delete_button {
   position: relative;
   display: inline-block;
-  height: 35px;
-  width: 35px;
+  height: 30px;
+  width: 30px;
   overflow: hidden;
   vertical-align: middle;
   cursor: pointer;
@@ -329,4 +334,39 @@ $buttonWidth: 125px;
 
 .positions_open {
   margin-bottom: 10px;
+}
+
+.submit_project_button_block {
+  position: relative;
+  width: 150px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.submit_project_button {
+  position: relative;
+  width: 150px;
+  padding: 10px;
+  font-size: 16px;
+  background-color: white;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  @include fastTransition;
+}
+
+.submit_project_button:disabled {
+  background-color: grey;
+}
+
+.submit_project_button:enabled:hover {
+  color: pink;
+  background-color: black;
+  @include fastTransition;
+}
+
+.project_listing_block:hover .appear_on_hover.listing_appear {
+  opacity: 1;
+  @include standardTransition;
 }

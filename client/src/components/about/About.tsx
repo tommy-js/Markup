@@ -79,6 +79,7 @@ const About: React.FC = () => {
             <li>Messaging and message editing</li>
             <li>Code editing and sharing</li>
             <li>Project joining and posting</li>
+            <li>Personal, unlisted projects</li>
             <li>Mobile version</li>
           </ul>
           <h2 className="about_features">Future Features</h2>

@@ -7,6 +7,7 @@ export const NewProject: React.FC = () => {
   const [tech, setTech] = useState([{ key: 0, input: "" }]);
   const [positions, setPositions] = useState([{ key: 0, input: "" }]);
   const [checked, setChecked] = useState(false);
+  const [validSubmit, setValidSubmit] = useState(false);
   const [visible, setVisible] = useState("none");
 
   useEffect(() => {
@@ -116,6 +117,14 @@ export const NewProject: React.FC = () => {
             pace.
           </p>
         </div>
+        <div className="project_listing_block">
+          <h2>Is this a personal project or a group one?</h2>
+          <input type="checkbox" />
+          <p className="appear_on_hover listing_appear">
+            If you list your project as personal it will not be visible to those
+            searching and will not be available to join
+          </p>
+        </div>
         <div className="new_project_stack_block">
           <input className="new_project_stack" placeholder="stack" />
           <div className="add_tech_button" onClick={() => addTech()}>
@@ -162,6 +171,11 @@ export const NewProject: React.FC = () => {
             </div>
           </div>
           {openPositions()}
+        </div>
+        <div className="submit_project_button_block">
+          <button className="submit_project_button" disabled={validSubmit}>
+            Submit Project
+          </button>
         </div>
       </div>
     </div>
