@@ -233,7 +233,6 @@ $buttonWidth: 125px;
   font-size: 18px;
   padding: 5px;
   line-height: 165%;
-  margin-top: 25px;
   resize: none;
   width: 100%;
   height: 250px;
@@ -249,5 +248,59 @@ $buttonWidth: 125px;
   width: 150px;
   padding: 5px;
   font-size: 18px;
-  margin-top: 25px;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.add_tech_button {
+  display: inline-block;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  @include testing;
+  vertical-align: middle;
+}
+
+.add_tech_icon {
+  width: 100%;
+  height: 100%;
+}
+
+.new_tech_inputs {
+  display: inline-block;
+  margin: 5px;
+}
+
+.inline_tech {
+  display: block;
+}
+
+.inner_new_tech {
+  padding: 5px;
+  @include standardFontColorless;
+}
+
+.appear_on_hover {
+  opacity: 0;
+  @include standardTransition;
+}
+
+.project_title_block:hover .appear_on_hover.title_appear {
+  opacity: 1;
+  @include standardTransition;
+}
+
+.project_description_block:hover .appear_on_hover.description_appear {
+  opacity: 1;
+  @include standardTransition;
+}
+
+.new_project_stack_block:hover .appear_on_hover.stack_appear {
+  opacity: 1;
+  @include standardTransition;
+}
+
+.inline_tech:hover .appear_on_hover.tech_appear {
+  opacity: 1;
+  @include standardTransition;
 }
