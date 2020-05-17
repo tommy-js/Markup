@@ -76,14 +76,14 @@ const ProfileProjects: React.FC<Props> = props => {
     <div>
       <div className="start_project_block">
         <h3 className="start_project_header">Create a project</h3>
-        <Link to={`/newproject`}>
-          <div className="new_project_button">
+        <div className="new_project_button">
+          <Link to={`/newproject`}>
             <span className="hide_on_swipe">New Project</span>
             <div className="swipe_right">
               <span className="show_on_swipe">New Project</span>
             </div>
-          </div>
-        </Link>
+          </Link>
+        </div>
       </div>
       <div className="current_projects">{currentProjects()}</div>
     </div>

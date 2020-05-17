@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Navbar } from "../navigation/Navbar";
 import plus from "../../icons/plus.png";
+import deleted from "../../icons/delete.png";
 
 export const NewProject: React.FC = () => {
   const [tech, setTech] = useState([{ key: 0, input: "" }]);
@@ -12,8 +13,16 @@ export const NewProject: React.FC = () => {
     setTech(oldTech);
   }
 
+  function castValue(e: any, id: number) {
+    let foundItem: any = tech.find((el: any) => el.key === id);
+    let originTech = [...tech];
+    let index = originTech.indexOf(foundItem);
+    originTech[index].input = e.target.value;
+    setTech(originTech);
+  }
+
   function removeTech(key: number) {
-    let removingTech = tech;
+    let removingTech = [...tech];
     let filteredTech = removingTech.filter(el => el.key != key);
     setTech(filteredTech);
   }
@@ -53,10 +62,13 @@ export const NewProject: React.FC = () => {
               <input
                 className="inner_new_tech"
                 key={el.key}
-                onChange={e => (el.input = e.target.value)}
+                value={el.input}
+                onChange={e => castValue(e, el.key)}
                 placeholder="technology"
               />
-              <button onClick={() => removeTech(el.key)}>x</button>
+              <div className="delete_button" onClick={() => removeTech(el.key)}>
+                <img className="delete_button_image" src={deleted} />
+              </div>
             </div>
           ))}
           <p className="appear_on_hover tech_appear">
