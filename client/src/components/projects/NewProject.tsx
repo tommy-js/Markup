@@ -2,18 +2,25 @@ import React, { useState, useEffect } from "react";
 import { Navbar } from "../navigation/Navbar";
 import plus from "../../icons/plus.png";
 import deleted from "../../icons/delete.png";
+import { flowRight as compose } from "lodash";
+import { graphql } from "react-apollo";
 import { addProjectMutation } from "../../queries/queries";
 
 interface Props {
   addProjectMutation: (variables: object) => void;
 }
 
-export const NewProject: React.FC<Props> = props => {
+const NewProject: React.FC<Props> = props => {
   const [tech, setTech] = useState([{ key: 0, input: "" }]);
   const [positions, setPositions] = useState([{ key: 0, input: "" }]);
   const [checked, setChecked] = useState(false);
   const [validSubmit, setValidSubmit] = useState(false);
   const [visible, setVisible] = useState("none");
+  const [soFar, setSoFar] = useState();
+  const [total, setTotal] = useState();
+  const [stack, setStack] = useState("");
+  const [content, setContent] = useState("");
+  const [title, setTitle] = useState("");
 
   useEffect(() => {
     if (checked) {
@@ -68,7 +75,15 @@ export const NewProject: React.FC<Props> = props => {
   function submitForm() {
     if (!validSubmit) {
       props.addProjectMutation({
-        variables: {}
+        variables: {
+          timestamp: Math.round(new Date().getTime() / 1000),
+          total: total,
+          joined: soFar,
+          stack: stack,
+          content: content,
+          title: title,
+          id: Math.floor(Math.random() * 100000)
+        }
       });
     }
   }
@@ -114,7 +129,12 @@ export const NewProject: React.FC<Props> = props => {
       <div className="new_project_block">
         <h2 style={{ color: "pink" }}>New Project</h2>
         <div className="project_title_block">
-          <input className="new_project_title" placeholder="Title" />
+          <input
+            className="new_project_title"
+            value={title}
+            onChange={e => setTitle(e.target.value)}
+            placeholder="Title"
+          />
           <p className="appear_on_hover title_appear">
             Tell us the name of your project
           </p>
@@ -123,6 +143,8 @@ export const NewProject: React.FC<Props> = props => {
           <textarea
             className="new_project_description"
             placeholder="Description"
+            value={content}
+            onChange={e => setContent(e.target.value)}
           />
           <p className="appear_on_hover description_appear">
             Describe your project to us. Include information such as expected
@@ -139,7 +161,12 @@ export const NewProject: React.FC<Props> = props => {
           </p>
         </div>
         <div className="new_project_stack_block">
-          <input className="new_project_stack" placeholder="stack" />
+          <input
+            className="new_project_stack"
+            placeholder="stack"
+            value={stack}
+            onChange={e => setStack(e.target.value)}
+          />
           <div className="add_tech_button" onClick={() => addTech()}>
             <img className="add_tech_icon" src={plus} />
           </div>
@@ -173,7 +200,20 @@ export const NewProject: React.FC<Props> = props => {
             Toggle to show whether you're looking for generalists or specialists
           </h4>
           <div className="positions_open">
-            <input className="new_project_stack" placeholder="0/n" />
+            <input
+              className="new_project_stack"
+              type="number"
+              placeholder="0"
+              value={soFar}
+              onChange={e => setSoFar(e.target.value)}
+            />
+            <input
+              className="new_project_stack"
+              type="number"
+              placeholder="n"
+              value={total}
+              onChange={e => setTotal(e.target.value)}
+            />
             <input type="checkbox" onChange={() => setChecked(!checked)} />
             <div
               className="add_tech_button"
@@ -186,7 +226,11 @@ export const NewProject: React.FC<Props> = props => {
           {openPositions()}
         </div>
         <div className="submit_project_button_block">
-          <button className="submit_project_button" disabled={validSubmit}>
+          <button
+            onClick={() => submitForm()}
+            className="submit_project_button"
+            disabled={validSubmit}
+          >
             Submit Project
           </button>
         </div>
@@ -194,3 +238,7 @@ export const NewProject: React.FC<Props> = props => {
     </div>
   );
 };
+
+export default compose(
+  graphql(addProjectMutation, { name: "addProjectMutation" })
+)(NewProject);
