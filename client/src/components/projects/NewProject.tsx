@@ -5,6 +5,7 @@ import deleted from "../../icons/delete.png";
 import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
 import { addProjectMutation } from "../../queries/queries";
+import { SuccessfulProject } from "./SuccessfulProject";
 
 interface Props {
   addProjectMutation: (variables: object) => void;
@@ -21,6 +22,7 @@ const NewProject: React.FC<Props> = props => {
   const [stack, setStack] = useState("");
   const [content, setContent] = useState("");
   const [title, setTitle] = useState("");
+  const [successfulProj, setSuccessfulProj] = useState(false);
 
   useEffect(() => {
     if (checked) {
@@ -73,19 +75,19 @@ const NewProject: React.FC<Props> = props => {
   }
 
   function submitForm() {
-    if (!validSubmit) {
-      props.addProjectMutation({
-        variables: {
-          timestamp: Math.round(new Date().getTime() / 1000),
-          total: total,
-          joined: soFar,
-          stack: stack,
-          content: content,
-          title: title,
-          id: Math.floor(Math.random() * 100000)
-        }
-      });
-    }
+    console.log(validSubmit);
+    setSuccessfulProj(true);
+    props.addProjectMutation({
+      variables: {
+        timestamp: Math.round(new Date().getTime() / 1000),
+        total: total,
+        joined: soFar,
+        stack: stack,
+        content: content,
+        title: title,
+        id: Math.floor(Math.random() * 100000)
+      }
+    });
   }
 
   function openPositions() {
@@ -123,120 +125,135 @@ const NewProject: React.FC<Props> = props => {
     }
   }
 
-  return (
-    <div>
-      <Navbar />
-      <div className="new_project_block">
-        <h2 style={{ color: "pink" }}>New Project</h2>
-        <div className="project_title_block">
-          <input
-            className="new_project_title"
-            value={title}
-            onChange={e => setTitle(e.target.value)}
-            placeholder="Title"
-          />
-          <p className="appear_on_hover title_appear">
-            Tell us the name of your project
-          </p>
-        </div>
-        <div className="project_description_block">
-          <textarea
-            className="new_project_description"
-            placeholder="Description"
-            value={content}
-            onChange={e => setContent(e.target.value)}
-          />
-          <p className="appear_on_hover description_appear">
-            Describe your project to us. Include information such as expected
-            timeline, technologies used, size of the project, and development
-            pace.
-          </p>
-        </div>
-        <div className="project_listing_block">
-          <h2>Is this a personal project or a group one?</h2>
-          <input type="checkbox" />
-          <p className="appear_on_hover listing_appear">
-            If you list your project as personal it will not be visible to those
-            searching and will not be available to join
-          </p>
-        </div>
-        <div className="new_project_stack_block">
-          <input
-            className="new_project_stack"
-            placeholder="stack"
-            value={stack}
-            onChange={e => setStack(e.target.value)}
-          />
-          <div className="add_tech_button" onClick={() => addTech()}>
-            <img className="add_tech_icon" src={plus} />
-          </div>
-          <p className="appear_on_hover stack_appear">
-            If you have a specific stack, let us know so we can help your
-            project appear in front of more users
-          </p>
-        </div>
-        <div className="inline_tech">
-          {tech.map(el => (
-            <div className="new_tech_inputs">
+  function main() {
+    if (successfulProj === false) {
+      return (
+        <div>
+          <Navbar />
+          <div className="new_project_block">
+            <h2 style={{ color: "pink" }}>New Project</h2>
+            <div className="project_title_block">
               <input
-                className="inner_new_tech"
-                key={el.key}
-                value={el.input}
-                onChange={e => castTechValue(e, el.key)}
-                placeholder="technology"
+                className="new_project_title"
+                value={title}
+                onChange={e => setTitle(e.target.value)}
+                placeholder="Title"
               />
-              <div className="delete_button" onClick={() => removeTech(el.key)}>
-                <img className="delete_button_image" src={deleted} />
-              </div>
+              <p className="appear_on_hover title_appear">
+                Tell us the name of your project
+              </p>
             </div>
-          ))}
-          <p className="appear_on_hover tech_appear">
-            Tell us about the technologies you're using for this project
-          </p>
-        </div>
-        <div className="new_project_positions_block">
-          <h2>Enter number of currently filled positions</h2>
-          <h4>
-            Toggle to show whether you're looking for generalists or specialists
-          </h4>
-          <div className="positions_open">
-            <input
-              className="new_project_stack"
-              type="number"
-              placeholder="0"
-              value={soFar}
-              onChange={e => setSoFar(e.target.value)}
-            />
-            <input
-              className="new_project_stack"
-              type="number"
-              placeholder="n"
-              value={total}
-              onChange={e => setTotal(e.target.value)}
-            />
-            <input type="checkbox" onChange={() => setChecked(!checked)} />
+            <div className="project_description_block">
+              <textarea
+                className="new_project_description"
+                placeholder="Description"
+                value={content}
+                onChange={e => setContent(e.target.value)}
+              />
+              <p className="appear_on_hover description_appear">
+                Describe your project to us. Include information such as
+                expected timeline, technologies used, size of the project, and
+                development pace.
+              </p>
+            </div>
+            <div className="project_listing_block">
+              <h2>Is this a personal project or a group one?</h2>
+              <input type="checkbox" />
+              <p className="appear_on_hover listing_appear">
+                If you list your project as personal it will not be visible to
+                those searching and will not be available to join
+              </p>
+            </div>
+            <div className="new_project_stack_block">
+              <input
+                className="new_project_stack"
+                placeholder="stack"
+                value={stack}
+                onChange={e => setStack(e.target.value)}
+              />
+              <div className="add_tech_button" onClick={() => addTech()}>
+                <img className="add_tech_icon" src={plus} />
+              </div>
+              <p className="appear_on_hover stack_appear">
+                If you have a specific stack, let us know so we can help your
+                project appear in front of more users
+              </p>
+            </div>
+            <div className="inline_tech">
+              {tech.map(el => (
+                <div className="new_tech_inputs">
+                  <input
+                    className="inner_new_tech"
+                    key={el.key}
+                    value={el.input}
+                    onChange={e => castTechValue(e, el.key)}
+                    placeholder="technology"
+                  />
+                  <div
+                    className="delete_button"
+                    onClick={() => removeTech(el.key)}
+                  >
+                    <img className="delete_button_image" src={deleted} />
+                  </div>
+                </div>
+              ))}
+              <p className="appear_on_hover tech_appear">
+                Tell us about the technologies you're using for this project
+              </p>
+            </div>
+            <div className="new_project_positions_block">
+              <h2>Enter number of currently filled positions</h2>
+              <h4>
+                Toggle to show whether you're looking for generalists or
+                specialists
+              </h4>
+              <div className="positions_open">
+                <input
+                  className="new_project_stack"
+                  type="number"
+                  placeholder="0"
+                  value={soFar}
+                  onChange={e => setSoFar(e.target.value)}
+                />
+                <input
+                  className="new_project_stack"
+                  type="number"
+                  placeholder="n"
+                  value={total}
+                  onChange={e => setTotal(e.target.value)}
+                />
+                <input type="checkbox" onChange={() => setChecked(!checked)} />
+                <div
+                  className="add_tech_button"
+                  style={{ display: visible }}
+                  onClick={() => addPosition()}
+                >
+                  <img className="add_tech_icon" src={plus} />
+                </div>
+              </div>
+              {openPositions()}
+            </div>
             <div
-              className="add_tech_button"
-              style={{ display: visible }}
-              onClick={() => addPosition()}
+              onClick={() => submitForm()}
+              className="submit_project_button_block"
             >
-              <img className="add_tech_icon" src={plus} />
+              <button className="submit_project_button" disabled={validSubmit}>
+                Submit Project
+              </button>
             </div>
           </div>
-          {openPositions()}
         </div>
-        <div className="submit_project_button_block">
-          <button
-            onClick={() => submitForm()}
-            className="submit_project_button"
-            disabled={validSubmit}
-          >
-            Submit Project
-          </button>
+      );
+    } else {
+      return (
+        <div>
+          <SuccessfulProject />
         </div>
-      </div>
-    </div>
-  );
+      );
+    }
+  }
+
+  return <div>{main()}</div>;
 };
 
 export default compose(
