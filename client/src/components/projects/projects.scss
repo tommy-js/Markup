@@ -64,3 +64,14 @@
   margin-right: auto;
   @include testing;
 }
+
+.successful_project_block {
+  position: relative;
+  width: 100%;
+  top: 200px;
+}
+
+.successful_project_thanks {
+  font-size: 22px;
+  text-align: center;
+}
