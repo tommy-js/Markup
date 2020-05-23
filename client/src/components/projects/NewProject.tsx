@@ -82,7 +82,7 @@ const NewProject: React.FC<Props> = props => {
         timestamp: Math.round(new Date().getTime() / 1000),
         total: total,
         joined: soFar,
-        stack: stack,
+        stack: stack.toUpperCase(),
         content: content,
         title: title,
         id: Math.floor(Math.random() * 100000)
