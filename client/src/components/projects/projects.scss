@@ -12,9 +12,12 @@
 
 .open_project {
   position: relative;
+  color: white;
   width: 80%;
   display: block;
   height: 200px;
+  box-sizing: border-box;
+  padding-left: 20px;
   @include testing;
 }
 

@@ -1,9 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "../../App.scss";
 
 interface Props {
   title: string;
   id: number;
+  description: string;
 }
 
 export const ProjectListing: React.FC<Props> = props => {
@@ -12,7 +14,7 @@ export const ProjectListing: React.FC<Props> = props => {
       <Link to={`/${props.id}`}>
         <div className="open_project">
           <h2>{props.title}</h2>
-          <p>"Description"</p>
+          <p>{props.description}</p>
         </div>
       </Link>
     </div>

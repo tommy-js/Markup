@@ -33,9 +33,11 @@ const OpenProject: React.FC<Props> = props => {
 
   useEffect(() => {
     if (data) {
-      setProjects(data.projects);
-      props.routeDriller(data.projects);
-      console.log(data);
+      let foundData = data.projects;
+      foundData.length = 100;
+      setProjects(foundData);
+      props.routeDriller(foundData);
+      console.log(foundData);
     }
   }, [data]);
 
@@ -44,7 +46,12 @@ const OpenProject: React.FC<Props> = props => {
       return (
         <div className="project_opening">
           {projects.map((el: any) => (
-            <ProjectListing key={el.id} title={el.title} id={el.id} />
+            <ProjectListing
+              key={el.id}
+              title={el.title}
+              description={el.content}
+              id={el.id}
+            />
           ))}
         </div>
       );
