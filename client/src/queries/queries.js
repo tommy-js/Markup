@@ -71,6 +71,7 @@ const getUsers = gql`
   query($username: String!) {
     getUsers(username: $username) {
       username
+      password
       id
     }
   }

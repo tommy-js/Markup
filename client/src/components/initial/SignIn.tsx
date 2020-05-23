@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import "../../App.scss";
 import { useHistory } from "react-router-dom";
 import { userQuery } from "../../queries/queries";
+import { getUsers } from "../../queries/queries";
 import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
 import { useLazyQuery } from "@apollo/react-hooks";
@@ -21,13 +22,15 @@ const SignIn: React.FC<Props> = props => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showToggle, setShowToggle] = useState(true);
-  const [passUser, { loading, data }] = useLazyQuery(userQuery);
+  // const [passUser, { loading, data }] = useLazyQuery(userQuery);
+  const [getUsersmod, { loading, data }] = useLazyQuery(getUsers);
   const [user, setUser] = useState(null);
   const { userVal, setUserVal } = useContext(userContext);
   const { loggedIn, setLoggedIn } = useContext(loggedInContext);
   const history = useHistory();
   const [cookies, setCookie] = useCookies(["SESS_ID", "SESS_KEY"]);
   const [passwordVisible, setPasswordVisible] = useState(closed_eye);
+  const [hash, setHash] = useState();
 
   if (data && data.username) {
     setUser(data);
@@ -43,8 +46,11 @@ const SignIn: React.FC<Props> = props => {
 
   useEffect(() => {
     if (data) {
+      data.find((el: any) => {
+        username === el.username, hash === el.password;
+      });
       let { user } = data;
-      let hash = user.password;
+      setHash(user.password);
       let comparison = bcrypt.compareSync(password, hash);
       let lowerCaseUsername = user.username.toLowerCase();
       if (comparison) {
@@ -72,7 +78,9 @@ const SignIn: React.FC<Props> = props => {
   }
 
   function getUser() {
-    passUser({ variables: { username: username.toLowerCase() } });
+    getUsersmod({
+      variables: { username: username.toLowerCase() }
+    });
   }
 
   return (
