@@ -21,26 +21,6 @@
   height: 250px;
 }
 
-.user_input_fields {
-  position: relative;
-  display: inline-block;
-  width: 175px;
-  height: 25px;
-  font-size: 16px;
-  padding: 5px;
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  border-bottom: 1px solid grey;
-  @include page_fields;
-  @include standardTransition;
-}
-
-.user_input_fields:focus {
-  border-bottom: 1px solid pink;
-  @include standardTransition;
-}
-
 .signup_field {
   text-align: center;
   display: block;
@@ -80,19 +60,35 @@
 .password_hide_comp {
   position: relative;
   display: inline-block;
-  width: 25px;
-  height: 25px;
+  width: 30px;
+  height: 30px;
   overflow: none;
+  border-bottom: 2px solid grey;
+  box-sizing: border-box;
   background-color: white;
+  transition: 0.3s;
 }
 
 .password_hide_button {
   position: relative;
-  height: 100%;
-  width: 100%;
+  height: 25px;
+  width: 25px;
+  float: right;
 }
 
 .password_component {
+  position: relative;
+  display: block;
+  width: 220px;
+  margin-bottom: 20px;
+  height: 30px;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  cursor: pointer;
+}
+
+.username_component {
   position: relative;
   display: block;
   width: 220px;
@@ -100,10 +96,45 @@
   margin-right: auto;
 }
 
-.username_component {
+.username_input_fields {
   position: relative;
-  display: block;
-  width: 200px;
-  margin-left: auto;
-  margin-right: auto;
+  display: inline-block;
+  vertical-align: top;
+  width: 100%;
+  font-size: 16px;
+  padding: 5px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 2px solid grey;
+  box-sizing: border-box;
+  @include page_fields;
+  @include standardTransition;
+}
+
+.password_input_fields {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  font-size: 16px;
+  padding: 5px;
+  width: 190px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 2px solid grey;
+  box-sizing: border-box;
+  @include page_fields;
+  @include standardTransition;
+}
+
+.username_input_fields:focus,
+.password_input_fields:focus {
+  border-bottom: 2px solid pink;
+  @include standardTransition;
+}
+
+.password_input_fields:focus + .password_hide_comp {
+  border-bottom: 2px solid pink;
+  transition: 0.3s;
 }

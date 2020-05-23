@@ -81,7 +81,7 @@ const SignIn: React.FC<Props> = props => {
         <div className="username_component">
           <label className="signup_field">Log in</label>
           <input
-            className="user_input_fields"
+            className="username_input_fields"
             type="text"
             placeholder="username"
             onChange={e => setUsername(e.target.value)}
@@ -89,7 +89,7 @@ const SignIn: React.FC<Props> = props => {
         </div>
         <div className="password_component">
           <input
-            className="user_input_fields"
+            className="password_input_fields"
             type={showToggle ? "password" : "text"}
             placeholder="password"
             onChange={e => setPassword(e.target.value)}

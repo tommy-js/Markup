@@ -6,8 +6,10 @@ import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
 import { userContext } from "../../App";
 import { useCookies } from "react-cookie";
-const aes256 = require("aes256");
+import closed_eye from "../../icons/closed_eye_mod.png";
+import open_eye from "../../icons/open_eye_mod.png";
 const bcrypt = require("bcryptjs");
+const aes256 = require("aes256");
 
 function SignUp(props) {
   const [username, setUsername] = useState("");
@@ -15,9 +17,19 @@ function SignUp(props) {
   const [shownPassword, setShownPassword] = useState("");
   const { userVal, setUserVal } = useContext(userContext);
   const [validPassword, setValidPassword] = useState(false);
+  const [showToggle, setShowToggle] = useState(true);
   const [validUsername, setValidUsername] = useState(true);
   const history = useHistory();
   const [cookies, setCookie] = useCookies(["SESS_ID", "SESS_KEY"]);
+  const [passwordVisible, setPasswordVisible] = useState(closed_eye);
+
+  useEffect(() => {
+    if (showToggle === false) {
+      setPasswordVisible(open_eye);
+    } else {
+      setPasswordVisible(closed_eye);
+    }
+  }, [showToggle]);
 
   useEffect(() => {
     if (password.length >= 8 && password.includes(`&`)) {
@@ -67,27 +79,38 @@ function SignUp(props) {
 
   return (
     <div>
-      <form className="userform">
-        <label className="signup_field">Sign up</label>
-        <input
-          className="user_input_fields"
-          type="text"
-          placeholder="username"
-          onChange={e => setUsername(e.target.value)}
-        />
-        <input
-          className="user_input_fields"
-          type="text"
-          placeholder="password*"
-          onChange={e => setPassword(e.target.value)}
-        />
-        <p className="password_criteria">
-          *At least 8 characters including two or more non-letter characters.
-        </p>
+      <div className="userform">
+        <div className="username_component">
+          <label className="signup_field">Sign up</label>
+          <input
+            className="username_input_fields"
+            type="text"
+            placeholder="username"
+            onChange={e => setUsername(e.target.value)}
+          />
+        </div>
+        <div className="password_component">
+          <input
+            className="password_input_fields"
+            type={showToggle ? "password" : "text"}
+            placeholder="password"
+            onChange={e => setPassword(e.target.value)}
+          />
+          <div className="password_hide_comp">
+            <img
+              className="password_hide_button"
+              src={passwordVisible}
+              onClick={() => setShowToggle(!showToggle)}
+            />
+          </div>
+          <p className="password_criteria">
+            *At least 8 characters including two or more non-letter characters.
+          </p>
+        </div>
         <button className="sign_in_button" onClick={e => newUser(e)}>
           Create Account
         </button>
-      </form>
+      </div>
     </div>
   );
 }
