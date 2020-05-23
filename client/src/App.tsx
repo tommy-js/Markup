@@ -22,11 +22,13 @@ export const userContext = createContext<any>({});
 export const friendContext = createContext<any>({});
 export const teammateContext = createContext<any>({});
 export const loggedInContext = createContext<any>({});
+export const rememberUserContext = createContext<any>({});
 
 function App(): JSX.Element {
   const [userVal, setUserVal] = useState<any>({});
   const [userFriends, setUserFriends] = useState<any>([]);
   const [userTeammates, setUserTeammates] = useState<any>([]);
+  const [rememberedUser, setRememberedUser] = useState<any>([]);
   const [loggedIn, setLoggedIn] = useState<any>(false);
 
   const [projectMapper, setProjectMapper] = useState([]);
@@ -41,69 +43,71 @@ function App(): JSX.Element {
   }
 
   return (
-    <teammateContext.Provider value={{ userTeammates, setUserTeammates }}>
-      <friendContext.Provider value={{ userFriends, setUserFriends }}>
-        <userContext.Provider value={{ userVal, setUserVal }}>
-          <loggedInContext.Provider value={{ loggedIn, setLoggedIn }}>
-            <ApolloProvider client={client}>
-              <Router>
-                <div className="App">
-                  <Route exact path="/">
-                    <InitialScreen />
-                  </Route>
-                  <Route path="/home">
-                    <HomePage />
-                  </Route>
-                  <Route path="/about">
-                    <About />
-                  </Route>
-                  <Route path="/contact">
-                    <Contact />
-                  </Route>
-                  <Route path="/Profile">
-                    <Redirect />
-                  </Route>
-                  <Route path="/projects">
-                    <Projects routeDriller={routeDriller} />
-                  </Route>
-                  <Route path={`/profile`}>
-                    <Profile
-                      passedId={userVal.id}
-                      adminDriller={adminDriller}
-                    />
-                  </Route>
-                  <Route path={`/newproject`}>
-                    <NewProject />
-                  </Route>
-                  <Switch>
-                    {userProjects.map((el: any) => (
-                      <Route exact path={`/contributor/${el.id}`}>
-                        <AdminProjectPage
-                          id={el.id}
-                          title={el.title}
-                          content={el.content}
-                        />
-                      </Route>
-                    ))}
-                  </Switch>
-                  <Switch>
-                    {projectMapper.map((el: any) => (
-                      <Route path={`/${el.id}`}>
-                        <ProjectPage
-                          id={el.id}
-                          title={el.title}
-                          content={el.content}
-                        />
-                      </Route>
-                    ))}
-                  </Switch>
-                </div>
-              </Router>
-            </ApolloProvider>
-          </loggedInContext.Provider>
-        </userContext.Provider>
-      </friendContext.Provider>
-    </teammateContext.Provider>
+    <rememberUserContext.Provider value={{ rememberedUser, setRememberedUser }}>
+      <teammateContext.Provider value={{ userTeammates, setUserTeammates }}>
+        <friendContext.Provider value={{ userFriends, setUserFriends }}>
+          <userContext.Provider value={{ userVal, setUserVal }}>
+            <loggedInContext.Provider value={{ loggedIn, setLoggedIn }}>
+              <ApolloProvider client={client}>
+                <Router>
+                  <div className="App">
+                    <Route exact path="/">
+                      <InitialScreen />
+                    </Route>
+                    <Route path="/home">
+                      <HomePage />
+                    </Route>
+                    <Route path="/about">
+                      <About />
+                    </Route>
+                    <Route path="/contact">
+                      <Contact />
+                    </Route>
+                    <Route path="/Profile">
+                      <Redirect />
+                    </Route>
+                    <Route path="/projects">
+                      <Projects routeDriller={routeDriller} />
+                    </Route>
+                    <Route path={`/profile`}>
+                      <Profile
+                        passedId={userVal.id}
+                        adminDriller={adminDriller}
+                      />
+                    </Route>
+                    <Route path={`/newproject`}>
+                      <NewProject />
+                    </Route>
+                    <Switch>
+                      {userProjects.map((el: any) => (
+                        <Route exact path={`/contributor/${el.id}`}>
+                          <AdminProjectPage
+                            id={el.id}
+                            title={el.title}
+                            content={el.content}
+                          />
+                        </Route>
+                      ))}
+                    </Switch>
+                    <Switch>
+                      {projectMapper.map((el: any) => (
+                        <Route path={`/${el.id}`}>
+                          <ProjectPage
+                            id={el.id}
+                            title={el.title}
+                            content={el.content}
+                          />
+                        </Route>
+                      ))}
+                    </Switch>
+                  </div>
+                </Router>
+              </ApolloProvider>
+            </loggedInContext.Provider>
+          </userContext.Provider>
+        </friendContext.Provider>
+      </teammateContext.Provider>
+    </rememberUserContext.Provider>
   );
 }
 

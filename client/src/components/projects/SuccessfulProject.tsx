@@ -8,7 +8,6 @@ export const SuccessfulProject: React.FC = () => {
   return (
     <div className="successful_project_block">
       <h2 className="successful_project_thanks">Thanks for submitting!</h2>
-      <button>Back to profile</button>
 
       <div className="new_project_button">
         <Link to={`../profile/projects/${userVal.id}`}>

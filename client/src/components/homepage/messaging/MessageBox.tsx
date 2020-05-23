@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
 import { userContext } from "../../../App";
+import { rememberUserContext } from "../../../App";
 import { getMessageQuery } from "../../../queries/queries";
 import { useQuery } from "@apollo/react-hooks";
 import InputBox from "./InputBox.js";
@@ -27,6 +28,7 @@ const MessageBox: React.FC<Props> = props => {
   const [innerCode, setInnerCode] = useState("");
   const [entryImage, setEntryImage] = useState(addCode);
   const { userVal, setUserVal } = useContext(userContext);
+  const { rememberedUser, setRememberedUser } = useContext(rememberUserContext);
   const { loading: loading1, data: data1, refetch } = useQuery(
     getMessageQuery,
     {
@@ -42,6 +44,7 @@ const MessageBox: React.FC<Props> = props => {
 
   useEffect(() => {
     if (!loading1 && !loading2) {
+      setRememberedUser({ id: props.id });
       if (data1.getMessages && data2.getMessages) {
         setUserMessages(data1.getMessages);
         setRecMessage(data2.getMessages);
@@ -66,11 +69,9 @@ const MessageBox: React.FC<Props> = props => {
     if (entryImage === alphabet) {
       setEntryImage(addCode);
       setVal(checkVal);
-      console.log(checkVal);
     } else if (entryImage === addCode) {
       setEntryImage(alphabet);
       setVal(checkVal);
-      console.log(checkVal);
     }
   }
 
@@ -116,6 +117,7 @@ const MessageBox: React.FC<Props> = props => {
           refetchQuery={refetchQuery}
           val={val}
           entryImage={entryImage}
+          entryButton={entryButton}
         />
       </div>
     );
