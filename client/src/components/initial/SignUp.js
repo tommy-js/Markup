@@ -12,6 +12,7 @@ const bcrypt = require("bcryptjs");
 function SignUp(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [shownPassword, setShownPassword] = useState("");
   const { userVal, setUserVal } = useContext(userContext);
   const [validPassword, setValidPassword] = useState(false);
   const [validUsername, setValidUsername] = useState(true);

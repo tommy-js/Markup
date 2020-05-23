@@ -8,6 +8,8 @@ import { useLazyQuery } from "@apollo/react-hooks";
 import { userContext } from "../../App";
 import { loggedInContext } from "../../App";
 import { useCookies } from "react-cookie";
+import closed_eye from "../../icons/closed_eye_mod.png";
+import open_eye from "../../icons/open_eye_mod.png";
 const bcrypt = require("bcryptjs");
 const aes256 = require("aes256");
 
@@ -18,16 +20,26 @@ interface Props {
 const SignIn: React.FC<Props> = props => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [showToggle, setShowToggle] = useState(true);
   const [passUser, { loading, data }] = useLazyQuery(userQuery);
   const [user, setUser] = useState(null);
   const { userVal, setUserVal } = useContext(userContext);
   const { loggedIn, setLoggedIn } = useContext(loggedInContext);
   const history = useHistory();
   const [cookies, setCookie] = useCookies(["SESS_ID", "SESS_KEY"]);
+  const [passwordVisible, setPasswordVisible] = useState(closed_eye);
 
   if (data && data.username) {
     setUser(data);
   }
+
+  useEffect(() => {
+    if (showToggle === false) {
+      setPasswordVisible(open_eye);
+    } else {
+      setPasswordVisible(closed_eye);
+    }
+  }, [showToggle]);
 
   useEffect(() => {
     if (data) {
@@ -66,19 +78,30 @@ const SignIn: React.FC<Props> = props => {
   return (
     <div>
       <div className="userform">
-        <label className="signup_field">Log in</label>
-        <input
-          className="user_input_fields"
-          type="text"
-          placeholder="username"
-          onChange={e => setUsername(e.target.value)}
-        />
-        <input
-          className="user_input_fields"
-          type="text"
-          placeholder="password"
-          onChange={e => setPassword(e.target.value)}
-        />
+        <div className="username_component">
+          <label className="signup_field">Log in</label>
+          <input
+            className="user_input_fields"
+            type="text"
+            placeholder="username"
+            onChange={e => setUsername(e.target.value)}
+          />
+        </div>
+        <div className="password_component">
+          <input
+            className="user_input_fields"
+            type={showToggle ? "password" : "text"}
+            placeholder="password"
+            onChange={e => setPassword(e.target.value)}
+          />
+          <div className="password_hide_comp">
+            <img
+              className="password_hide_button"
+              src={passwordVisible}
+              onClick={() => setShowToggle(!showToggle)}
+            />
+          </div>
+        </div>
         <button className="sign_in_button" onClick={() => getUser()}>
           Sign in
         </button>
