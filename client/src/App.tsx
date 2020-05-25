@@ -42,6 +42,30 @@ function App(): JSX.Element {
     setUserProjectMapper(userProjects);
   }
 
+  function checkProj() {
+    if (userVal.projects) {
+      console.log(userVal.projects);
+      return (
+        <div>
+          {userVal.projects.map((el: any) => (
+            <div>
+              <Route path={`/contributor/${el.id}`}>
+                <AdminProjectPage
+                  id={el.id}
+                  title={el.title}
+                  content={el.content}
+                  key={el.id}
+                />
+              </Route>
+            </div>
+          ))}
+        </div>
+      );
+    } else {
+      return;
+    }
+  }
+
   return (
     <rememberUserContext.Provider value={{ rememberedUser, setRememberedUser }}>
       <teammateContext.Provider value={{ userTeammates, setUserTeammates }}>
@@ -78,17 +102,7 @@ function App(): JSX.Element {
                     <Route path={`/newproject`}>
                       <NewProject />
                     </Route>
-                    <Switch>
-                      {userProjects.map((el: any) => (
-                        <Route exact path={`/contributor/${el.id}`}>
-                          <AdminProjectPage
-                            id={el.id}
-                            title={el.title}
-                            content={el.content}
-                          />
-                        </Route>
-                      ))}
-                    </Switch>
+                    {checkProj()}
                     <Switch>
                       {projectMapper.map((el: any) => (
                         <Route path={`/${el.id}`}>

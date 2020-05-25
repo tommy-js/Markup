@@ -54,7 +54,7 @@ const userQuery = gql`
         id
         name
       }
-      userprojects {
+      projects {
         id
         timestamp
         title
@@ -73,6 +73,12 @@ const getUsers = gql`
       username
       password
       id
+      projects {
+        id
+        timestamp
+        title
+        content
+      }
     }
   }
 `;
@@ -270,7 +276,7 @@ const addUserMutation = gql`
         id
         name
       }
-      userprojects {
+      projects {
         id
         timestamp
         title

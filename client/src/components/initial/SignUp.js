@@ -5,6 +5,7 @@ import { addUserMutation, addSessionIDMutation } from "../../queries/queries";
 import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
 import { userContext } from "../../App";
+import { loggedInContext } from "../../App";
 import { useCookies } from "react-cookie";
 import closed_eye from "../../icons/closed_eye_mod.png";
 import open_eye from "../../icons/open_eye_mod.png";
@@ -19,6 +20,7 @@ function SignUp(props) {
   const [validPassword, setValidPassword] = useState(false);
   const [showToggle, setShowToggle] = useState(true);
   const [validUsername, setValidUsername] = useState(true);
+  const { loggedIn, setLoggedIn } = useContext(loggedInContext);
   const history = useHistory();
   const [cookies, setCookie] = useCookies(["SESS_ID", "SESS_KEY"]);
   const [passwordVisible, setPasswordVisible] = useState(closed_eye);
@@ -68,6 +70,7 @@ function SignUp(props) {
           session_id: encrypted
         }
       });
+      setLoggedIn(true);
       logIn();
     }
   }

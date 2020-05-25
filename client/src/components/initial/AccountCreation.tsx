@@ -42,7 +42,11 @@ const AccountCreation: React.FC = () => {
 
   useEffect(() => {
     if (data) {
-      setUserVal({ username: data.user.username, id: data.user.id });
+      setUserVal({
+        username: data.user.username,
+        id: data.user.id,
+        projects: data.user.projects
+      });
       let path = "/home";
       history.push(path);
     }

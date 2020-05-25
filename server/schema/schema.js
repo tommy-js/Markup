@@ -56,7 +56,7 @@ const UserQuery = new GraphQLObjectType({
     friends: { type: new GraphQLList(FriendQuery) },
     teammates: { type: new GraphQLList(FriendQuery) },
     tasks: { type: new GraphQLList(TaskQuery) },
-    userprojects: { type: new GraphQLList(ProjectQuery) },
+    projects: { type: new GraphQLList(ProjectQuery) },
     usersettings: { type: new GraphQLList(SettingsQuery) }
   })
 });
@@ -328,7 +328,7 @@ const Mutation = new GraphQLObjectType({
           { id: args.userId },
           {
             $push: {
-              userprojects: {
+              projects: {
                 id: args.id,
                 content: args.content,
                 title: args.title,

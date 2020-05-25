@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Navbar } from "../navigation/Navbar";
 
 interface Props {
@@ -8,6 +8,10 @@ interface Props {
 }
 
 export const AdminProjectPage: React.FC<Props> = props => {
+  useEffect(() => {
+    console.log(props.id);
+  }, []);
+
   return (
     <div>
       <Navbar />

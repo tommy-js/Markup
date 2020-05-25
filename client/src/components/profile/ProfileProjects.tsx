@@ -15,51 +15,21 @@ interface Props {
 }
 
 const ProfileProjects: React.FC<Props> = props => {
-  const [projects, setProjects] = useState();
   const { userVal, setUserVal } = useContext(userContext);
+  const [projects, setProjects] = useState(userVal.projects);
   const { loggedIn, setLoggedIn } = useContext(loggedInContext);
   const history = useHistory();
-  const [passInUser, { data, loading }] = useLazyQuery(userQuery);
   const cookies = new Cookies();
 
-  // useEffect(() => {
-  //   if (!loggedIn) {
-  //     if (cookies.get("SESS_ID") && cookies.get("SESS_KEY")) {
-  //       let sessionid = cookies.get("SESS_ID");
-  //       let key = cookies.get("SESS_KEY").toString();
-  //       let dec = aes256.decrypt(key, sessionid);
-  //       passInUser({
-  //         variables: {
-  //           username: dec,
-  //           id: key
-  //         }
-  //       });
-  //       setLoggedIn(true);
-  //     } else {
-  //       let path = "/";
-  //       history.push(path);
-  //     }
-  //   }
-  // }, []);
-  //
-  // useEffect(() => {
-  //   if (data) {
-  //     setUserVal({ username: data.user.username, id: data.user.id });
-  //   }
-  // }, [data]);
-
-  // useEffect(() => {
-  //   if (data) {
-  //     setProjects(data.user.userprojects);
-  //     props.adminDriller(data.user.userprojects);
-  //   }
-  // }, [data]);
+  useEffect(() => {
+    console.log(userVal);
+  }, []);
 
   function currentProjects() {
-    if (projects) {
+    if (userVal.projects) {
       return (
         <div>
-          {projects.map((el: any) => (
+          {userVal.projects.map((el: any) => (
             <AdminProjectListing key={el.id} title={el.title} id={el.id} />
           ))}
         </div>

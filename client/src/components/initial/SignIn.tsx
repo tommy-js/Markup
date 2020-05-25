@@ -62,7 +62,8 @@ const SignIn: React.FC<Props> = props => {
           setUserVal({
             username: lowerCaseUsername,
             password: getUsers[k].password,
-            id: getUsers[k].id
+            id: getUsers[k].id,
+            projects: getUsers[k].projects
           });
           newId = getUsers[k].id;
           let plain = lowerCaseUsername;
