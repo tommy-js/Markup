@@ -37,8 +37,8 @@ const getOpenProjectsQuery = gql`
 `;
 
 const userQuery = gql`
-  query($username: String!) {
-    user(username: $username) {
+  query($username: String!, $id: ID!) {
+    user(username: $username, id: $id) {
       username
       password
       id

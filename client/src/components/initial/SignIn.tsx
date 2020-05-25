@@ -15,7 +15,7 @@ const bcrypt = require("bcryptjs");
 const aes256 = require("aes256");
 
 interface Props {
-  userQuery: (variables: string) => object;
+  getUsers: (variables: string) => object;
 }
 
 const SignIn: React.FC<Props> = props => {
@@ -31,6 +31,7 @@ const SignIn: React.FC<Props> = props => {
   const [cookies, setCookie] = useCookies(["SESS_ID", "SESS_KEY"]);
   const [passwordVisible, setPasswordVisible] = useState(closed_eye);
   const [hash, setHash] = useState();
+  const [runLogIn, setRunLogIn] = useState(false);
 
   if (data && data.username) {
     setUser(data);
@@ -46,31 +47,41 @@ const SignIn: React.FC<Props> = props => {
 
   useEffect(() => {
     if (data) {
-      data.find((el: any) => {
-        username === el.username, hash === el.password;
-      });
-      let { user } = data;
-      setHash(user.password);
-      let comparison = bcrypt.compareSync(password, hash);
-      let lowerCaseUsername = user.username.toLowerCase();
-      if (comparison) {
-        setUserVal({
-          username: lowerCaseUsername,
-          password: user.password,
-          id: user.id
-        });
-        let strId = user.id;
-        let plain = username;
-        let encrypted = aes256.encrypt(strId, plain);
-        setCookie("SESS_ID", encrypted, { path: "/" });
-        setCookie("SESS_KEY", strId, { path: "/" });
-        setLoggedIn(true);
-        logIn();
-      } else {
-        // setBordering("1px solid red");
+      // let foundInfo = data.getUsers.find((el: any) => hash === el.username);
+      let newId;
+      let loggedIn = false;
+      let { getUsers } = data;
+      console.log(getUsers);
+      for (let k = 0; k < getUsers.length; k++) {
+        let checker = getUsers[k].username;
+        let comparison = bcrypt.compareSync(password, getUsers[k].password);
+        console.log(comparison);
+        if (comparison === true) {
+          let lowerCaseUsername = getUsers[k].username.toLowerCase();
+          console.log(getUsers[k].id);
+          setUserVal({
+            username: lowerCaseUsername,
+            password: getUsers[k].password,
+            id: getUsers[k].id
+          });
+          newId = getUsers[k].id;
+          let plain = lowerCaseUsername;
+          let encrypted = aes256.encrypt(newId, plain);
+          setCookie("SESS_ID", encrypted, { path: "/" });
+          setCookie("SESS_KEY", newId, { path: "/" });
+          loggedIn = true;
+          setLoggedIn(true);
+          logIn();
+          break;
+        } else {
+          continue;
+        }
+      }
+      if (!loggedIn) {
+        alert("Not logged in");
       }
     }
-  }, [data]);
+  }, [data, runLogIn]);
 
   function logIn() {
     let path = "/home";
@@ -81,6 +92,7 @@ const SignIn: React.FC<Props> = props => {
     getUsersmod({
       variables: { username: username.toLowerCase() }
     });
+    setRunLogIn(!runLogIn);
   }
 
   return (
@@ -118,4 +130,4 @@ const SignIn: React.FC<Props> = props => {
   );
 };
 
-export default compose(graphql(userQuery, { name: "userQuery" }))(SignIn);
+export default compose(graphql(getUsers, { name: "getUsers" }))(SignIn);
