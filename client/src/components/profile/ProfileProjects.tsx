@@ -22,37 +22,38 @@ const ProfileProjects: React.FC<Props> = props => {
   const [passInUser, { data, loading }] = useLazyQuery(userQuery);
   const cookies = new Cookies();
 
-  useEffect(() => {
-    if (!loggedIn) {
-      if (cookies.get("SESS_ID") && cookies.get("SESS_KEY")) {
-        let sessionid = cookies.get("SESS_ID");
-        let key = cookies.get("SESS_KEY").toString();
-        let dec = aes256.decrypt(key, sessionid);
-        passInUser({
-          variables: {
-            username: dec
-          }
-        });
-        setLoggedIn(true);
-      } else {
-        let path = "/";
-        history.push(path);
-      }
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!loggedIn) {
+  //     if (cookies.get("SESS_ID") && cookies.get("SESS_KEY")) {
+  //       let sessionid = cookies.get("SESS_ID");
+  //       let key = cookies.get("SESS_KEY").toString();
+  //       let dec = aes256.decrypt(key, sessionid);
+  //       passInUser({
+  //         variables: {
+  //           username: dec,
+  //           id: key
+  //         }
+  //       });
+  //       setLoggedIn(true);
+  //     } else {
+  //       let path = "/";
+  //       history.push(path);
+  //     }
+  //   }
+  // }, []);
+  //
+  // useEffect(() => {
+  //   if (data) {
+  //     setUserVal({ username: data.user.username, id: data.user.id });
+  //   }
+  // }, [data]);
 
-  useEffect(() => {
-    if (data) {
-      setUserVal({ username: data.user.username, id: data.user.id });
-    }
-  }, [data]);
-
-  useEffect(() => {
-    if (data) {
-      setProjects(data.user.userprojects);
-      props.adminDriller(data.user.userprojects);
-    }
-  }, [data]);
+  // useEffect(() => {
+  //   if (data) {
+  //     setProjects(data.user.userprojects);
+  //     props.adminDriller(data.user.userprojects);
+  //   }
+  // }, [data]);
 
   function currentProjects() {
     if (projects) {

@@ -13,6 +13,7 @@ const aes256 = require("aes256");
 const About: React.FC = () => {
   const history = useHistory();
   const { loggedIn, setLoggedIn } = useContext(loggedInContext);
+  const { userVal, setUserVal } = useContext(userContext);
   const [passInUser, { data, loading }] = useLazyQuery(userQuery);
   const cookies = new Cookies();
   const [editableCodeInput, setEditableCodeInput] = useState(
@@ -25,10 +26,11 @@ const About: React.FC = () => {
         let sessionid = cookies.get("SESS_ID");
         let key = cookies.get("SESS_KEY").toString();
         let dec = aes256.decrypt(key, sessionid);
-        console.log(dec);
+        let loweredDec = dec.toLowerCase();
         passInUser({
           variables: {
-            username: dec
+            username: loweredDec,
+            id: key
           }
         });
         setLoggedIn(true);
@@ -38,6 +40,13 @@ const About: React.FC = () => {
       }
     }
   }, []);
+
+  useEffect(() => {
+    if (data) {
+      console.log("data");
+      setUserVal({ username: data.user.username, id: data.user.id });
+    }
+  }, [data]);
 
   return (
     <div>

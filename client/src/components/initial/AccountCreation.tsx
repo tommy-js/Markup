@@ -28,12 +28,11 @@ const AccountCreation: React.FC = () => {
         let dec = aes256.decrypt(key, sessionid);
         passInUser({
           variables: {
-            username: dec
+            username: dec,
+            id: key
           }
         });
         setLoggedIn(true);
-        let path = "/home";
-        history.push(path);
       } else {
         let path = "/";
         history.push(path);
@@ -44,6 +43,8 @@ const AccountCreation: React.FC = () => {
   useEffect(() => {
     if (data) {
       setUserVal({ username: data.user.username, id: data.user.id });
+      let path = "/home";
+      history.push(path);
     }
   }, [data]);
 

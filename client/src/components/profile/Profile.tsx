@@ -34,11 +34,16 @@ const Profile: React.FC<Props> = props => {
         let dec = aes256.decrypt(key, sessionid);
         passInUser({
           variables: {
-            username: dec
+            username: dec,
+            id: key
           }
         });
         setLoggedIn(true);
+        let path = `/home`;
+        history.push(path);
+        console.log(`Redirecting to ${path}`);
       } else {
+        console.log("Redirecting to login");
         let path = "/";
         history.push(path);
       }

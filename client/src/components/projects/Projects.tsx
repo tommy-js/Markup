@@ -31,10 +31,11 @@ const Projects: React.FC<Props> = props => {
         let sessionid = cookies.get("SESS_ID");
         let key = cookies.get("SESS_KEY").toString();
         let dec = aes256.decrypt(key, sessionid);
-        console.log(dec);
+        let loweredDec = dec.toLowerCase();
         passInUser({
           variables: {
-            username: dec
+            username: loweredDec,
+            id: key
           }
         });
         setLoggedIn(true);
@@ -44,6 +45,13 @@ const Projects: React.FC<Props> = props => {
       }
     }
   }, []);
+
+  useEffect(() => {
+    if (data) {
+      console.log("data");
+      setUserVal({ username: data.user.username, id: data.user.id });
+    }
+  }, [data]);
 
   function setSearch(submittedStack: object) {
     setSearchSettings(submittedStack);
