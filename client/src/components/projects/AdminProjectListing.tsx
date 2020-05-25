@@ -4,15 +4,16 @@ import { Link } from "react-router-dom";
 interface Props {
   title: string;
   id: number;
+  content: string;
 }
 
 export const AdminProjectListing: React.FC<Props> = props => {
   return (
     <div>
-      <Link to={`/contributor/${props.id}`}>
+      <Link to={`/profile/contributor/${props.id}`}>
         <div className="open_project">
           <h2>{props.title}</h2>
-          <p>"Description"</p>
+          <p>{props.content}</p>
         </div>
       </Link>
     </div>

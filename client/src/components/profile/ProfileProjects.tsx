@@ -30,7 +30,12 @@ const ProfileProjects: React.FC<Props> = props => {
       return (
         <div>
           {userVal.projects.map((el: any) => (
-            <AdminProjectListing key={el.id} title={el.title} id={el.id} />
+            <AdminProjectListing
+              key={el.id}
+              title={el.title}
+              content={el.content}
+              id={el.id}
+            />
           ))}
         </div>
       );

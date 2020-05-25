@@ -11,7 +11,7 @@ import Projects from "./components/projects/Projects";
 import { Redirect } from "./components/navigation/Redirect";
 import Profile from "./components/profile/Profile";
 import ProjectPage from "./components/projects/ProjectPage";
-import { AdminProjectPage } from "./components/projects/AdminProjectPage";
+import AdminProjectPage from "./components/projects/AdminProjectPage";
 import NewProject from "./components/projects/NewProject";
 
 const client = new ApolloClient({
@@ -49,7 +49,7 @@ function App(): JSX.Element {
         <div>
           {userVal.projects.map((el: any) => (
             <div>
-              <Route path={`/contributor/${el.id}`}>
+              <Route path={`/profile/contributor/${el.id}`}>
                 <AdminProjectPage
                   id={el.id}
                   title={el.title}
