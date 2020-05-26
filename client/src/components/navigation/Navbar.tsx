@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import favicon from "../../icons/favicon-32x32.png";
 import "../../App.scss";
+import { loggedInContext } from "../../App";
 import { userContext } from "../../App";
 import Cookies from "universal-cookie";
 
@@ -9,9 +10,11 @@ export const Navbar: React.FC = () => {
   const { userVal, setUserVal } = useContext(userContext);
   const history = useHistory();
   const cookies = new Cookies();
+  const { loggedIn, setLoggedIn } = useContext(loggedInContext);
 
   function logOut() {
     setUserVal();
+    setLoggedIn(false);
     let path = "/";
     history.push(path);
     cookies.remove("SESS_ID");

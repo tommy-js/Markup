@@ -9,6 +9,13 @@
   @include testing;
 }
 
+.project_page {
+  position: relative;
+  width: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
 .about_sidebar {
   position: fixed;
   width: 10%;

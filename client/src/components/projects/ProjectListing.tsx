@@ -11,12 +11,10 @@ interface Props {
 export const ProjectListing: React.FC<Props> = props => {
   return (
     <div>
-      <Link to={`/${props.id}`}>
-        <div className="open_project">
-          <h2>{props.title}</h2>
-          <p>{props.description}</p>
-        </div>
-      </Link>
+      <div className="open_project">
+        <h2>{props.title}</h2>
+        <p>{props.description}</p>
+      </div>
     </div>
   );
 };

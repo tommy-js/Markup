@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ProjectListing } from "./ProjectListing";
+import ProjectPage from "./ProjectPage";
 import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
 import { useLazyQuery } from "@apollo/react-hooks";
@@ -46,7 +46,7 @@ const OpenProject: React.FC<Props> = props => {
       return (
         <div className="project_opening">
           {projects.map((el: any) => (
-            <ProjectListing
+            <ProjectPage
               key={el.id}
               title={el.title}
               description={el.content}

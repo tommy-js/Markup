@@ -38,12 +38,8 @@ function App(): JSX.Element {
     setProjectMapper(projects);
   }
 
-  function adminDriller(userProjects: any) {
-    setUserProjectMapper(userProjects);
-  }
-
   function checkProj() {
-    if (userVal.projects) {
+    if (loggedIn && userVal.projects) {
       console.log(userVal.projects);
       return (
         <div>
@@ -94,10 +90,7 @@ function App(): JSX.Element {
                       <Projects routeDriller={routeDriller} />
                     </Route>
                     <Route path={`/profile`}>
-                      <Profile
-                        passedId={userVal.id}
-                        adminDriller={adminDriller}
-                      />
+                      <Profile />
                     </Route>
                     <Route path={`/newproject`}>
                       <NewProject />
