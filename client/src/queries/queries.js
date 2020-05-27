@@ -9,6 +9,25 @@ const messageQuery = gql`
   }
 `;
 
+const getFriendRequestsQuery = gql`
+  query($userid: ID!) {
+    getFriendRequests(toId: $userid) {
+      toId
+      fromId
+    }
+  }
+`;
+
+const addFriendRequestMutation = gql`
+  mutation($toId: ID!, $fromId: ID!) {
+    writeFriendRequest(toId: $toId, fromId: $fromId) {
+      toId
+      fromId
+      name
+    }
+  }
+`;
+
 const getMessageQuery = gql`
   query($toId: ID!, $fromId: ID!) {
     getMessages(toId: $toId, fromId: $fromId) {
@@ -324,6 +343,8 @@ export {
   getSessionIDQuery,
   addMessageMutation,
   addCodeMutation,
+  getFriendRequestsQuery,
+  addFriendRequestMutation,
   changeCodeMutation,
   addTaskMutation,
   addUserMutation,

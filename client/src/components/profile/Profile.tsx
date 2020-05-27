@@ -12,6 +12,7 @@ import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
 import { useLazyQuery } from "@apollo/react-hooks";
 import { ProfileContact } from "./ProfileContact";
+import FriendRequest from "./FriendRequest";
 const aes256 = require("aes256");
 
 interface Props {
@@ -71,6 +72,9 @@ const Profile: React.FC<Props> = props => {
           </Route>
           <Route path={`/profile/projects/${userVal.id}`}>
             <ProfileProjects adminDriller={props.adminDriller} />
+          </Route>
+          <Route path={`/profile/friendrequest/${userVal.id}`}>
+            <FriendRequest />
           </Route>
           <Route path={`/profile/contact/${userVal.id}`}>
             <ProfileContact />
