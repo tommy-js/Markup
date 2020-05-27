@@ -1,19 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Navbar } from "../navigation/Navbar";
 import plus from "../../icons/plus.png";
 import deleted from "../../icons/delete.png";
 import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
 import { addProjectMutation } from "../../queries/queries";
+import { addProjectUserMutation } from "../../queries/queries";
 import { SuccessfulProject } from "./SuccessfulProject";
+import { userContext } from "../../App";
 
-interface Props {
-  addProjectMutation: (variables: object) => void;
-}
-
-const NewProject: React.FC<Props> = props => {
+const BuildNewProject = props => {
   const [tech, setTech] = useState([{ key: 0, input: "" }]);
   const [positions, setPositions] = useState([{ key: 0, input: "" }]);
+  const { userVal, setUserVal } = useContext(userContext);
   const [checked, setChecked] = useState(false);
   const [validSubmit, setValidSubmit] = useState(false);
   const [visible, setVisible] = useState("none");
@@ -39,15 +38,15 @@ const NewProject: React.FC<Props> = props => {
     setTech(oldTech);
   }
 
-  function castTechValue(e: any, id: number) {
-    let foundItem: any = tech.find((el: any) => el.key === id);
+  function castTechValue(e, id) {
+    let foundItem = tech.find(el => el.key === id);
     let originTech = [...tech];
     let index = originTech.indexOf(foundItem);
     originTech[index].input = e.target.value;
     setTech(originTech);
   }
 
-  function removeTech(key: number) {
+  function removeTech(key) {
     let removingTech = [...tech];
     let filteredTech = removingTech.filter(el => el.key != key);
     setTech(filteredTech);
@@ -60,15 +59,15 @@ const NewProject: React.FC<Props> = props => {
     setPositions(oldPos);
   }
 
-  function castPosValue(e: any, id: number) {
-    let foundItem: any = positions.find((el: any) => el.key === id);
+  function castPosValue(e, id) {
+    let foundItem = positions.find(el => el.key === id);
     let originPosition = [...positions];
     let index = originPosition.indexOf(foundItem);
     originPosition[index].input = e.target.value;
     setPositions(originPosition);
   }
 
-  function removePosition(key: number) {
+  function removePosition(key) {
     let removingPosition = [...positions];
     let filteredPosition = removingPosition.filter(el => el.key != key);
     setPositions(filteredPosition);
@@ -77,15 +76,26 @@ const NewProject: React.FC<Props> = props => {
   function submitForm() {
     console.log(validSubmit);
     setSuccessfulProj(true);
+    let id = Math.floor(Math.random() * 100000);
+    let timestamp = Math.round(new Date().getTime() / 1000);
     props.addProjectMutation({
       variables: {
-        timestamp: Math.round(new Date().getTime() / 1000),
+        timestamp: timestamp,
         total: total,
         joined: soFar,
         stack: stack.toUpperCase(),
         content: content,
         title: title,
-        id: Math.floor(Math.random() * 100000)
+        id: id
+      }
+    });
+    props.addProjectUserMutation({
+      variables: {
+        timestamp: timestamp,
+        id: id,
+        title: title,
+        content: content,
+        userId: userVal.id
       }
     });
   }
@@ -100,7 +110,7 @@ const NewProject: React.FC<Props> = props => {
                 className="inner_new_tech"
                 key={el.key}
                 value={el.input}
-                onChange={e => castPosValue(e, el.key)}
+                onChange={e => castPosValue(e.target.value, el.key)}
                 placeholder="position"
               />
               <div
@@ -257,5 +267,6 @@ const NewProject: React.FC<Props> = props => {
 };
 
 export default compose(
-  graphql(addProjectMutation, { name: "addProjectMutation" })
-)(NewProject);
+  graphql(addProjectMutation, { name: "addProjectMutation" }),
+  graphql(addProjectUserMutation, { name: "addProjectUserMutation" })
+)(BuildNewProject);

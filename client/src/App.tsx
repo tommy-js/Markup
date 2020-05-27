@@ -12,7 +12,7 @@ import { Redirect } from "./components/navigation/Redirect";
 import Profile from "./components/profile/Profile";
 import ProjectPage from "./components/projects/ProjectPage";
 import AdminProjectPage from "./components/projects/AdminProjectPage";
-import NewProject from "./components/projects/NewProject";
+import BuildNewProject from "./components/projects/BuildNewProject.js";
 
 const client = new ApolloClient({
   uri: "http://localhost:4000/graphql"
@@ -93,7 +93,7 @@ function App(): JSX.Element {
                       <Profile />
                     </Route>
                     <Route path={`/newproject`}>
-                      <NewProject />
+                      <BuildNewProject />
                     </Route>
                     {checkProj()}
                     <Switch>
