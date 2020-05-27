@@ -98,6 +98,12 @@ const BuildNewProject = props => {
         userId: userVal.id
       }
     });
+    userVal.projects.push({
+      timestamp: timestamp,
+      id: id,
+      title: title,
+      content: content
+    });
   }
 
   function openPositions() {

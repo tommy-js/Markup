@@ -35,6 +35,12 @@ const ProjectPage: React.FC<Props> = props => {
         userId: userVal.id
       }
     });
+    userVal.projects.push({
+      timestamp: timestamp,
+      id: props.id,
+      title: props.title,
+      content: props.content
+    });
   }
 
   function checkMember() {

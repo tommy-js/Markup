@@ -58,7 +58,8 @@ function SignUp(props) {
       });
       setUserVal({
         username: lowerCaseUsername,
-        id: id
+        id: id,
+        projects: []
       });
       let strId = id.toString();
       let plain = username;
