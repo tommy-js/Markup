@@ -23,11 +23,13 @@ const AddUserComponent: React.FC<Props> = props => {
 
   function addFriend() {
     if (!checkUser) {
+      let timestamp = Math.round(new Date().getTime() / 1000);
       props.addFriendRequestMutation({
         variables: {
           fromId: userVal.id,
           toId: props.id,
-          name: userVal.name
+          name: userVal.username,
+          timestamp: timestamp
         }
       });
       setAddDisplay("none");

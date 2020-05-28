@@ -374,5 +374,52 @@ $buttonWidth: 125px;
 
 .friend_request {
   position: relative;
-  top: 200px;
+  margin-top: 50px;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.friend_request_block {
+  display: block;
+  margin-top: 25px;
+  height: 40px;
+  border: 1px solid red;
+}
+
+@mixin friend_request_button {
+  position: relative;
+  display: inline-block;
+  width: 35px;
+  height: 35px;
+  margin-left: 2px;
+  margin-right: 2px;
+  cursor: pointer;
+}
+
+.accept_button {
+  @include friend_request_button;
+}
+
+.decline_button {
+  @include friend_request_button;
+}
+
+.button_image {
+  height: 100%;
+  width: 100%;
+}
+
+.request_button_container {
+  position: relative;
+  display: inline-block;
+  float: right;
+}
+
+.friend_request_info {
+  position: relative;
+  font-size: 18px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: 6px;
 }

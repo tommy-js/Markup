@@ -22,7 +22,8 @@ const FriendRequestQuery = new GraphQLObjectType({
   fields: () => ({
     toId: { type: GraphQLID },
     fromId: { type: GraphQLID },
-    name: { type: GraphQLString }
+    name: { type: GraphQLString },
+    timestamp: { type: GraphQLID }
   })
 });
 
@@ -339,13 +340,15 @@ const Mutation = new GraphQLObjectType({
       args: {
         fromId: { type: GraphQLID },
         toId: { type: GraphQLID },
-        name: { type: GraphQLString }
+        name: { type: GraphQLString },
+        timestamp: { type: GraphQLID }
       },
       resolve(parent, args) {
         let newReq = new FriendRequest({
           toId: args.toId,
           fromId: args.fromId,
-          name: args.name
+          name: args.name,
+          timestamp: args.timestamp
         });
         return newReq.save();
       }

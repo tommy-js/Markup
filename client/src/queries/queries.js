@@ -15,16 +15,23 @@ const getFriendRequestsQuery = gql`
       toId
       fromId
       name
+      timestamp
     }
   }
 `;
 
 const addFriendRequestMutation = gql`
-  mutation($toId: ID!, $fromId: ID!) {
-    addFriendRequest(toId: $toId, fromId: $fromId) {
+  mutation($toId: ID!, $fromId: ID!, $name: String!, $timestamp: ID!) {
+    addFriendRequest(
+      toId: $toId
+      fromId: $fromId
+      name: $name
+      timestamp: $timestamp
+    ) {
       toId
       fromId
       name
+      timestamp
     }
   }
 `;
