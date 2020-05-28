@@ -15,6 +15,16 @@ const Task = require("../models/tasks");
 const Project = require("../models/project");
 const Session = require("../models/session");
 const Code = require("../models/code");
+const FriendRequest = require("../models/friendreq");
+
+const FriendRequestQuery = new GraphQLObjectType({
+  name: "FriendRequest",
+  fields: () => ({
+    toId: { type: GraphQLID },
+    fromId: { type: GraphQLID },
+    name: { type: GraphQLString }
+  })
+});
 
 const CodeQuery = new GraphQLObjectType({
   name: "Code",
@@ -116,6 +126,16 @@ const RootQuery = new GraphQLObjectType({
       },
       resolve(parent, args) {
         return User.find({ username: args.username });
+      }
+    },
+    getFriendRequests: {
+      type: new GraphQLList(FriendRequestQuery),
+      args: {
+        toId: { type: GraphQLID },
+        fromId: { type: GraphQLID }
+      },
+      resolve(parent, args) {
+        return FriendRequest.find({ toId: args.toId });
       }
     },
     getMessages: {
@@ -312,6 +332,22 @@ const Mutation = new GraphQLObjectType({
           { $set: { content: args.content } },
           { upsert: true, new: true }
         );
+      }
+    },
+    addFriendRequest: {
+      type: FriendRequestQuery,
+      args: {
+        fromId: { type: GraphQLID },
+        toId: { type: GraphQLID },
+        name: { type: GraphQLString }
+      },
+      resolve(parent, args) {
+        let newReq = new FriendRequest({
+          toId: args.toId,
+          fromId: args.fromId,
+          name: args.name
+        });
+        return newReq.save();
       }
     },
     addUserProject: {

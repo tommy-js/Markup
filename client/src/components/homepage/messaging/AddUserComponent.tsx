@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { addFriendMutation } from "../../../queries/queries";
+import { addFriendRequestMutation } from "../../../queries/queries";
 import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
 import { useLazyQuery } from "@apollo/react-hooks";
@@ -11,7 +11,7 @@ import "../../../App.scss";
 interface Props {
   user: string;
   id: number;
-  addFriendMutation: (variables: object) => void;
+  addFriendRequestMutation: (variables: object) => void;
 }
 
 const AddUserComponent: React.FC<Props> = props => {
@@ -23,11 +23,11 @@ const AddUserComponent: React.FC<Props> = props => {
 
   function addFriend() {
     if (!checkUser) {
-      props.addFriendMutation({
+      props.addFriendRequestMutation({
         variables: {
-          userId: userVal.id,
-          id: props.id,
-          name: props.user
+          fromId: userVal.id,
+          toId: props.id,
+          name: userVal.name
         }
       });
       setAddDisplay("none");
@@ -83,5 +83,5 @@ const AddUserComponent: React.FC<Props> = props => {
 };
 
 export default compose(
-  graphql(addFriendMutation, { name: "addFriendMutation" })
+  graphql(addFriendRequestMutation, { name: "addFriendRequestMutation" })
 )(AddUserComponent);

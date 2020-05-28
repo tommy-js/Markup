@@ -14,13 +14,14 @@ const getFriendRequestsQuery = gql`
     getFriendRequests(toId: $userid) {
       toId
       fromId
+      name
     }
   }
 `;
 
 const addFriendRequestMutation = gql`
   mutation($toId: ID!, $fromId: ID!) {
-    writeFriendRequest(toId: $toId, fromId: $fromId) {
+    addFriendRequest(toId: $toId, fromId: $fromId) {
       toId
       fromId
       name
