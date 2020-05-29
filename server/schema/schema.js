@@ -391,6 +391,19 @@ const Mutation = new GraphQLObjectType({
         );
       }
     },
+    deleteFriendRequest: {
+      type: FriendRequest,
+      args: {
+        fromId: { type: GraphQLID },
+        toId: { type: GraphQLID }
+      },
+      resolve(parent, args) {
+        return FriendRequest.findOneAndDelete({
+          fromId: args.fromId,
+          toId: args.toId
+        });
+      }
+    },
     addFriend: {
       type: FriendQuery,
       args: {

@@ -30,7 +30,7 @@ export const FriendReqContainer: React.FC<Props> = props => {
           <AcceptButton />
         </div>
         <div className="decline_button">
-          <DeclineButton />
+          <DeclineButton from={props.fromId} />
         </div>
       </div>
     </div>

@@ -36,6 +36,15 @@ const addFriendRequestMutation = gql`
   }
 `;
 
+const removeFriendRequestMutation = gql`
+  mutation($fromId: ID!, $toId: ID!) {
+    deleteFriendRequest(fromId: $fromId, toId: $toId) {
+      fromId
+      toId
+    }
+  }
+`;
+
 const getMessageQuery = gql`
   query($toId: ID!, $fromId: ID!) {
     getMessages(toId: $toId, fromId: $fromId) {
@@ -363,6 +372,7 @@ export {
   addProjectMutation,
   removeFriendMutation,
   removeTeammateMutation,
+  removeFriendRequestMutation,
   addProjectUserMutation,
   addSessionIDMutation
 };
