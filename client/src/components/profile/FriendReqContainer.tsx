@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import accept from "../../icons/accept.png";
-import decline from "../../icons/decline.png";
+import AcceptButton from "./AcceptButton.js";
+import DeclineButton from "./DeclineButton";
 
 interface Props {
   toId: number;
@@ -22,15 +22,15 @@ export const FriendReqContainer: React.FC<Props> = props => {
   return (
     <div className="friend_request_block">
       <div className="friend_request_info">
-        {props.name} #{props.fromId}{" "}
-        <span className="send_req_info">Sent {timepassed} minutes ago</span>
+        {props.name} #{props.fromId}
+        <span className="send_req_info"> Sent {timepassed} minutes ago</span>
       </div>
       <div className="request_button_container">
         <div className="accept_button">
-          <img className="button_image" src={accept} />
+          <AcceptButton />
         </div>
         <div className="decline_button">
-          <img className="button_image" src={decline} />
+          <DeclineButton />
         </div>
       </div>
     </div>
