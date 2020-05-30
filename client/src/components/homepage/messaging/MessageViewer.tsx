@@ -4,6 +4,7 @@ import { SearchForUser } from "./SearchForUser";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { rememberUserContext } from "../../../App";
+import { userContext } from "../../../App";
 import "../../../App.scss";
 
 interface Props {
@@ -14,6 +15,7 @@ interface Props {
 
 export const MessageViewer: React.FC<Props> = props => {
   const { rememberedUser, setRememberedUser } = useContext(rememberUserContext);
+  const { userVal, setUserVal } = useContext(userContext);
   const history = useHistory();
   function backButton() {
     props.viewMessages();
@@ -33,11 +35,11 @@ export const MessageViewer: React.FC<Props> = props => {
       </div>
     );
   } else {
-    if (props.friends.length > 0) {
+    if (userVal.friends) {
       return (
         <div className="message_viewer">
           <Switch>
-            {props.friends.map((el: any) => (
+            {userVal.friends.map((el: any) => (
               <Route exact path={`/home/${el.id}`}>
                 <MessageBox name={el.name} id={el.id} />
               </Route>
