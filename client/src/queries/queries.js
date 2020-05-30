@@ -256,7 +256,7 @@ const addTaskMutation = gql`
 `;
 
 const addFriendMutation = gql`
-  mutation($userId: ID!, $id: ID!, $name: String) {
+  mutation($userId: ID!, $id: ID!, $name: String!) {
     addFriend(userId: $userId, id: $id, name: $name) {
       userId
       id

@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
 import { removeFriendMutation } from "../../../queries/queries";
+import { userContext } from "../../../App";
 import "../../../App.scss";
 
 interface Props {
@@ -12,7 +13,12 @@ interface Props {
 }
 
 const RemoveFriendButton: React.FC<Props> = props => {
+  const { userVal, setUserVal } = useContext(userContext);
+
   function takeAwayFriend() {
+    let arr = userVal.friends.find((el: any) => el.id === props.id);
+    let found = userVal.friends.indexOf(arr);
+    userVal.friends.splice(found, 1);
     props.removeFriendMutation({
       variables: {
         userId: props.userId,
