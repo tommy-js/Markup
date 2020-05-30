@@ -6,29 +6,16 @@ import { removeFriendRequestMutation } from "../../queries/queries";
 import { userContext } from "../../App";
 
 interface Props {
-  removeFriendRequestMutation: (variables: object) => void;
+  dropFriendRequest: (from: number, to: number) => void;
   from: number;
 }
 
-const DeclineButton: React.FC<Props> = props => {
+export const DeclineButton: React.FC<Props> = props => {
   const { userVal, setUserVal } = useContext(userContext);
 
-  function dropFriendReq() {
-    props.removeFriendRequestMutation({
-      variables: {
-        fromId: props.from,
-        toId: userVal.id
-      }
-    });
-  }
-
   return (
-    <div onClick={() => dropFriendReq()}>
+    <div onClick={() => props.dropFriendRequest(props.from, userVal.id)}>
       <img className="button_image" src={decline} />
     </div>
   );
 };
-
-export default compose(
-  graphql(removeFriendRequestMutation, { name: "removeFriendRequestMutation" })
-)(DeclineButton);

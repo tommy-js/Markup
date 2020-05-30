@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from "react";
+import { flowRight as compose } from "lodash";
+import { graphql } from "react-apollo";
+import { useQuery } from "@apollo/react-hooks";
 import AcceptButton from "./AcceptButton.js";
-import DeclineButton from "./DeclineButton";
+import { DeclineButton } from "./DeclineButton";
+import { removeFriendRequestMutation } from "../../queries/queries";
 
 interface Props {
   toId: number;
   fromId: number;
   name: string;
   timestamp: number;
+  removeFriendRequestMutation: (variables: object) => void;
 }
 
-export const FriendReqContainer: React.FC<Props> = props => {
+const FriendReqContainer: React.FC<Props> = props => {
   const [timepassed, setTimepassed] = useState(0);
 
   useEffect(() => {
@@ -19,6 +24,15 @@ export const FriendReqContainer: React.FC<Props> = props => {
     setTimepassed(fullTime);
   }, []);
 
+  function dropFriendRequest(from: number, to: number) {
+    props.removeFriendRequestMutation({
+      variables: {
+        fromId: from,
+        toId: to
+      }
+    });
+  }
+
   return (
     <div className="friend_request_block">
       <div className="friend_request_info">
@@ -27,12 +41,23 @@ export const FriendReqContainer: React.FC<Props> = props => {
       </div>
       <div className="request_button_container">
         <div className="accept_button">
-          <AcceptButton from={props.fromId} name={props.name} />
+          <AcceptButton
+            dropFriendRequest={dropFriendRequest}
+            from={props.fromId}
+            name={props.name}
+          />
         </div>
         <div className="decline_button">
-          <DeclineButton from={props.fromId} />
+          <DeclineButton
+            dropFriendRequest={dropFriendRequest}
+            from={props.fromId}
+          />
         </div>
       </div>
     </div>
   );
 };
+
+export default compose(
+  graphql(removeFriendRequestMutation, { name: "removeFriendRequestMutation" })
+)(FriendReqContainer);

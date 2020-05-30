@@ -4,9 +4,9 @@ import { graphql } from "react-apollo";
 import { useQuery } from "@apollo/react-hooks";
 import { getFriendRequestsQuery } from "../../queries/queries";
 import { userContext } from "../../App";
-import { FriendReqContainer } from "./FriendReqContainer";
+import FriendReqContainer from "./FriendReqContainer";
 
-const FriendRequest: React.FC = () => {
+export const FriendRequest: React.FC = () => {
   const { userVal, setUserVal } = useContext(userContext);
   const { data, loading, error } = useQuery(getFriendRequestsQuery, {
     variables: {
@@ -23,23 +23,17 @@ const FriendRequest: React.FC = () => {
     }
   }, [data]);
 
-  if (!loading) {
-    return (
-      <div className="friend_request">
-        <h1 className="recent_req_header">Recent Friend Requests</h1>
-        {friendRequests.map((el: any) => (
-          <FriendReqContainer
-            name={el.name}
-            toId={el.toId}
-            fromId={el.fromId}
-            timestamp={el.timestamp}
-          />
-        ))}
-      </div>
-    );
-  } else {
-    return null;
-  }
+  return (
+    <div className="friend_request">
+      <h1 className="recent_req_header">Recent Friend Requests</h1>
+      {friendRequests.map((el: any) => (
+        <FriendReqContainer
+          name={el.name}
+          toId={el.toId}
+          fromId={el.fromId}
+          timestamp={el.timestamp}
+        />
+      ))}
+    </div>
+  );
 };
-
-export default FriendRequest;

@@ -28,6 +28,7 @@ function AcceptButton(props) {
           }
         })
       );
+    props.dropFriendRequest(props.from, userVal.id);
   }
 
   return (

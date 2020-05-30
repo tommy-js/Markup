@@ -12,7 +12,7 @@ import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
 import { useLazyQuery } from "@apollo/react-hooks";
 import { ProfileContact } from "./ProfileContact";
-import FriendRequest from "./FriendRequest";
+import { FriendRequest } from "./FriendRequest";
 const aes256 = require("aes256");
 
 interface Props {
