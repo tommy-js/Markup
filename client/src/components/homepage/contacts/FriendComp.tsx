@@ -30,6 +30,10 @@ export const FriendComp: React.FC<Props> = props => {
           >
             Teammates
           </button>
+          <FriendTab
+            passFriends={props.passFriends}
+            searchingForFriends={props.searchingForFriends}
+          />
         </div>
       </div>
     );

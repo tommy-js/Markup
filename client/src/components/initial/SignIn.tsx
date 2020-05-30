@@ -51,14 +51,11 @@ const SignIn: React.FC<Props> = props => {
       let newId;
       let loggedIn = false;
       let { getUsers } = data;
-      console.log(getUsers);
       for (let k = 0; k < getUsers.length; k++) {
         let checker = getUsers[k].username;
         let comparison = bcrypt.compareSync(password, getUsers[k].password);
-        console.log(comparison);
         if (comparison === true) {
           let lowerCaseUsername = getUsers[k].username.toLowerCase();
-          console.log(getUsers[k].id);
           setUserVal({
             username: lowerCaseUsername,
             password: getUsers[k].password,

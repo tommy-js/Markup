@@ -11,12 +11,11 @@ interface Props {
 export const FriendTab: React.FC<Props> = props => {
   const { userVal, setUserVal } = useContext(userContext);
   const [userFriends, setUserFriends] = useState(userVal.friends);
-  const [userTeammates, setUserTeammates] = useState(userVal.teammates);
 
-  if (userFriends.length > 0) {
+  if (userVal.friends) {
     return (
       <div className="friend_class_container">
-        {userFriends.map((person: any) => (
+        {userVal.friends.map((person: any) => (
           <Friend
             key={Math.floor(Math.random() * 10000)}
             id={person.id}

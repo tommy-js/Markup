@@ -59,6 +59,7 @@ function SignUp(props) {
       setUserVal({
         username: lowerCaseUsername,
         id: id,
+        friends: [],
         projects: []
       });
       let strId = id.toString();

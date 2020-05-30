@@ -12,6 +12,9 @@ interface Props {
 export const FriendList: React.FC<Props> = props => {
   const { userVal, setUserVal } = useContext(userContext);
 
+  console.log(userVal);
+  console.log(userVal.friends);
+
   return (
     <div className="friend_list">
       <FriendComp
