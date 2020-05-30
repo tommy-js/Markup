@@ -29,12 +29,12 @@ function AcceptButton(props) {
   }
 
   return (
-    <div onClick={submitFriendAccept()}>
+    <div onClick={() => submitFriendAccept()}>
       <img className="button_image" src={accept} />
     </div>
   );
 }
 
 export default compose(
-  graphql(addFriendMutation, { name: "addNewUserMutation" })
+  graphql(addFriendMutation, { name: "addFriendMutation" })
 )(AcceptButton);

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import FriendTab from "./FriendTab";
+import { FriendTab } from "./FriendTab";
 import TeamTab from "./TeamTab";
 import "../../../App.scss";
 
@@ -30,10 +30,6 @@ export const FriendComp: React.FC<Props> = props => {
           >
             Teammates
           </button>
-          <FriendTab
-            passFriends={props.passFriends}
-            searchingForFriends={props.searchingForFriends}
-          />
         </div>
       </div>
     );

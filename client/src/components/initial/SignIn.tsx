@@ -63,6 +63,7 @@ const SignIn: React.FC<Props> = props => {
             username: lowerCaseUsername,
             password: getUsers[k].password,
             id: getUsers[k].id,
+            friends: getUsers[k].friends,
             projects: getUsers[k].projects
           });
           newId = getUsers[k].id;

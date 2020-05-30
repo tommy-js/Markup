@@ -54,6 +54,7 @@ const HomePage: React.FC = () => {
       setUserVal({
         username: data.user.username,
         id: data.user.id,
+        friends: data.user.friends,
         projects: data.user.projects
       });
     }
