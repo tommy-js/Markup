@@ -36,6 +36,5 @@ function AcceptButton(props) {
 }
 
 export default compose(
-  graphql(addFriendMutation, { name: "addFriendMutation" }),
   graphql(addFriendMutation, { name: "addNewUserMutation" })
 )(AcceptButton);
