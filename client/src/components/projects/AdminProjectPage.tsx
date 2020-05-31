@@ -38,6 +38,16 @@ const AdminProjectPage: React.FC<Props> = props => {
   }
 
   function leaveProject() {
+    let el = userVal.projects.find((el: any) => el.id === props.id);
+    let foundVal = userVal.projects.indexOf(el);
+    let newArray = userVal.projects;
+    newArray.splice(foundVal, 1);
+    setUserVal({
+      username: userVal.username,
+      id: userVal.id,
+      friends: userVal.friends,
+      projects: newArray
+    });
     props.removeProjectMutation({
       variables: {
         userId: userVal.id,

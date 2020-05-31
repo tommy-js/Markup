@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
+import { userContext } from "../../App";
 
 interface Props {
   title: string;
@@ -8,6 +9,11 @@ interface Props {
 }
 
 export const AdminProjectListing: React.FC<Props> = props => {
+  const { userVal, setUserVal } = useContext(userContext);
+
+  useEffect(() => {
+    console.log(userVal);
+  }, []);
   return (
     <div>
       <Link to={`/profile/contributor/${props.id}`}>

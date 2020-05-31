@@ -40,17 +40,16 @@ function App(): JSX.Element {
 
   function checkProj() {
     if (loggedIn && userVal.projects) {
-      console.log(userVal.projects);
+      console.log("Running" + userVal.projects);
       return (
         <div>
           {userVal.projects.map((el: any) => (
-            <div>
+            <div key={el.id}>
               <Route path={`/profile/contributor/${el.id}`}>
                 <AdminProjectPage
                   id={el.id}
                   title={el.title}
                   content={el.content}
-                  key={el.id}
                 />
               </Route>
             </div>
