@@ -26,6 +26,15 @@ function AcceptButton(props) {
           }
         })
       );
+    let arr = userVal.friends;
+    let pushFriend = { id: props.from, name: props.name };
+    arr.push(pushFriend);
+    setUserVal({
+      username: userVal.username,
+      id: userVal.id,
+      friends: pushFriend,
+      projects: userVal.projects
+    });
     props.dropFriendRequest(props.from, userVal.id);
   }
 

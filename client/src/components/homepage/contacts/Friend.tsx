@@ -17,25 +17,25 @@ export const Friend: React.FC<Props> = props => {
       className="person_container"
       onClick={() => props.searchingForFriends(false)}
     >
-      <Link className="link_to_person" to={`/home/${props.id}`}>
-        <div className="person">
+      <div className="person">
+        <Link className="link_to_person" to={`/home/${props.id}`}>
           <span>
             {props.name} #{props.id}
           </span>
-          <div className="friend_settings">
-            <AddTeammateButton
-              name={props.name}
-              id={props.id}
-              userId={props.userId}
-            />
-            <RemoveFriendButton
-              name={props.name}
-              id={props.id}
-              userId={props.userId}
-            />
-          </div>
+        </Link>
+        <div className="friend_settings">
+          <AddTeammateButton
+            name={props.name}
+            id={props.id}
+            userId={props.userId}
+          />
+          <RemoveFriendButton
+            name={props.name}
+            id={props.id}
+            userId={props.userId}
+          />
         </div>
-      </Link>
+      </div>
     </div>
   );
 };

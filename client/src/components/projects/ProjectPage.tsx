@@ -35,11 +35,18 @@ const ProjectPage: React.FC<Props> = props => {
         userId: userVal.id
       }
     });
-    userVal.projects.push({
+    let arr = userVal.projects;
+    arr.push({
       timestamp: timestamp,
       id: props.id,
       title: props.title,
       content: props.content
+    });
+    setUserVal({
+      username: userVal.username,
+      id: userVal.id,
+      friends: userVal.friends,
+      projects: arr
     });
   }
 
