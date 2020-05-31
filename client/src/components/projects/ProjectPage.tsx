@@ -24,30 +24,32 @@ const ProjectPage: React.FC<Props> = props => {
   }, []);
 
   function addUserToProject() {
-    let timestamp = Math.round(new Date().getTime() / 1000);
-    setMember(true);
-    props.addProjectUserMutation({
-      variables: {
+    let arr = userVal.projects;
+    if (arr.length < 5) {
+      let timestamp = Math.round(new Date().getTime() / 1000);
+      setMember(true);
+      props.addProjectUserMutation({
+        variables: {
+          timestamp: timestamp,
+          id: props.id,
+          title: props.title,
+          content: props.content,
+          userId: userVal.id
+        }
+      });
+      arr.push({
         timestamp: timestamp,
         id: props.id,
         title: props.title,
-        content: props.content,
-        userId: userVal.id
-      }
-    });
-    let arr = userVal.projects;
-    arr.push({
-      timestamp: timestamp,
-      id: props.id,
-      title: props.title,
-      content: props.content
-    });
-    setUserVal({
-      username: userVal.username,
-      id: userVal.id,
-      friends: userVal.friends,
-      projects: arr
-    });
+        content: props.content
+      });
+      setUserVal({
+        username: userVal.username,
+        id: userVal.id,
+        friends: userVal.friends,
+        projects: arr
+      });
+    }
   }
 
   function checkMember() {

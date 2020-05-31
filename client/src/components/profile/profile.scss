@@ -140,6 +140,17 @@
   @include testing;
 }
 
+.full_list_block {
+  text-align: center;
+  @include standardFont;
+}
+
+.project_counter {
+  position: relative;
+  top: 25px;
+  @include standardFont;
+}
+
 .start_project_header {
   color: pink;
   font-size: 22px;

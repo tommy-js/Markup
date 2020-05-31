@@ -74,36 +74,45 @@ const BuildNewProject = props => {
   }
 
   function submitForm() {
-    console.log(validSubmit);
-    setSuccessfulProj(true);
-    let id = Math.floor(Math.random() * 100000);
-    let timestamp = Math.round(new Date().getTime() / 1000);
-    props.addProjectMutation({
-      variables: {
-        timestamp: timestamp,
-        total: total,
-        joined: soFar,
-        stack: stack.toUpperCase(),
-        content: content,
-        title: title,
-        id: id
-      }
-    });
-    props.addProjectUserMutation({
-      variables: {
+    let arr = userVal.projects;
+    if (arr.length < 5) {
+      let id = Math.floor(Math.random() * 100000);
+      let timestamp = Math.round(new Date().getTime() / 1000);
+      props.addProjectMutation({
+        variables: {
+          timestamp: timestamp,
+          total: total,
+          joined: soFar,
+          stack: stack.toUpperCase(),
+          content: content,
+          title: title,
+          id: id
+        }
+      });
+      props.addProjectUserMutation({
+        variables: {
+          timestamp: timestamp,
+          id: id,
+          title: title,
+          content: content,
+          userId: userVal.id
+        }
+      });
+      let newProj = {
         timestamp: timestamp,
         id: id,
         title: title,
-        content: content,
-        userId: userVal.id
-      }
-    });
-    userVal.projects.push({
-      timestamp: timestamp,
-      id: id,
-      title: title,
-      content: content
-    });
+        content: content
+      };
+      arr.push(newProj);
+      setUserVal({
+        username: userVal.username,
+        id: userVal.id,
+        friends: userVal.friends,
+        projects: arr
+      });
+      setSuccessfulProj(true);
+    }
   }
 
   function openPositions() {

@@ -19,14 +19,15 @@ export const ProfileProjects: React.FC<Props> = props => {
   const [projects, setProjects] = useState(userVal.projects);
   const { loggedIn, setLoggedIn } = useContext(loggedInContext);
   const [totalProj, setTotalProj] = useState();
+  const [projList, setProjList] = useState();
   const history = useHistory();
   const cookies = new Cookies();
 
   useEffect(() => {
     if (userVal.projects) {
       let arr = userVal.projects.length;
-      console.log(arr);
-      setTotalProj(`${arr}/5`);
+      setTotalProj(arr);
+      setProjList(`${arr}/5 projects joined`);
     }
   }, []);
 
@@ -53,6 +54,20 @@ export const ProfileProjects: React.FC<Props> = props => {
     }
   }
 
+  function displayList() {
+    if (totalProj < 5) {
+      return null;
+    } else {
+      return (
+        <div className="full_list_block">
+          <span>Project list full</span>
+          <br />
+          <span>Leave a project to add another</span>
+        </div>
+      );
+    }
+  }
+
   return (
     <div>
       <div className="start_project_block">
@@ -65,8 +80,9 @@ export const ProfileProjects: React.FC<Props> = props => {
             </div>
           </Link>
         </div>
-        <span className="project_counter">{totalProj}</span>
+        {displayList()}
       </div>
+      <span className="project_counter">{projList}</span>
       <div className="current_projects">{currentProjects()}</div>
     </div>
   );
