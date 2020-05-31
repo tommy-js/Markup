@@ -128,6 +128,14 @@ const removeTaskMutation = gql`
   }
 `;
 
+const removeProjectMutation = gql`
+  mutation($userId: ID!, $id: ID!) {
+    deleteProject(userId: $userId, id: $id) {
+      id
+    }
+  }
+`;
+
 const addProjectMutation = gql`
   mutation(
     $timestamp: ID!
@@ -372,6 +380,7 @@ export {
   addProjectMutation,
   removeFriendMutation,
   removeTeammateMutation,
+  removeProjectMutation,
   removeFriendRequestMutation,
   addProjectUserMutation,
   addSessionIDMutation

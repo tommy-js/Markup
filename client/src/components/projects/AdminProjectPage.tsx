@@ -1,11 +1,10 @@
-import React, { useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Navbar } from "../navigation/Navbar";
 import { loggedInContext } from "../../App";
 import { userContext } from "../../App";
 import Cookies from "universal-cookie";
-import { userQuery } from "../../queries/queries";
+import { removeProjectMutation } from "../../queries/queries";
 import { useHistory } from "react-router-dom";
-import { useLazyQuery } from "@apollo/react-hooks";
 import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
 const aes256 = require("aes256");
@@ -14,6 +13,7 @@ interface Props {
   id: number;
   title: string;
   content: string;
+  removeProjectMutation: (variables: object) => void;
 }
 
 const AdminProjectPage: React.FC<Props> = props => {
@@ -21,40 +21,30 @@ const AdminProjectPage: React.FC<Props> = props => {
   const { loggedIn, setLoggedIn } = useContext(loggedInContext);
   const cookies = new Cookies();
   const history = useHistory();
-  const [passInUser, { data, loading }] = useLazyQuery(userQuery);
+  const [getConfirmation, setConfirmation] = useState();
 
-  useEffect(() => {
-    if (!loggedIn) {
-      if (cookies.get("SESS_ID") && cookies.get("SESS_KEY")) {
-        console.log("should push");
-        let sessionid = cookies.get("SESS_ID");
-        let key = cookies.get("SESS_KEY").toString();
-        let dec = aes256.decrypt(key, sessionid);
-        let loweredDec = dec.toLowerCase();
-        passInUser({
-          variables: {
-            username: loweredDec,
-            id: key
-          }
-        });
-        setLoggedIn(true);
-      } else {
-        let path = "/";
-        history.push(path);
+  function confirmation() {
+    if (getConfirmation === true) {
+      console.log(props.id);
+      console.log(userVal.id);
+      return (
+        <div className="are_you_sure">
+          <button onClick={() => leaveProject()}>Yes</button>
+        </div>
+      );
+    } else {
+      return null;
+    }
+  }
+
+  function leaveProject() {
+    props.removeProjectMutation({
+      variables: {
+        userId: userVal.id,
+        id: props.id
       }
-    }
-  }, []);
-
-  useEffect(() => {
-    if (data) {
-      console.log("data");
-      setUserVal({
-        username: data.user.username,
-        id: data.user.id,
-        projects: data.user.projects
-      });
-    }
-  }, [data]);
+    });
+  }
 
   return (
     <div className="profile_block">
@@ -64,12 +54,16 @@ const AdminProjectPage: React.FC<Props> = props => {
           <p>{props.title}</p>
           <p>{props.content}</p>
           <p>You're contributing to this project</p>
+          <button onClick={() => setConfirmation(!getConfirmation)}>
+            Leave Project
+          </button>
+          {confirmation()}
         </div>
       </div>
     </div>
   );
 };
 
-export default compose(graphql(userQuery, { name: "userQuery" }))(
-  AdminProjectPage
-);
+export default compose(
+  graphql(removeProjectMutation, { name: "removeProjectMutation" })
+)(AdminProjectPage);

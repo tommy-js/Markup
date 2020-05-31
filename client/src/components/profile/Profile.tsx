@@ -5,7 +5,7 @@ import { useHistory, Link, Route } from "react-router-dom";
 import { loggedInContext } from "../../App";
 import { ProfileSidebar } from "./ProfileSidebar";
 import UserSettings from "./UserSettings.js";
-import ProfileProjects from "./ProfileProjects";
+import { ProfileProjects } from "./ProfileProjects";
 import Cookies from "universal-cookie";
 import { userQuery } from "../../queries/queries";
 import { flowRight as compose } from "lodash";

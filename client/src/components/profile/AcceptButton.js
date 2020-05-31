@@ -9,8 +9,6 @@ function AcceptButton(props) {
   const { userVal, setUserVal } = useContext(userContext);
 
   function submitFriendAccept() {
-    let addingUser = { id: props.from, name: props.name };
-    userVal.friends.push(addingUser);
     props
       .addFriendMutation({
         variables: {
