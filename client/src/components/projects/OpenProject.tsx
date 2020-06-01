@@ -47,6 +47,7 @@ const OpenProject: React.FC<Props> = props => {
         <div className="project_opening">
           {projects.map((el: any) => (
             <ProjectPage
+              leadName={el.leadName}
               key={el.id}
               title={el.title}
               description={el.content}

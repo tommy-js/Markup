@@ -2,13 +2,16 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const projectSchema = new Schema({
+  leadId: Number,
+  leadName: String,
   title: String,
   content: String,
   id: Number,
   timestamp: Number,
   total: Number,
   joined: Number,
-  stack: String
+  stack: String,
+  members: [{ id: Number, name: String }]
 });
 
 module.exports = mongoose.model("Project", projectSchema);

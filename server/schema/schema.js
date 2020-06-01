@@ -16,6 +16,7 @@ const Project = require("../models/project");
 const Session = require("../models/session");
 const Code = require("../models/code");
 const FriendRequest = require("../models/friendreq");
+const ProjectMember = require("../models/ProjectMember");
 
 const FriendRequestQuery = new GraphQLObjectType({
   name: "FriendRequest",
@@ -24,6 +25,14 @@ const FriendRequestQuery = new GraphQLObjectType({
     fromId: { type: GraphQLID },
     name: { type: GraphQLString },
     timestamp: { type: GraphQLID }
+  })
+});
+
+const ProjectMemberQuery = new GraphQLObjectType({
+  name: "ProjectMember",
+  fields: () => ({
+    id: { type: GraphQLID },
+    name: { type: GraphQLString }
   })
 });
 
@@ -82,13 +91,16 @@ const SessionQuery = new GraphQLObjectType({
 const ProjectQuery = new GraphQLObjectType({
   name: "Project",
   fields: () => ({
+    leadId: { type: GraphQLID },
+    leadName: { type: GraphQLString },
     id: { type: GraphQLID },
     title: { type: GraphQLString },
     content: { type: GraphQLString },
     joined: { type: GraphQLID },
     total: { type: GraphQLID },
     timestamp: { type: GraphQLID },
-    stack: { type: GraphQLString }
+    stack: { type: GraphQLString },
+    members: { type: new GraphQLList(ProjectMemberQuery) }
   })
 });
 
@@ -229,25 +241,46 @@ const Mutation = new GraphQLObjectType({
     addProject: {
       type: ProjectQuery,
       args: {
+        leadId: { type: GraphQLID },
+        leadName: { type: GraphQLString },
         title: { type: GraphQLString },
         content: { type: GraphQLString },
         joined: { type: GraphQLID },
         total: { type: GraphQLID },
         timestamp: { type: GraphQLID },
         stack: { type: GraphQLString },
-        id: { type: GraphQLID }
+        id: { type: GraphQLID },
+        userId: { type: GraphQLID },
+        username: { type: GraphQLString }
       },
       resolve(parent, args) {
         let newProject = new Project({
+          leadId: args.leadId,
+          leadName: args.leadName,
           title: args.title,
           content: args.content,
           joined: args.joined,
           total: args.total,
           timestamp: args.timestamp,
           stack: args.stack,
-          id: args.id
+          id: args.id,
+          members: [{ id: args.userId, name: args.username }]
         });
         return newProject.save();
+      }
+    },
+    projectMemberPush: {
+      type: ProjectMemberQuery,
+      args: {
+        projId: { type: GraphQLID },
+        id: { type: GraphQLID },
+        name: { type: GraphQLString }
+      },
+      resolve(parent, args) {
+        return Project.update(
+          { id: args.projId },
+          { $push: { id: args.id, name: args.name } }
+        );
       }
     },
     addMessage: {

@@ -4,8 +4,10 @@ import plus from "../../icons/plus.png";
 import deleted from "../../icons/delete.png";
 import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
-import { addProjectMutation } from "../../queries/queries";
-import { addProjectUserMutation } from "../../queries/queries";
+import {
+  addProjectMutation,
+  addProjectUserMutation
+} from "../../queries/queries";
 import { SuccessfulProject } from "./SuccessfulProject";
 import { userContext } from "../../App";
 
@@ -80,13 +82,17 @@ const BuildNewProject = props => {
       let timestamp = Math.round(new Date().getTime() / 1000);
       props.addProjectMutation({
         variables: {
+          leadId: userVal.id,
+          leadName: userVal.username,
           timestamp: timestamp,
           total: total,
           joined: soFar,
           stack: stack.toUpperCase(),
           content: content,
           title: title,
-          id: id
+          id: id,
+          userId: userVal.id,
+          username: userVal.username
         }
       });
       props.addProjectUserMutation({

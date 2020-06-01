@@ -10,6 +10,8 @@ interface Props {
   id: number;
   title: string;
   content: string;
+  leadId: number;
+  leadName: string;
 }
 
 const ProjectPage: React.FC<Props> = props => {
@@ -70,6 +72,7 @@ const ProjectPage: React.FC<Props> = props => {
       <div className="project_page">
         <p>{props.title}</p>
         <p>{props.content}</p>
+        <p>Project Lead: {props.leadName}</p>
         {checkMember()}
       </div>
     </div>

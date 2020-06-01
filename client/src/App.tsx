@@ -95,17 +95,6 @@ function App(): JSX.Element {
                       <BuildNewProject />
                     </Route>
                     {checkProj()}
-                    <Switch>
-                      {projectMapper.map((el: any) => (
-                        <Route path={`/${el.id}`}>
-                          <ProjectPage
-                            id={el.id}
-                            title={el.title}
-                            content={el.content}
-                          />
-                        </Route>
-                      ))}
-                    </Switch>
                   </div>
                 </Router>
               </ApolloProvider>

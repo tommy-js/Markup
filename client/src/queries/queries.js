@@ -61,6 +61,8 @@ const getMessageQuery = gql`
 const getOpenProjectsQuery = gql`
   query($stack: String!) {
     projects(stack: $stack) {
+      leadName
+      leadId
       stack
       timestamp
       joined
@@ -68,6 +70,10 @@ const getOpenProjectsQuery = gql`
       title
       content
       id
+      members {
+        id
+        name
+      }
     }
   }
 `;
@@ -138,6 +144,8 @@ const removeProjectMutation = gql`
 
 const addProjectMutation = gql`
   mutation(
+    $leadId: ID!
+    $leadName: String!
     $timestamp: ID!
     $total: ID!
     $joined: ID!
@@ -145,8 +153,12 @@ const addProjectMutation = gql`
     $content: String!
     $title: String!
     $id: ID!
+    $userId: ID!
+    $username: String!
   ) {
     addProject(
+      leadId: $leadId
+      leadName: $leadName
       timestamp: $timestamp
       total: $total
       joined: $joined
@@ -154,7 +166,11 @@ const addProjectMutation = gql`
       content: $content
       title: $title
       id: $id
+      userId: $userId
+      username: $username
     ) {
+      leadId
+      leadName
       timestamp
       id
       content
@@ -185,6 +201,15 @@ const addProjectUserMutation = gql`
       id
       title
       content
+    }
+  }
+`;
+
+const pushUserToProjectMutation = gql`
+  mutation($projId: ID!, $id: ID!, $name: String!) {
+    projectMemberPush(projId: $projId, id: $id, name: $name) {
+      id
+      name
     }
   }
 `;
@@ -378,6 +403,7 @@ export {
   changeMessageMutation,
   addTeammateMutation,
   addProjectMutation,
+  pushUserToProjectMutation,
   removeFriendMutation,
   removeTeammateMutation,
   removeProjectMutation,
