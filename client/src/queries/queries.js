@@ -101,6 +101,8 @@ const userQuery = gql`
         timestamp
         title
         content
+        leadName
+        leadId
       }
       usersettings {
         savedata
@@ -120,6 +122,8 @@ const getUsers = gql`
         timestamp
         title
         content
+        leadName
+        leadId
       }
     }
   }
@@ -189,6 +193,8 @@ const addProjectUserMutation = gql`
     $title: String
     $content: String
     $userId: ID!
+    $leadName: String!
+    $leadId: ID!
   ) {
     addUserProject(
       timestamp: $timestamp
@@ -196,7 +202,11 @@ const addProjectUserMutation = gql`
       title: $title
       content: $content
       userId: $userId
+      leadName: $leadName
+      leadId: $leadId
     ) {
+      leadName
+      leadId
       timestamp
       id
       title

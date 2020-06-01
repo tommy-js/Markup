@@ -393,7 +393,9 @@ const Mutation = new GraphQLObjectType({
         userId: { type: GraphQLID },
         title: { type: GraphQLString },
         content: { type: GraphQLString },
-        timestamp: { type: GraphQLID }
+        timestamp: { type: GraphQLID },
+        leadName: { type: GraphQLString },
+        leadId: { type: GraphQLID }
       },
       resolve(parent, args) {
         return User.update(
@@ -404,7 +406,9 @@ const Mutation = new GraphQLObjectType({
                 id: args.id,
                 content: args.content,
                 title: args.title,
-                timestamp: args.timestamp
+                timestamp: args.timestamp,
+                leadName: args.leadName,
+                leadId: args.leadId
               }
             }
           }

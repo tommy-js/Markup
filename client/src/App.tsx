@@ -47,6 +47,8 @@ function App(): JSX.Element {
             <div key={el.id}>
               <Route path={`/profile/contributor/${el.id}`}>
                 <AdminProjectPage
+                  leadName={el.leadName}
+                  leadId={el.leadId}
                   id={el.id}
                   title={el.title}
                   content={el.content}

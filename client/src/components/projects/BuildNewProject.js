@@ -101,14 +101,18 @@ const BuildNewProject = props => {
           id: id,
           title: title,
           content: content,
-          userId: userVal.id
+          userId: userVal.id,
+          leadId: userVal.id,
+          leadName: userVal.username
         }
       });
       let newProj = {
         timestamp: timestamp,
         id: id,
         title: title,
-        content: content
+        content: content,
+        leadId: userVal.id,
+        leadName: userVal.name
       };
       arr.push(newProj);
       setUserVal({

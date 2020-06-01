@@ -13,6 +13,8 @@ interface Props {
   id: number;
   title: string;
   content: string;
+  leadName: string;
+  leadId: number;
   removeProjectMutation: (variables: object) => void;
 }
 
@@ -63,6 +65,9 @@ const AdminProjectPage: React.FC<Props> = props => {
         <div>
           <p>{props.title}</p>
           <p>{props.content}</p>
+          <p>
+            Project Lead: {props.leadName} #{props.leadId}
+          </p>
           <p>You're contributing to this project</p>
           <button onClick={() => setConfirmation(!getConfirmation)}>
             Leave Project

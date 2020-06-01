@@ -9,7 +9,16 @@ const userSchema = new Schema({
   friends: [{ id: Number, name: String }],
   teammates: [{ id: Number, name: String }],
   tasks: [{ id: Number, content: String }],
-  projects: [{ id: Number, content: String, title: String, timestamp: Number }],
+  projects: [
+    {
+      id: Number,
+      content: String,
+      title: String,
+      timestamp: Number,
+      leadName: String,
+      leadId: Number
+    }
+  ],
   usersettings: [{ savedata: Boolean }]
 });
 

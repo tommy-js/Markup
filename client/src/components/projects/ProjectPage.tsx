@@ -36,10 +36,14 @@ const ProjectPage: React.FC<Props> = props => {
           id: props.id,
           title: props.title,
           content: props.content,
-          userId: userVal.id
+          userId: userVal.id,
+          leadName: props.leadName,
+          leadId: props.leadId
         }
       });
       arr.push({
+        leadName: props.leadName,
+        leadId: props.leadId,
         timestamp: timestamp,
         id: props.id,
         title: props.title,
@@ -72,7 +76,9 @@ const ProjectPage: React.FC<Props> = props => {
       <div className="project_page">
         <p>{props.title}</p>
         <p>{props.content}</p>
-        <p>Project Lead: {props.leadName}</p>
+        <p>
+          Project Lead: {props.leadName} #{props.leadId}
+        </p>
         {checkMember()}
       </div>
     </div>
