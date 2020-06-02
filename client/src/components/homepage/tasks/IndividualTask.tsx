@@ -5,6 +5,12 @@ import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
 import { removeTaskMutation } from "../../../queries/queries";
 import "../../../App.scss";
+import {
+  ContextMenu,
+  MenuItem,
+  ContextMenuTrigger,
+  SubMenu
+} from "react-contextmenu";
 
 interface Props {
   task: string;
@@ -49,20 +55,37 @@ const IndividualTask: React.FC<Props> = props => {
     }
   }, [showTask]);
 
+  function contextMenu() {
+    return (
+      <ContextMenu id="task_context_menu">
+        <MenuItem>Remove Item</MenuItem>
+        <MenuItem>Select Item</MenuItem>
+        <SubMenu title="Set Priority">
+          <MenuItem>High Priority</MenuItem>
+          <MenuItem>Med Priority</MenuItem>
+          <MenuItem>Low Priority</MenuItem>
+        </SubMenu>
+      </ContextMenu>
+    );
+  }
+
   return (
     <div className="individual_task" style={{ display: displayed }}>
-      <p className="inner_task_block" style={{ textDecoration: decorator }}>
-        {props.task}
-      </p>
-      <div className="inner_task_checkbox">
-        <div
-          className="checkbox_container"
-          onClick={() => setChecking(!checking)}
-        >
-          <div className="whitebox_cover"></div>
-          <img src={checkState} className="checkbox_image" />
+      <ContextMenuTrigger id="task_context_menu">
+        <p className="inner_task_block" style={{ textDecoration: decorator }}>
+          {props.task}
+        </p>
+        <div className="inner_task_checkbox">
+          <div
+            className="checkbox_container"
+            onClick={() => setChecking(!checking)}
+          >
+            <div className="whitebox_cover"></div>
+            <img src={checkState} className="checkbox_image" />
+          </div>
         </div>
-      </div>
+      </ContextMenuTrigger>
+      {contextMenu()}
     </div>
   );
 };

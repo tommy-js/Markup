@@ -18,14 +18,11 @@ export const Friend: React.FC<Props> = props => {
   function contextMenu() {
     return (
       <div>
-        <ContextMenu id="friend_context_menu" className="friend_context_menu">
-          <MenuItem
-            className="friend_context_hover"
-            onClick={() => setRemovefriend(true)}
-          >
+        <ContextMenu id="friend_context_menu">
+          <MenuItem onClick={() => setRemovefriend(true)}>
             Remove Friend
           </MenuItem>
-          <MenuItem className="friend_context_hover">Add to Teammates</MenuItem>
+          <MenuItem>Add to Teammates</MenuItem>
         </ContextMenu>
       </div>
     );
