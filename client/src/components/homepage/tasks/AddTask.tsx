@@ -25,6 +25,20 @@ const AddTask: React.FC<Props> = props => {
           userId: userVal.id
         }
       });
+      let newTask = {
+        content: userInput,
+        id: id,
+        userId: userVal.id
+      };
+      let arr = userVal.tasks;
+      arr.push(newTask);
+      setUserVal({
+        username: userVal.username,
+        id: userVal.id,
+        friends: userVal.friends,
+        projects: userVal.projects,
+        tasks: arr
+      });
       setUserInput("");
     }
   }

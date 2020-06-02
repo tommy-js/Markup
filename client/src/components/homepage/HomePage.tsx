@@ -55,7 +55,8 @@ const HomePage: React.FC = () => {
         username: data.user.username,
         id: data.user.id,
         friends: data.user.friends,
-        projects: data.user.projects
+        projects: data.user.projects,
+        tasks: data.user.tasks
       });
     }
   }, [data]);
