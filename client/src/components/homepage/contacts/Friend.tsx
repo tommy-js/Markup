@@ -14,6 +14,7 @@ interface Props {
 
 export const Friend: React.FC<Props> = props => {
   const [removefriend, setRemovefriend] = useState(false);
+  const [addTeammate, setAddTeammate] = useState(false);
 
   function contextMenu() {
     return (
@@ -22,7 +23,9 @@ export const Friend: React.FC<Props> = props => {
           <MenuItem onClick={() => setRemovefriend(true)}>
             Remove Friend
           </MenuItem>
-          <MenuItem>Add to Teammates</MenuItem>
+          <MenuItem onClick={() => setAddTeammate(true)}>
+            Add to Teammates
+          </MenuItem>
         </ContextMenu>
       </div>
     );
@@ -42,6 +45,7 @@ export const Friend: React.FC<Props> = props => {
           </Link>
           <div className="friend_settings">
             <AddTeammateButton
+              addTeammate={addTeammate}
               name={props.name}
               id={props.id}
               userId={props.userId}

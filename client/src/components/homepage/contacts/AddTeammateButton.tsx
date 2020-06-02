@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
 import { addTeammateMutation } from "../../../queries/queries";
-import { teammateContext } from "../../../App";
+import { userContext } from "../../../App";
 import addToTeammates from "../../../icons/add_to_teammates.png";
 import "../../../App.scss";
 
@@ -10,12 +10,20 @@ interface Props {
   name: string;
   id: number;
   userId: number;
+  addTeammate: boolean;
   addTeammateMutation: (variables: object) => void;
 }
 
 const AddTeammateButton: React.FC<Props> = props => {
   const [checkTeammateEmpty, setCheckTeammateEmpty] = useState();
-  const { userTeammates, setUserTeammates } = useContext(teammateContext);
+  const { userVal, setUserVal } = useContext(userContext);
+
+  useEffect(() => {
+    if (props.addTeammate === true) {
+      addTeammate();
+    }
+  }, [props.addTeammate]);
+
   function addTeammate() {
     if (checkTeammateEmpty == false) {
       props.addTeammateMutation({
@@ -25,13 +33,27 @@ const AddTeammateButton: React.FC<Props> = props => {
           name: props.name
         }
       });
+      let newTeammate = {
+        id: props.id,
+        name: props.name
+      };
+      let arr = userVal.teammates;
+      arr.push(newTeammate);
+      setUserVal({
+        username: userVal.username,
+        id: userVal.id,
+        friends: userVal.friends,
+        projects: userVal.projects,
+        teammates: arr,
+        tasks: userVal.tasks
+      });
     }
   }
 
   useEffect(() => {
     setCheckTeammateEmpty(false);
-    for (let k = 0; k < userTeammates.length; k++) {
-      if (userTeammates[k].id == props.id) {
+    for (let k = 0; k < userVal.teammates.length; k++) {
+      if (userVal.teammates[k].id == props.id) {
         setCheckTeammateEmpty(true);
       }
     }

@@ -56,6 +56,7 @@ const HomePage: React.FC = () => {
         id: data.user.id,
         friends: data.user.friends,
         projects: data.user.projects,
+        teammates: data.user.teammates,
         tasks: data.user.tasks
       });
     }
