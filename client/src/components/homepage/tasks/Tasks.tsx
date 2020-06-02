@@ -1,9 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { userQuery } from "../../../queries/queries";
 import { ClearTaskList } from "./ClearTaskList";
-import { flowRight as compose } from "lodash";
-import { graphql } from "react-apollo";
-import { useQuery } from "@apollo/react-hooks";
 import IndividualTask from "./IndividualTask";
 import { userContext } from "../../../App";
 import AddTask from "./AddTask";
@@ -13,37 +10,16 @@ interface Props {
   taskQuery: () => object;
 }
 
-const Tasks: React.FC<Props> = props => {
+export const Tasks: React.FC<Props> = props => {
   const { userVal, setUserVal } = useContext(userContext);
-  const { data, loading } = useQuery(userQuery, {
-    variables: { username: userVal.username },
-    pollInterval: 200
-  });
   const [displayTask, setDisplayTask] = useState(true);
   const [loadIfEmpty, setLoadIfEmpty] = useState("Add a task to start...");
   const [emptyContainer, setEmptyContainer] = useState(true);
-
-  useEffect(() => {
-    if (!loading) {
-      if (data.user.tasks.length > 0) {
-        setEmptyContainer(false);
-      } else {
-        setEmptyContainer(true);
-      }
-    }
-  }, [data]);
 
   function clearTasks() {
     setDisplayTask(!displayTask);
   }
 
-  if (loading) {
-    return (
-      <div>
-        <p>Loading...</p>
-      </div>
-    );
-  } else {
     if (emptyContainer) {
       return (
         <div className="task_box_container">
@@ -60,7 +36,7 @@ const Tasks: React.FC<Props> = props => {
         <div className="task_box_container">
           <div className="task_box">
             <div className="tasklist_container">
-              {data.user.tasks.map((task: any) => (
+              {userVal.tasks.map((task: any) => (
                 <IndividualTask
                   key={task.id}
                   userId={userVal.id}
@@ -79,5 +55,3 @@ const Tasks: React.FC<Props> = props => {
     }
   }
 };
-
-export default compose(graphql(userQuery, { name: "userQuery" }))(Tasks);

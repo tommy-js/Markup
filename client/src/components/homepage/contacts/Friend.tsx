@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import RemoveFriendButton from "./RemoveFriendButton";
 import AddTeammateButton from "./AddTeammateButton";
 import "../../../App.scss";
+import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
 
 interface Props {
   searchingForFriends: (searching: boolean) => void;
@@ -12,30 +13,52 @@ interface Props {
 }
 
 export const Friend: React.FC<Props> = props => {
+  const [removefriend, setRemovefriend] = useState(false);
+
+  function contextMenu() {
+    return (
+      <div>
+        <ContextMenu id="friend_context_menu" className="friend_context_menu">
+          <MenuItem
+            className="friend_context_hover"
+            onClick={() => setRemovefriend(true)}
+          >
+            Remove Friend
+          </MenuItem>
+          <MenuItem className="friend_context_hover">Add to Teammates</MenuItem>
+        </ContextMenu>
+      </div>
+    );
+  }
+
   return (
     <div
       className="person_container"
       onClick={() => props.searchingForFriends(false)}
     >
-      <div className="person">
-        <Link className="link_to_person" to={`/home/${props.id}`}>
-          <span>
-            {props.name} #{props.id}
-          </span>
-        </Link>
-        <div className="friend_settings">
-          <AddTeammateButton
-            name={props.name}
-            id={props.id}
-            userId={props.userId}
-          />
-          <RemoveFriendButton
-            name={props.name}
-            id={props.id}
-            userId={props.userId}
-          />
+      <ContextMenuTrigger id="friend_context_menu">
+        <div className="person">
+          <Link className="link_to_person" to={`/home/${props.id}`}>
+            <span>
+              {props.name} #{props.id}
+            </span>
+          </Link>
+          <div className="friend_settings">
+            <AddTeammateButton
+              name={props.name}
+              id={props.id}
+              userId={props.userId}
+            />
+            <RemoveFriendButton
+              removefriend={removefriend}
+              name={props.name}
+              id={props.id}
+              userId={props.userId}
+            />
+          </div>
         </div>
-      </div>
+      </ContextMenuTrigger>
+      {contextMenu()}
     </div>
   );
 };

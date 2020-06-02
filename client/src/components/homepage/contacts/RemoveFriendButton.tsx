@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
 import { removeFriendMutation } from "../../../queries/queries";
@@ -9,12 +9,19 @@ interface Props {
   name: string;
   id: number;
   userId: number;
+  removefriend: boolean;
   removeFriendMutation: (variables: object) => void;
 }
 
 const RemoveFriendButton: React.FC<Props> = props => {
   const { userVal, setUserVal } = useContext(userContext);
   const [checkClicked, setCheckClicked] = useState(false);
+
+  useEffect(() => {
+    if (props.removefriend === true) {
+      takeAwayFriend();
+    }
+  }, [props.removefriend]);
 
   function takeAwayFriend() {
     let arr = userVal.friends.find((el: any) => el.id === props.id);
