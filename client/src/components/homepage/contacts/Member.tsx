@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import RemoveTeammateButton from "./RemoveTeammateButton";
+import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
 
 interface Props {
   name: string;
@@ -8,12 +9,31 @@ interface Props {
 }
 
 export const Member: React.FC<Props> = props => {
+  const [removeTeammate, setRemoveTeammate] = useState(false);
+
+  function contextMenu() {
+    return (
+      <ContextMenu id="teammate_context_menu">
+        <MenuItem onClick={() => setRemoveTeammate(true)}>
+          Remove Teammate
+        </MenuItem>
+      </ContextMenu>
+    );
+  }
+
   return (
     <div className="person_container">
-      <div className="person">
-        <span>{props.name}</span>
-        <RemoveTeammateButton id={props.id} userId={props.userId} />
-      </div>
+      <ContextMenuTrigger id="teammate_context_menu">
+        <div className="person">
+          <span>{props.name}</span>
+          <RemoveTeammateButton
+            id={props.id}
+            removeTeammate={removeTeammate}
+            userId={props.userId}
+          />
+        </div>
+      </ContextMenuTrigger>
+      {contextMenu()}
     </div>
   );
 };
