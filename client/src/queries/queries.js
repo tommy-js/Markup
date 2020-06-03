@@ -125,6 +125,21 @@ const getUsers = gql`
         leadName
         leadId
       }
+      usersettings {
+        savedata
+      }
+      friends {
+        id
+        name
+      }
+      tasks {
+        id
+        content
+      }
+      teammates {
+        id
+        name
+      }
     }
   }
 `;

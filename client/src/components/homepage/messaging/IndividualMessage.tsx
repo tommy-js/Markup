@@ -5,6 +5,7 @@ import edited from "../../../icons/edited.png";
 import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
 import { changeMessageMutation } from "../../../queries/queries";
+import { ContextMenu, ContextMenuTrigger, MenuItem } from "react-contextmenu";
 
 interface Props {
   message: string;
@@ -99,19 +100,30 @@ const IndividualMessage: React.FC<Props> = props => {
     }
   }
 
+  function contextMenu() {
+    return (
+      <ContextMenu id="message_context_menu">
+        <MenuItem onClick={() => modEdits()}>Edit Message</MenuItem>
+      </ContextMenu>
+    );
+  }
+
   return (
     <div className="individual_message">
-      <div className="message">
-        <span>{userLabel.label}</span>
-        {checkEditing()}
-      </div>
-      <div className="right_align">
-        <span className="message_edit_button" onClick={() => modEdits()}>
-          <img src={image} className="edit_image" />
-        </span>
-        <span className="message_timestamp">{time}</span>
-        {checkEdited()}
-      </div>
+      <ContextMenuTrigger id="message_context_menu">
+        <div className="message">
+          <span>{userLabel.label}</span>
+          {checkEditing()}
+        </div>
+        <div className="right_align">
+          <span className="message_edit_button" onClick={() => modEdits()}>
+            <img src={image} className="edit_image" />
+          </span>
+          <span className="message_timestamp">{time}</span>
+          {checkEdited()}
+        </div>
+      </ContextMenuTrigger>
+      {contextMenu()}
     </div>
   );
 };
