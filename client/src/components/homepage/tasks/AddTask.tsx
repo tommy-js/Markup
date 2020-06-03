@@ -30,8 +30,14 @@ const AddTask: React.FC<Props> = props => {
         id: id,
         userId: userVal.id
       };
-      let arr = userVal.tasks;
-      arr.push(newTask);
+      let arr;
+      if (userVal.tasks) {
+        arr = userVal.tasks;
+        arr.push(newTask);
+      } else {
+        arr = [];
+        arr.push(newTask);
+      }
       setUserVal({
         username: userVal.username,
         id: userVal.id,

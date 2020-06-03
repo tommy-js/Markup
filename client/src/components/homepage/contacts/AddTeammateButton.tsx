@@ -37,8 +37,14 @@ const AddTeammateButton: React.FC<Props> = props => {
         id: props.id,
         name: props.name
       };
-      let arr = userVal.teammates;
-      arr.push(newTeammate);
+      let arr;
+      if (userVal.teammates) {
+        arr = userVal.teammates;
+        arr.push(newTeammate);
+      } else {
+        arr = [];
+        arr.push(newTeammate);
+      }
       setUserVal({
         username: userVal.username,
         id: userVal.id,
