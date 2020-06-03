@@ -1,28 +1,4 @@
 @import "utils";
-
-@mixin standardContextMenu {
-  background-color: white;
-  color: black;
-  padding: 5px;
-}
-
-.friend_context_menu,
-.task_context_menu {
-  @include standardContextMenu;
-}
-
-.friend_context_hover,
-.task_context_hover {
-  padding: 4px;
-  cursor: pointer;
-  @include noselect;
-}
-
-.friend_context_hover:hover,
-.task_context_hover:hover {
-  background-color: pink;
-}
-
 // COPY PASTE
 
 .react-contextmenu {

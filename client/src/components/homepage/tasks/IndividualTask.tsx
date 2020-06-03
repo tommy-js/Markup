@@ -59,7 +59,7 @@ const IndividualTask: React.FC<Props> = props => {
     return (
       <ContextMenu id="task_context_menu">
         <MenuItem>Remove Item</MenuItem>
-        <MenuItem>Select Item</MenuItem>
+        <MenuItem onClick={() => setChecking(!checking)}>Check Item</MenuItem>
         <SubMenu title="Set Priority">
           <MenuItem>High Priority</MenuItem>
           <MenuItem>Med Priority</MenuItem>
@@ -70,18 +70,20 @@ const IndividualTask: React.FC<Props> = props => {
   }
 
   return (
-    <div className="individual_task" style={{ display: displayed }}>
+    <div>
       <ContextMenuTrigger id="task_context_menu">
-        <p className="inner_task_block" style={{ textDecoration: decorator }}>
-          {props.task}
-        </p>
-        <div className="inner_task_checkbox">
-          <div
-            className="checkbox_container"
-            onClick={() => setChecking(!checking)}
-          >
-            <div className="whitebox_cover"></div>
-            <img src={checkState} className="checkbox_image" />
+        <div className="individual_task" style={{ display: displayed }}>
+          <p className="inner_task_block" style={{ textDecoration: decorator }}>
+            {props.task}
+          </p>
+          <div className="inner_task_checkbox">
+            <div
+              className="checkbox_container"
+              onClick={() => setChecking(!checking)}
+            >
+              <div className="whitebox_cover"></div>
+              <img src={checkState} className="checkbox_image" />
+            </div>
           </div>
         </div>
       </ContextMenuTrigger>

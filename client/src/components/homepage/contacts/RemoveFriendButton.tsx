@@ -32,7 +32,8 @@ const RemoveFriendButton: React.FC<Props> = props => {
       username: userVal.username,
       id: userVal.id,
       friends: staticArr,
-      projects: userVal.projects
+      projects: userVal.projects,
+      tasks: userVal.tasks
     });
     props.removeFriendMutation({
       variables: {

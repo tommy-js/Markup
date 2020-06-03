@@ -477,6 +477,7 @@
 .individual_task {
   position: relative;
   bottom: 0;
+  width: 95%;
 }
 
 .inner_task_block {
@@ -486,14 +487,20 @@
   margin-bottom: 5px;
   font-size: 18px;
   height: auto;
-  width: 230px;
+  margin-left: auto;
+  margin-right: auto;
   overflow-wrap: break-word;
   @include standardTransition;
+}
+
+.individual_task:hover {
+  background-color: teal;
 }
 
 .inner_task_checkbox {
   position: relative;
   display: inline-block;
+  float: right;
   margin-top: 5px;
   height: 25px;
   width: 25px;

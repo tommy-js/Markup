@@ -37,6 +37,7 @@ const AddTask: React.FC<Props> = props => {
         id: userVal.id,
         friends: userVal.friends,
         projects: userVal.projects,
+        teammates: userVal.teammates,
         tasks: arr
       });
       setUserInput("");
