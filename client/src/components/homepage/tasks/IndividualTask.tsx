@@ -27,6 +27,7 @@ const IndividualTask: React.FC<Props> = props => {
   const [decorator, setDecorator] = useState("none");
   const [whitebox, setWhiteBox] = useState("white");
   const [checkState, setCheckState] = useState(unchecked);
+  const [randomInt] = useState(Math.floor(Math.random() * 1000000));
 
   useEffect(() => {
     setShowTask(props.displayTask);
@@ -57,7 +58,7 @@ const IndividualTask: React.FC<Props> = props => {
 
   function contextMenu() {
     return (
-      <ContextMenu id="task_context_menu">
+      <ContextMenu id={`task_context_menu${randomInt}`}>
         <MenuItem>Remove Item</MenuItem>
         <MenuItem onClick={() => setChecking(!checking)}>Check Item</MenuItem>
         <SubMenu title="Set Priority">
@@ -71,7 +72,7 @@ const IndividualTask: React.FC<Props> = props => {
 
   return (
     <div>
-      <ContextMenuTrigger id="task_context_menu">
+      <ContextMenuTrigger id={`task_context_menu${randomInt}`}>
         <div className="individual_task" style={{ display: displayed }}>
           <p className="inner_task_block" style={{ textDecoration: decorator }}>
             {props.task}

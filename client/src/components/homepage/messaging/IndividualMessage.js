@@ -5,7 +5,7 @@ import edited from "../../../icons/edited.png";
 import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
 import { changeMessageMutation } from "../../../queries/queries";
-import { ContextMenu, ContextMenuTrigger, MenuItem } from "react-contextmenu";
+import { Menu, Item, MenuProvider } from "react-contexify";
 
 interface Props {
   message: string;
@@ -25,7 +25,6 @@ const IndividualMessage: React.FC<Props> = props => {
   const [image, setImage] = useState(edit);
   const [hasBeenEdited, setHasBeenEdited] = useState(props.edited);
   const [modMessage, setModMessage] = useState(props.message);
-  const [randomInt] = useState(Math.floor(Math.random() * 1000000));
 
   useEffect(() => {
     if (props.userid == props.sender) {
@@ -101,17 +100,21 @@ const IndividualMessage: React.FC<Props> = props => {
     }
   }
 
+  function testing() {
+    console.log("working context menu");
+  }
+
   function contextMenu() {
     return (
-      <ContextMenu id={`message_context_menu${randomInt}`}>
-        <MenuItem onClick={() => modEdits()}>Edit Message</MenuItem>
-      </ContextMenu>
+      <Menu id="message_context_menu">
+        <Item onClick={() => testing()}>Edit Message</Item>
+      </Menu>
     );
   }
 
   return (
     <div className="individual_message">
-      <ContextMenuTrigger id={`message_context_menu${randomInt}`}>
+      <MenuProvider id="message_context_menu">
         <div className="message">
           <span>{userLabel.label}</span>
           {checkEditing()}
@@ -123,7 +126,7 @@ const IndividualMessage: React.FC<Props> = props => {
           <span className="message_timestamp">{time}</span>
           {checkEdited()}
         </div>
-      </ContextMenuTrigger>
+      </MenuProvider>
       {contextMenu()}
     </div>
   );
