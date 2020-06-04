@@ -15,11 +15,12 @@ interface Props {
 export const Friend: React.FC<Props> = props => {
   const [removefriend, setRemovefriend] = useState(false);
   const [addTeammate, setAddTeammate] = useState(false);
+  const [randomInt] = useState(Math.floor(Math.random() * 1000000));
 
   function contextMenu() {
     return (
       <div>
-        <ContextMenu id="friend_context_menu">
+        <ContextMenu id={`friend_context_menu${randomInt}`}>
           <MenuItem onClick={() => setRemovefriend(true)}>
             Remove Friend
           </MenuItem>
@@ -36,7 +37,7 @@ export const Friend: React.FC<Props> = props => {
       className="person_container"
       onClick={() => props.searchingForFriends(false)}
     >
-      <ContextMenuTrigger id="friend_context_menu">
+      <ContextMenuTrigger id={`friend_context_menu${randomInt}`}>
         <div className="person">
           <Link className="link_to_person" to={`/home/${props.id}`}>
             <span>

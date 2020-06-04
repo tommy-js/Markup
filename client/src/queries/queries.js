@@ -111,6 +111,31 @@ const userQuery = gql`
   }
 `;
 
+const getConversationQuery = gql`
+  query($id: ID!) {
+    getConversation(id: $id) {
+      contributers {
+        id
+      }
+      message {
+        userId
+        content
+        timestamp
+        edited
+      }
+    }
+  }
+`;
+
+const createConversationQuery = gql`
+  mutation($id: ID!, $u1: ID!, $u2: ID!) {
+    createConversation(id: $id, u1: $u1, u2: $u2) {
+      u1
+      u2
+    }
+  }
+`;
+
 const getUsers = gql`
   query($username: String!) {
     getUsers(username: $username) {
@@ -242,25 +267,21 @@ const pushUserToProjectMutation = gql`
 const addMessageMutation = gql`
   mutation(
     $id: ID!
-    $content: String!
-    $to: ID!
-    $from: ID!
+    $userId: ID!
     $timestamp: ID!
-    $edited: Boolean!
+    $content: String!
+    $edited: Boolean
   ) {
-    addMessage(
+    pushMessage(
       id: $id
-      content: $content
-      to: $to
-      from: $from
+      userId: $userId
       timestamp: $timestamp
+      content: $content
       edited: $edited
     ) {
-      id
-      to
-      from
-      content
+      userId
       timestamp
+      content
       edited
     }
   }
@@ -414,6 +435,7 @@ export {
   getMessageQuery,
   allUsersQuery,
   getOpenProjectsQuery,
+  getConversationQuery,
   getUsers,
   getSessionIDQuery,
   addMessageMutation,
@@ -434,5 +456,6 @@ export {
   removeProjectMutation,
   removeFriendRequestMutation,
   addProjectUserMutation,
-  addSessionIDMutation
+  addSessionIDMutation,
+  createConversationQuery
 };

@@ -11,18 +11,15 @@ function InputBox(props) {
   const { userVal, setUserVal } = useContext(userContext);
 
   function sendMessage() {
-    props
-      .addMessageMutation({
-        variables: {
-          id: Math.floor(Math.random() * 1000000),
-          content: userInput,
-          from: userVal.id,
-          to: props.userId,
-          timestamp: Math.round(new Date().getTime() / 1000),
-          edited: false
-        }
-      })
-      .then(props.refetchQuery());
+    props.addMessageMutation({
+      variables: {
+        id:
+        userId: userVal.id,
+        content: userInput,
+        timestamp: Math.round(new Date().getTime() / 1000),
+        edited: false
+      }
+    });
     setUserInput("");
   }
 

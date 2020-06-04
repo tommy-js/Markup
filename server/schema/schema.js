@@ -17,6 +17,7 @@ const Session = require("../models/session");
 const Code = require("../models/code");
 const FriendRequest = require("../models/friendreq");
 const ProjectMember = require("../models/ProjectMember");
+const Conversation = require("../models/conversation");
 
 const FriendRequestQuery = new GraphQLObjectType({
   name: "FriendRequest",
@@ -53,6 +54,16 @@ const MessageQuery = new GraphQLObjectType({
     id: { type: GraphQLID },
     from: { type: GraphQLID },
     to: { type: GraphQLID },
+    content: { type: GraphQLString },
+    timestamp: { type: GraphQLID },
+    edited: { type: GraphQLBoolean }
+  })
+});
+
+const ConversationQuery = new GraphQLObjectType({
+  name: "Conversation",
+  fields: () => ({
+    userId: { type: GraphQLID },
     content: { type: GraphQLString },
     timestamp: { type: GraphQLID },
     edited: { type: GraphQLBoolean }
@@ -159,6 +170,15 @@ const RootQuery = new GraphQLObjectType({
       },
       resolve(parent, args) {
         return Message.find({ to: args.toId, from: args.fromId });
+      }
+    },
+    getConversation: {
+      type: ConversationQuery,
+      args: {
+        id: { type: GraphQLID }
+      },
+      resolve(parent, args) {
+        return Conversation.findOne({ id: args.id });
       }
     },
     getCode: {
@@ -303,6 +323,38 @@ const Mutation = new GraphQLObjectType({
           edited: args.edited
         });
         return newMessage.save();
+      }
+    },
+    pushMessage: {
+      type: ConversationQuery,
+      args: {
+        id: { type: GraphQLID },
+        userId: { type: GraphQLID },
+        timestamp: { type: GraphQLID },
+        content: { type: GraphQLString }
+      },
+      createConversation: {
+        type: ConversationQuery,
+        args: {
+          id: {type: GraphQLID},
+          u1: {type: GraphQLID},
+          u2: {type: GraphQLID}
+        },
+        let newConvo = new Conversation({
+
+        })
+      }
+      re,solve(parent, args) {
+        return Conversation.update(
+          { id: args.id },
+          {
+            $push: {
+              userId: args.userId,
+              timestamp: args.timestamp,
+              content: args.content
+            }
+          }
+        );
       }
     },
     addCode: {

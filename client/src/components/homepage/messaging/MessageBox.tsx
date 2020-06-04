@@ -3,7 +3,7 @@ import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
 import { userContext } from "../../../App";
 import { rememberUserContext } from "../../../App";
-import { getMessageQuery } from "../../../queries/queries";
+import { getConversationQuery } from "../../../queries/queries";
 import { useQuery } from "@apollo/react-hooks";
 import InputBox from "./InputBox.js";
 import { InitialBox } from "./InitialBox";
@@ -22,48 +22,16 @@ const MessageBox: React.FC<Props> = props => {
   const [userMessages, setUserMessages] = useState([
     "This is the start of your conversation..."
   ]);
-  const [recMessage, setRecMessage] = useState([]);
-  const [sortedArray, setSortedArray] = useState([]);
+  const [message, setMessage] = useState([]);
+  const [conversation, setConversation] = useState([]);
   const [val, setVal] = useState(false);
   const [innerCode, setInnerCode] = useState("");
   const [entryImage, setEntryImage] = useState(addCode);
   const { userVal, setUserVal } = useContext(userContext);
   const { rememberedUser, setRememberedUser } = useContext(rememberUserContext);
-  const { loading: loading1, data: data1, refetch } = useQuery(
-    getMessageQuery,
-    {
-      variables: { toId: props.id, fromId: userVal.id }
-    }
-  );
-  const { loading: loading2, data: data2 } = useQuery(getMessageQuery, {
-    variables: {
-      toId: userVal.id,
-      fromId: props.id
-    }
+  const { data, loading } = useQuery(getConversationQuery, {
+    pollInterval: 100
   });
-
-  useEffect(() => {
-    if (!loading1 && !loading2) {
-      setRememberedUser({ id: props.id });
-      if (data1.getMessages && data2.getMessages) {
-        setUserMessages(data1.getMessages);
-        setRecMessage(data2.getMessages);
-        setMessageBounds();
-      } else {
-        setUserMessages(["This is the start of your conversation..."]);
-      }
-    }
-  }, [data1, data2]);
-
-  function setMessageBounds() {
-    let matrixArray = [];
-    matrixArray = data1.getMessages.concat(data2.getMessages);
-    matrixArray.sort(function(a: any, b: any) {
-      return a.timestamp - b.timestamp;
-    });
-    matrixArray.length = 50;
-    setSortedArray(matrixArray);
-  }
 
   function entryButton(checkVal: boolean) {
     if (entryImage === alphabet) {
@@ -78,10 +46,6 @@ const MessageBox: React.FC<Props> = props => {
   function deleteCode() {
     entryButton(false);
     setInnerCode("");
-  }
-
-  function refetchQuery() {
-    refetch();
   }
 
   function modal() {
@@ -104,7 +68,7 @@ const MessageBox: React.FC<Props> = props => {
     }
   }
 
-  if (recMessage.length == 0 && userMessages.length == 0) {
+  if (conversation.length == 0) {
     return (
       <div>
         <div className="message_container">
@@ -114,7 +78,6 @@ const MessageBox: React.FC<Props> = props => {
         </div>
         <InputBox
           userId={props.id}
-          refetchQuery={refetchQuery}
           val={val}
           entryImage={entryImage}
           entryButton={entryButton}
@@ -122,8 +85,8 @@ const MessageBox: React.FC<Props> = props => {
       </div>
     );
   }
-  if (!loading1 && !loading2) {
-    if (sortedArray.length < 1) {
+  if (!loading) {
+    if (conversation.length < 1) {
       return (
         <div className="message_box">
           <InitialBox />
@@ -134,11 +97,10 @@ const MessageBox: React.FC<Props> = props => {
         <div className="message_box">
           {modal()}
           <div>
-            <MessageBoot sortedArray={sortedArray} userVal={userVal.id} />
+            <MessageBoot sortedArray={conversation} userVal={userVal.id} />
           </div>
           <InputBox
             userId={props.id}
-            refetchQuery={refetchQuery}
             val={val}
             entryImage={entryImage}
             entryButton={entryButton}
@@ -152,7 +114,7 @@ const MessageBox: React.FC<Props> = props => {
 };
 
 export default compose(
-  graphql(getMessageQuery, {
+  graphql(getConversationQuery, {
     name: "getMessages",
     options: { pollInterval: 200 }
   })
