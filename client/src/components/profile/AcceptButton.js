@@ -4,6 +4,7 @@ import { graphql } from "react-apollo";
 import { flowRight as compose } from "lodash";
 import { addFriendMutation } from "../../queries/queries";
 import { userContext } from "../../App";
+import CreateConversation from "./CreateConversation";
 
 function AcceptButton(props) {
   const { userVal, setUserVal } = useContext(userContext);

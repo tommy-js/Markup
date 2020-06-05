@@ -13,7 +13,7 @@ function InputBox(props) {
   function sendMessage() {
     props.addMessageMutation({
       variables: {
-        id:
+        id: props.convoId,
         userId: userVal.id,
         content: userInput,
         timestamp: Math.round(new Date().getTime() / 1000),

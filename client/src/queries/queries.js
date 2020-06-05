@@ -112,8 +112,9 @@ const userQuery = gql`
 `;
 
 const getConversationQuery = gql`
-  query($id: ID!) {
-    getConversation(id: $id) {
+  query($convoId: ID!, $id: ID!) {
+    getConversation(convoId: $convoId, id: $id) {
+      convoId
       contributers {
         id
       }
@@ -128,10 +129,9 @@ const getConversationQuery = gql`
 `;
 
 const createConversationQuery = gql`
-  mutation($id: ID!, $u1: ID!, $u2: ID!) {
-    createConversation(id: $id, u1: $u1, u2: $u2) {
-      u1
-      u2
+  mutation($id: ID!) {
+    createConversation(id: $id) {
+      id
     }
   }
 `;

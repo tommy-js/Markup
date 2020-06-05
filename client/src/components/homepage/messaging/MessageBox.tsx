@@ -29,9 +29,19 @@ const MessageBox: React.FC<Props> = props => {
   const [entryImage, setEntryImage] = useState(addCode);
   const { userVal, setUserVal } = useContext(userContext);
   const { rememberedUser, setRememberedUser } = useContext(rememberUserContext);
+  const [convoId, setConvoId] = useState();
   const { data, loading } = useQuery(getConversationQuery, {
+    variables: {
+      id: userVal.id
+    },
     pollInterval: 100
   });
+
+  useEffect(() => {
+    if (data) {
+      setConvoId(data.conversation.convoId);
+    }
+  }, []);
 
   function entryButton(checkVal: boolean) {
     if (entryImage === alphabet) {
@@ -100,6 +110,7 @@ const MessageBox: React.FC<Props> = props => {
             <MessageBoot sortedArray={conversation} userVal={userVal.id} />
           </div>
           <InputBox
+            convoId={convoId}
             userId={props.id}
             val={val}
             entryImage={entryImage}
@@ -115,7 +126,6 @@ const MessageBox: React.FC<Props> = props => {
 
 export default compose(
   graphql(getConversationQuery, {
-    name: "getMessages",
-    options: { pollInterval: 200 }
+    name: "getConversationQuery"
   })
 )(MessageBox);

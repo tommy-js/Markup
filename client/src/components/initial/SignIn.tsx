@@ -22,7 +22,6 @@ const SignIn: React.FC<Props> = props => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showToggle, setShowToggle] = useState(true);
-  // const [passUser, { loading, data }] = useLazyQuery(userQuery);
   const [getUsersmod, { loading, data }] = useLazyQuery(getUsers);
   const [user, setUser] = useState(null);
   const { userVal, setUserVal } = useContext(userContext);
