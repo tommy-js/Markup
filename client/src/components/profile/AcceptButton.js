@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import accept from "../../icons/accept.png";
 import { graphql } from "react-apollo";
 import { flowRight as compose } from "lodash";
@@ -8,6 +8,7 @@ import CreateConversation from "./CreateConversation";
 
 function AcceptButton(props) {
   const { userVal, setUserVal } = useContext(userContext);
+  const [createThis, setCreateThis] = useState(false);
 
   function submitFriendAccept() {
     props
@@ -46,11 +47,13 @@ function AcceptButton(props) {
       teammates: userVal.teammates
     });
     props.dropFriendRequest(props.from, userVal.id);
+    setCreateThis(true);
   }
 
   return (
     <div onClick={() => submitFriendAccept()}>
       <img className="button_image" src={accept} />
+      <CreateConversation createThis={createThis} />
     </div>
   );
 }

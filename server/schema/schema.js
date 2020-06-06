@@ -51,7 +51,7 @@ const CodeQuery = new GraphQLObjectType({
 const MessageQuery = new GraphQLObjectType({
   name: "Message",
   fields: () => ({
-    id: { type: GraphQLID },
+    userId: { type: GraphQLID },
     from: { type: GraphQLID },
     to: { type: GraphQLID },
     content: { type: GraphQLString },
@@ -63,10 +63,8 @@ const MessageQuery = new GraphQLObjectType({
 const ConversationQuery = new GraphQLObjectType({
   name: "Conversation",
   fields: () => ({
-    userId: { type: GraphQLID },
-    content: { type: GraphQLString },
-    timestamp: { type: GraphQLID },
-    edited: { type: GraphQLBoolean }
+    id: { type: GraphQLID },
+    messages: { type: new GraphQLList(MessageQuery) }
   })
 });
 
@@ -333,18 +331,7 @@ const Mutation = new GraphQLObjectType({
         timestamp: { type: GraphQLID },
         content: { type: GraphQLString }
       },
-      createConversation: {
-        type: ConversationQuery,
-        args: {
-          id: {type: GraphQLID},
-          u1: {type: GraphQLID},
-          u2: {type: GraphQLID}
-        },
-        let newConvo = new Conversation({
-
-        })
-      }
-      re,solve(parent, args) {
+      resolve(parent, args) {
         return Conversation.update(
           { id: args.id },
           {
@@ -355,6 +342,18 @@ const Mutation = new GraphQLObjectType({
             }
           }
         );
+      }
+    },
+    createConversation: {
+      type: ConversationQuery,
+      args: {
+        id: { type: GraphQLID }
+      },
+      resolve(parent, args) {
+        let newConvo = new Conversation({
+          id: args.id
+        });
+        return newConvo.save();
       }
     },
     addCode: {

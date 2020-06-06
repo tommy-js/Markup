@@ -132,6 +132,14 @@ const createConversationQuery = gql`
   mutation($id: ID!) {
     createConversation(id: $id) {
       id
+      messages {
+        userId
+        from
+        to
+        content
+        timestamp
+        edited
+      }
     }
   }
 `;
