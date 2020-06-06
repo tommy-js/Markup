@@ -6,15 +6,7 @@ import AcceptButton from "./AcceptButton.js";
 import { DeclineButton } from "./DeclineButton";
 import { removeFriendRequestMutation } from "../../queries/queries";
 
-interface Props {
-  toId: number;
-  fromId: number;
-  name: string;
-  timestamp: number;
-  removeFriendRequestMutation: (variables: object) => void;
-}
-
-const FriendReqContainer: React.FC<Props> = props => {
+const FriendReqContainer = props => {
   const [timepassed, setTimepassed] = useState(0);
 
   useEffect(() => {
@@ -24,7 +16,7 @@ const FriendReqContainer: React.FC<Props> = props => {
     setTimepassed(fullTime);
   }, []);
 
-  function dropFriendRequest(from: number, to: number) {
+  function dropFriendRequest(from, to) {
     props.removeFriendRequestMutation({
       variables: {
         fromId: from,

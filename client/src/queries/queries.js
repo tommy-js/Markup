@@ -118,7 +118,7 @@ const getConversationQuery = gql`
       contributers {
         id
       }
-      message {
+      messages {
         userId
         content
         timestamp
@@ -129,8 +129,8 @@ const getConversationQuery = gql`
 `;
 
 const createConversationQuery = gql`
-  mutation($id: ID!) {
-    createConversation(id: $id) {
+  mutation($id: ID!, $userId: ID!, $secondId: ID!) {
+    createConversation(id: $id, userId: $userId, secondId: $secondId) {
       id
       messages {
         userId

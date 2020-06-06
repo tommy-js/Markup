@@ -18,6 +18,7 @@ const Code = require("../models/code");
 const FriendRequest = require("../models/friendreq");
 const ProjectMember = require("../models/ProjectMember");
 const Conversation = require("../models/conversation");
+const Contributers = require("../models/contributers");
 
 const FriendRequestQuery = new GraphQLObjectType({
   name: "FriendRequest",
@@ -60,10 +61,18 @@ const MessageQuery = new GraphQLObjectType({
   })
 });
 
+const ContributersQuery = new GraphQLObjectType({
+  name: "Contributers",
+  fields: () => ({
+    contribId: { type: GraphQLID }
+  })
+});
+
 const ConversationQuery = new GraphQLObjectType({
   name: "Conversation",
   fields: () => ({
     id: { type: GraphQLID },
+    contributers: { type: new GraphQLList(ContributersQuery) },
     messages: { type: new GraphQLList(MessageQuery) }
   })
 });
@@ -176,7 +185,7 @@ const RootQuery = new GraphQLObjectType({
         id: { type: GraphQLID }
       },
       resolve(parent, args) {
-        return Conversation.findOne({ id: args.id });
+        return Conversation.find({ id: args.id });
       }
     },
     getCode: {
@@ -347,11 +356,21 @@ const Mutation = new GraphQLObjectType({
     createConversation: {
       type: ConversationQuery,
       args: {
-        id: { type: GraphQLID }
+        id: { type: GraphQLID },
+        userId: { type: GraphQLID },
+        secondId: { type: GraphQLID }
       },
       resolve(parent, args) {
         let newConvo = new Conversation({
-          id: args.id
+          id: args.id,
+          contributers: [
+            {
+              contribId: args.userId
+            },
+            {
+              contribId: args.secondId
+            }
+          ]
         });
         return newConvo.save();
       }

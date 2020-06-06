@@ -2,13 +2,16 @@ import React, { useState, useContext } from "react";
 import accept from "../../icons/accept.png";
 import { graphql } from "react-apollo";
 import { flowRight as compose } from "lodash";
-import { addFriendMutation } from "../../queries/queries";
+import {
+  addFriendMutation,
+  createConversationQuery
+} from "../../queries/queries";
 import { userContext } from "../../App";
-import CreateConversation from "./CreateConversation";
 
 function AcceptButton(props) {
   const { userVal, setUserVal } = useContext(userContext);
-  const [createThis, setCreateThis] = useState(false);
+
+  const grouped = () => {};
 
   function submitFriendAccept() {
     props
@@ -25,6 +28,15 @@ function AcceptButton(props) {
             userId: props.from,
             id: userVal.id,
             name: userVal.username
+          }
+        })
+      )
+      .then(
+        props.createConversationQuery({
+          variables: {
+            id: Math.floor(Math.random() * 100000),
+            userId: userVal.id,
+            secondId: props.from
           }
         })
       );
@@ -47,17 +59,16 @@ function AcceptButton(props) {
       teammates: userVal.teammates
     });
     props.dropFriendRequest(props.from, userVal.id);
-    setCreateThis(true);
   }
 
   return (
     <div onClick={() => submitFriendAccept()}>
       <img className="button_image" src={accept} />
-      <CreateConversation createThis={createThis} />
     </div>
   );
 }
 
 export default compose(
-  graphql(addFriendMutation, { name: "addFriendMutation" })
+  graphql(addFriendMutation, { name: "addFriendMutation" }),
+  graphql(createConversationQuery, { name: "createConversationQuery" })
 )(AcceptButton);

@@ -4,7 +4,7 @@ import { graphql } from "react-apollo";
 import { useQuery } from "@apollo/react-hooks";
 import { getFriendRequestsQuery } from "../../queries/queries";
 import { userContext } from "../../App";
-import FriendReqContainer from "./FriendReqContainer";
+import FriendReqContainer from "./FriendReqContainer.js";
 
 export const FriendRequest: React.FC = () => {
   const { userVal, setUserVal } = useContext(userContext);

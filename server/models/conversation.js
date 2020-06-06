@@ -3,6 +3,11 @@ const Schema = mongoose.Schema;
 
 const conversationSchema = new Schema({
   id: Number,
+  contributers: [
+    {
+      contribId: Number
+    }
+  ],
   messages: [
     {
       userId: Number,
