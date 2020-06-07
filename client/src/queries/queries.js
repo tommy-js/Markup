@@ -401,8 +401,7 @@ const getSpecConversation = gql`
     getConversation(id: $id) {
       id
       messages {
-        from
-        to
+        userId
         content
         timestamp
         edited

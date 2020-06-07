@@ -44,6 +44,9 @@ const MessageBox: React.FC<Props> = props => {
       let arrIndex = convo.indexOf(foundVar);
       let currentConversation = convo[arrIndex].id;
       getConvo({ variables: { id: currentConversation } });
+      console.log(foundVar);
+      console.log(arrIndex);
+      console.log(currentConversation);
     }
   }, []);
 

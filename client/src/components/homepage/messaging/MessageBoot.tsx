@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import IndividualMessage from "./IndividualMessage";
+import IndividualMessage from "./IndividualMessage.js";
 import "../../../App.scss";
 
 interface Props {
@@ -18,13 +18,11 @@ export const MessageBoot: React.FC<Props> = props => {
       <div id="message_id" className="message_container">
         {props.messageArray.map((messages: any) => (
           <IndividualMessage
-            userId={props.userVal}
-            receiver={messages.to}
+            userId={messages.userId}
             edited={messages.edited}
             key={Math.floor(Math.random() * 10000)}
             message={messages.content}
             timestamp={messages.timestamp}
-            id={messages.id}
           />
         ))}
       </div>

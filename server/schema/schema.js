@@ -187,7 +187,7 @@ const RootQuery = new GraphQLObjectType({
         id: { type: GraphQLID }
       },
       resolve(parent, args) {
-        return Conversation.find({ id: args.id });
+        return Conversation.findOne({ id: args.id });
       }
     },
     getConversation: {

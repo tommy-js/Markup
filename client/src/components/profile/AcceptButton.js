@@ -43,13 +43,23 @@ function AcceptButton(props) {
             }
           })
           .then(
-            props.addConversationToUser({
-              variables: {
-                id: addedId,
-                userId: userVal.id,
-                to: props.from
-              }
-            })
+            props
+              .addConversationToUser({
+                variables: {
+                  id: addedId,
+                  userId: userVal.id,
+                  to: props.from
+                }
+              })
+              .then(
+                props.addConversationToUser({
+                  variables: {
+                    id: addedId,
+                    userId: props.from,
+                    to: userVal.id
+                  }
+                })
+              )
           )
       );
     let arr;

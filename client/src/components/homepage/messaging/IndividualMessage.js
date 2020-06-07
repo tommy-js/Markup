@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import edit from "../../../icons/edit.png";
 import check from "../../../icons/checkmark.png";
 import edited from "../../../icons/edited.png";
@@ -6,22 +6,25 @@ import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
 import { changeMessageMutation } from "../../../queries/queries";
 import { Menu, Item, MenuProvider } from "react-contexify";
+import { userContext } from "../../../App";
 
-const IndividualMessage = props => {
+function IndividualMessage(props) {
   const [userLabel, setUserLabel] = useState({ label: "" });
   const [time, setTime] = useState("");
   const [editing, setEditing] = useState(false);
   const [image, setImage] = useState(edit);
   const [hasBeenEdited, setHasBeenEdited] = useState(props.edited);
   const [modMessage, setModMessage] = useState(props.message);
+  const { userVal, setUserVal } = useContext(userContext);
 
   useEffect(() => {
-    if (props.userid == props.sender) {
+    console.log(props.userId);
+    if (props.userId == userVal.id) {
       setUserLabel({ label: "You: " });
     } else {
-      setUserLabel({ label: `#${props.userId.toString()}:` });
+      setUserLabel({ label: `#${props.userId}:` });
     }
-  }, [props.sender]);
+  }, []);
 
   useEffect(() => {
     let timer = Math.round(new Date().getTime() / 1000);
@@ -119,7 +122,7 @@ const IndividualMessage = props => {
       {contextMenu()}
     </div>
   );
-};
+}
 
 export default compose(
   graphql(changeMessageMutation, { name: "changeMessageMutation" })
