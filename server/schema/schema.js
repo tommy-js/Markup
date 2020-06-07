@@ -343,6 +343,19 @@ const Mutation = new GraphQLObjectType({
         );
       }
     },
+    pullUserFriendRequest: {
+      type: FriendRequestToUserQuery,
+      args: {
+        userId: { type: GraphQLID },
+        id: { type: GraphQLID }
+      },
+      resolve(parent, args) {
+        return User.update(
+          { id: args.userId },
+          { $pull: { friendrequests: { id: args.id } } }
+        );
+      }
+    },
     addMessage: {
       type: MessageQuery,
       args: {

@@ -20,20 +20,18 @@ function AddUserComponent(props) {
   const [selfDisplay, setSelfDisplay] = useState("block");
 
   useEffect(() => {
-    let checkId = props.id.toString();
-    let checkForUser = false;
-    for (let k = 0; k < userFriends.length; k++) {
-      if (userFriends[k].id === checkId) {
-        checkForUser = true;
+    if (userVal.friendrequests) {
+      let checkFromAlreadySent = userVal.friendrequests.find(
+        el => el.id === props.id
+      );
+      let checkToAlreadySent = userVal.friendrequests.find(
+        el => el.id === userVal.id
+      );
+      if (checkFromAlreadySent || checkToAlreadySent) {
+        setAddDisplay("none");
       }
     }
-    if (checkForUser) {
-      setAddDisplay("none");
-    } else {
-      setAddDisplay("inline-block");
-    }
-    setCheckUser(checkForUser);
-  }, [userFriends]);
+  }, []);
 
   function addFriend() {
     if (!checkUser) {
@@ -54,8 +52,16 @@ function AddUserComponent(props) {
               id: props.id
             }
           })
+        )
+        .then(
+          props.pushFriendRequestToUser({
+            variables: {
+              userId: props.id,
+              id: userVal.id
+            }
+          })
         );
-      setRequested(true);
+      setAddDisplay("none");
     }
   }
 
@@ -98,5 +104,6 @@ function AddUserComponent(props) {
 }
 
 export default compose(
-  graphql(addFriendRequestMutation, { name: "addFriendRequestMutation" })
+  graphql(addFriendRequestMutation, { name: "addFriendRequestMutation" }),
+  graphql(pushFriendRequestToUser, { name: "pushFriendRequestToUser" })
 )(AddUserComponent);

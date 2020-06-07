@@ -8,11 +8,7 @@ import { Route, BrowserRouter as Router } from "react-router-dom";
 import "../../../App.scss";
 import search from "../../../icons/search.png";
 
-interface Props {
-  allUsersQuery: () => object;
-}
-
-const UserSearchBlock: React.FC<Props> = props => {
+function UserSearchBlock(props) {
   const [searchVector, setSearchVector] = useState("");
   const [searchUser, { data, loading }] = useLazyQuery(getUsers);
   const [users, setUsers] = useState([]);
@@ -23,7 +19,7 @@ const UserSearchBlock: React.FC<Props> = props => {
     }
   }, [data]);
 
-  function setPassin(e: any) {
+  function setPassin(e) {
     if (e.key === "Enter") {
       passinSearchParam();
     }
@@ -37,7 +33,7 @@ const UserSearchBlock: React.FC<Props> = props => {
     if (users.length > 0) {
       return (
         <div>
-          {users.map((user: any) => (
+          {users.map(user => (
             <AddUserComponent user={user.username} id={user.id} key={user.id} />
           ))}
         </div>
@@ -65,7 +61,7 @@ const UserSearchBlock: React.FC<Props> = props => {
       {returnResults()}
     </div>
   );
-};
+}
 
 export default compose(graphql(getUsers, { name: "getUsers" }))(
   UserSearchBlock

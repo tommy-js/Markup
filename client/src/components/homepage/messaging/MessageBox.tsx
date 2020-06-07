@@ -39,11 +39,14 @@ const MessageBox: React.FC<Props> = props => {
 
   useEffect(() => {
     if (userVal.conversations) {
+      console.log("userval confo");
       let convo = userVal.conversations;
       let foundVar = convo.find((el: any) => el.to === props.id);
       let arrIndex = convo.indexOf(foundVar);
       let currentConversation = convo[arrIndex].id;
       getConvo({ variables: { id: currentConversation } });
+      setConvoId(currentConversation);
+      console.log("current convo: " + currentConversation);
       console.log(foundVar);
       console.log(arrIndex);
       console.log(currentConversation);
@@ -54,7 +57,6 @@ const MessageBox: React.FC<Props> = props => {
     if (data) {
       console.log(data);
       setConversation(data.getConversation.messages);
-      setConvoId(data.getConversation.id);
     }
   }, [data]);
 
@@ -102,7 +104,7 @@ const MessageBox: React.FC<Props> = props => {
           </p>
         </div>
         <InputBox
-          conversationId={convoId}
+          convoId={convoId}
           userId={props.id}
           val={val}
           entryImage={entryImage}

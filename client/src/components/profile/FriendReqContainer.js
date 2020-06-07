@@ -3,10 +3,10 @@ import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
 import { useQuery } from "@apollo/react-hooks";
 import AcceptButton from "./AcceptButton.js";
-import { DeclineButton } from "./DeclineButton";
+import DeclineButton from "./DeclineButton";
 import { removeFriendRequestMutation } from "../../queries/queries";
 
-const FriendReqContainer = props => {
+function FriendReqContainer(props) {
   const [timepassed, setTimepassed] = useState(0);
 
   useEffect(() => {
@@ -48,7 +48,7 @@ const FriendReqContainer = props => {
       </div>
     </div>
   );
-};
+}
 
 export default compose(
   graphql(removeFriendRequestMutation, { name: "removeFriendRequestMutation" })

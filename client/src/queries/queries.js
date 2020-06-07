@@ -199,6 +199,14 @@ const pushFriendRequestToUser = gql`
   }
 `;
 
+const pullFriendRequestFromUser = gql`
+  mutation($id: ID!, $userId: ID!) {
+    pullUserFriendRequest(id: $id, userId: $userId) {
+      id
+    }
+  }
+`;
+
 const removeTaskMutation = gql`
   mutation($userId: ID!, $id: ID!) {
     deleteTask(userId: $userId, id: $id) {
@@ -518,5 +526,6 @@ export {
   createConversationQuery,
   getSpecConversation,
   addConversationToUser,
-  pushFriendRequestToUser
+  pushFriendRequestToUser,
+  pullFriendRequestFromUser
 };

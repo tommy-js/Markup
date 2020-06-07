@@ -103,14 +103,16 @@ const About: React.FC = () => {
             one developer working on the project, and the purpose of it was
             mostly personal interest.
           </p>
-          <h1 className="about_header">Version 1.0</h1>
+          <h1 className="about_header">Closed Beta</h1>
           <p className="about_body">
-            Version 1.0 is the first widely usable and stable version. This
-            release was created by one developer as a personal project.
+            The Saturnia closed beta is the first feature rich release. It is
+            expected to have quite a few bugs and issues, and will therefore be
+            shared with only a few people. This release is created by one
+            developer as a personal project.
           </p>
           <p className="about_body">
             Expected Release:
-            <span className="expected_release_date"> June 27, 2020</span>
+            <span className="expected_release_date"> July 1, 2020</span>
           </p>
           <h2 className="about_features">Release Features</h2>
           <ul className="features_bullets">

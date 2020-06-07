@@ -37,6 +37,10 @@ const SignIn: React.FC<Props> = props => {
   }
 
   useEffect(() => {
+    console.log(userVal);
+  }, []);
+
+  useEffect(() => {
     if (showToggle === false) {
       setPasswordVisible(open_eye);
     } else {
@@ -54,17 +58,20 @@ const SignIn: React.FC<Props> = props => {
         let checker = getUsers[k].username;
         let comparison = bcrypt.compareSync(password, getUsers[k].password);
         if (comparison === true) {
+          console.log("Logging incorrectly");
+          console.log(getUsers[k]);
+          let currentUser = getUsers[k];
           let lowerCaseUsername = getUsers[k].username.toLowerCase();
           setUserVal({
             username: lowerCaseUsername,
-            password: getUsers[k].password,
-            id: getUsers[k].id,
-            friends: getUsers[k].friends,
-            projects: getUsers[k].projects,
-            tasks: getUsers[k].tasks,
-            teammates: getUsers[k].teammates,
-            conversations: getUsers[k].conversations,
-            friendrequests: getUsers[k].friendrequests
+            password: currentUser.password,
+            id: currentUser.id,
+            friends: currentUser.friends,
+            projects: currentUser.projects,
+            tasks: currentUser.tasks,
+            teammates: currentUser.teammates,
+            conversations: currentUser.conversations,
+            friendrequests: currentUser.friendrequests
           });
           newId = getUsers[k].id;
           let plain = lowerCaseUsername;

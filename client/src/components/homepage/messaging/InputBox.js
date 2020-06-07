@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "../../../App.scss";
 import { graphql } from "react-apollo";
 import { flowRight as compose } from "lodash";
@@ -9,6 +9,11 @@ import send from "../../../icons/send.png";
 function InputBox(props) {
   const [userInput, setUserInput] = useState("");
   const { userVal, setUserVal } = useContext(userContext);
+
+  useEffect(() => {
+    console.log(props.convoId);
+    console.log(userInput);
+  });
 
   function sendMessage() {
     props.addMessageMutation({
