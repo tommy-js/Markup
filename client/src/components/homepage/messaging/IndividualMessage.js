@@ -7,18 +7,7 @@ import { graphql } from "react-apollo";
 import { changeMessageMutation } from "../../../queries/queries";
 import { Menu, Item, MenuProvider } from "react-contexify";
 
-interface Props {
-  message: string;
-  sender: number;
-  userid: number;
-  receiver: number;
-  timestamp: number;
-  id: number;
-  edited: boolean;
-  changeMessageMutation: (variables: object) => void;
-}
-
-const IndividualMessage: React.FC<Props> = props => {
+const IndividualMessage = props => {
   const [userLabel, setUserLabel] = useState({ label: "" });
   const [time, setTime] = useState("");
   const [editing, setEditing] = useState(false);
@@ -30,7 +19,7 @@ const IndividualMessage: React.FC<Props> = props => {
     if (props.userid == props.sender) {
       setUserLabel({ label: "You: " });
     } else {
-      setUserLabel({ label: `#${props.sender.toString()}:` });
+      setUserLabel({ label: `#${props.userId.toString()}:` });
     }
   }, [props.sender]);
 

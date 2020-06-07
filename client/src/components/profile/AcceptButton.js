@@ -4,7 +4,8 @@ import { graphql } from "react-apollo";
 import { flowRight as compose } from "lodash";
 import {
   addFriendMutation,
-  createConversationQuery
+  createConversationQuery,
+  addConversationToUser
 } from "../../queries/queries";
 import { userContext } from "../../App";
 
@@ -14,6 +15,7 @@ function AcceptButton(props) {
   const grouped = () => {};
 
   function submitFriendAccept() {
+    const addedId = Math.floor(Math.random() * 100000000);
     props
       .addFriendMutation({
         variables: {
@@ -32,13 +34,23 @@ function AcceptButton(props) {
         })
       )
       .then(
-        props.createConversationQuery({
-          variables: {
-            id: Math.floor(Math.random() * 100000),
-            userId: userVal.id,
-            secondId: props.from
-          }
-        })
+        props
+          .createConversationQuery({
+            variables: {
+              id: addedId,
+              userId: userVal.id,
+              secondId: props.from
+            }
+          })
+          .then(
+            props.addConversationToUser({
+              variables: {
+                id: addedId,
+                userId: userVal.id,
+                to: props.from
+              }
+            })
+          )
       );
     let arr;
     let pushFriend = { id: props.from, name: props.name };
@@ -56,7 +68,8 @@ function AcceptButton(props) {
       friends: arr,
       projects: userVal.projects,
       tasks: userVal.tasks,
-      teammates: userVal.teammates
+      teammates: userVal.teammates,
+      conversations: userVal.conversations
     });
     props.dropFriendRequest(props.from, userVal.id);
   }
@@ -70,5 +83,6 @@ function AcceptButton(props) {
 
 export default compose(
   graphql(addFriendMutation, { name: "addFriendMutation" }),
-  graphql(createConversationQuery, { name: "createConversationQuery" })
+  graphql(createConversationQuery, { name: "createConversationQuery" }),
+  graphql(addConversationToUser, { name: "addConversationToUser" })
 )(AcceptButton);

@@ -3,8 +3,11 @@ import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
 import { userContext } from "../../../App";
 import { rememberUserContext } from "../../../App";
-import { getConversationQuery } from "../../../queries/queries";
-import { useQuery } from "@apollo/react-hooks";
+import {
+  getConversationQuery,
+  getSpecConversation
+} from "../../../queries/queries";
+import { useLazyQuery } from "@apollo/react-hooks";
 import InputBox from "./InputBox.js";
 import { InitialBox } from "./InitialBox";
 import alphabet from "../../../icons/alphabet.png";
@@ -30,18 +33,27 @@ const MessageBox: React.FC<Props> = props => {
   const { userVal, setUserVal } = useContext(userContext);
   const { rememberedUser, setRememberedUser } = useContext(rememberUserContext);
   const [convoId, setConvoId] = useState();
-  const { data, loading } = useQuery(getConversationQuery, {
-    variables: {
-      id: userVal.id
-    },
+  const [getConvo, { data, loading }] = useLazyQuery(getSpecConversation, {
     pollInterval: 100
   });
 
   useEffect(() => {
-    if (data) {
-      setConvoId(data.conversation.convoId);
+    if (userVal.conversations) {
+      let convo = userVal.conversations;
+      let foundVar = convo.find((el: any) => el.to === props.id);
+      let arrIndex = convo.indexOf(foundVar);
+      let currentConversation = convo[arrIndex].id;
+      getConvo({ variables: { id: currentConversation } });
     }
   }, []);
+
+  useEffect(() => {
+    if (data) {
+      console.log(data);
+      setConversation(data.getConversation.messages);
+      setConvoId(data.getConversation.id);
+    }
+  }, [data]);
 
   function entryButton(checkVal: boolean) {
     if (entryImage === alphabet) {
@@ -87,6 +99,7 @@ const MessageBox: React.FC<Props> = props => {
           </p>
         </div>
         <InputBox
+          conversationId={convoId}
           userId={props.id}
           val={val}
           entryImage={entryImage}
@@ -107,7 +120,7 @@ const MessageBox: React.FC<Props> = props => {
         <div className="message_box">
           {modal()}
           <div>
-            <MessageBoot sortedArray={conversation} userVal={userVal.id} />
+            <MessageBoot messageArray={conversation} userVal={userVal.id} />
           </div>
           <InputBox
             convoId={convoId}
@@ -125,7 +138,7 @@ const MessageBox: React.FC<Props> = props => {
 };
 
 export default compose(
-  graphql(getConversationQuery, {
-    name: "getConversationQuery"
+  graphql(getSpecConversation, {
+    name: "getSpecConversation"
   })
 )(MessageBox);

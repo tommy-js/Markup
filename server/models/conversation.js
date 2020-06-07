@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const conversationSchema = new Schema({
   id: Number,
+  to: Number,
   contributers: [
     {
       contribId: Number

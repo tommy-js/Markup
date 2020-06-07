@@ -19,7 +19,8 @@ const userSchema = new Schema({
       leadId: Number
     }
   ],
-  usersettings: [{ savedata: Boolean }]
+  usersettings: [{ savedata: Boolean }],
+  conversations: [{ id: Number, to: Number }]
 });
 
 module.exports = mongoose.model("User", userSchema);

@@ -107,16 +107,20 @@ const userQuery = gql`
       usersettings {
         savedata
       }
+      conversations {
+        id
+        to
+      }
     }
   }
 `;
 
 const getConversationQuery = gql`
-  query($convoId: ID!, $id: ID!) {
-    getConversation(convoId: $convoId, id: $id) {
-      convoId
+  query($id: ID!) {
+    conversations(id: $id) {
+      id
       contributers {
-        id
+        contribId
       }
       messages {
         userId
@@ -172,6 +176,10 @@ const getUsers = gql`
       teammates {
         id
         name
+      }
+      conversations {
+        id
+        to
       }
     }
   }
@@ -380,6 +388,29 @@ const removeTeammateMutation = gql`
   }
 `;
 
+const addConversationToUser = gql`
+  mutation($userId: ID!, $id: ID, $to: ID!) {
+    addConvo(userId: $userId, id: $id, to: $to) {
+      id
+    }
+  }
+`;
+
+const getSpecConversation = gql`
+  query($id: ID!) {
+    getConversation(id: $id) {
+      id
+      messages {
+        from
+        to
+        content
+        timestamp
+        edited
+      }
+    }
+  }
+`;
+
 const addUserMutation = gql`
   mutation($id: ID!, $username: String!, $password: String!, $salt: String!) {
     addUser(id: $id, username: $username, password: $password, salt: $salt) {
@@ -407,6 +438,9 @@ const addUserMutation = gql`
       }
       usersettings {
         savedata
+      }
+      conversations {
+        id
       }
     }
   }
@@ -465,5 +499,7 @@ export {
   removeFriendRequestMutation,
   addProjectUserMutation,
   addSessionIDMutation,
-  createConversationQuery
+  createConversationQuery,
+  getSpecConversation,
+  addConversationToUser
 };

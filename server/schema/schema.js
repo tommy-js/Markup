@@ -72,6 +72,7 @@ const ConversationQuery = new GraphQLObjectType({
   name: "Conversation",
   fields: () => ({
     id: { type: GraphQLID },
+    to: { type: GraphQLID },
     contributers: { type: new GraphQLList(ContributersQuery) },
     messages: { type: new GraphQLList(MessageQuery) }
   })
@@ -95,7 +96,8 @@ const UserQuery = new GraphQLObjectType({
     teammates: { type: new GraphQLList(FriendQuery) },
     tasks: { type: new GraphQLList(TaskQuery) },
     projects: { type: new GraphQLList(ProjectQuery) },
-    usersettings: { type: new GraphQLList(SettingsQuery) }
+    usersettings: { type: new GraphQLList(SettingsQuery) },
+    conversations: { type: new GraphQLList(ConversationQuery) }
   })
 });
 
@@ -179,13 +181,22 @@ const RootQuery = new GraphQLObjectType({
         return Message.find({ to: args.toId, from: args.fromId });
       }
     },
-    getConversation: {
+    conversations: {
       type: ConversationQuery,
       args: {
         id: { type: GraphQLID }
       },
       resolve(parent, args) {
         return Conversation.find({ id: args.id });
+      }
+    },
+    getConversation: {
+      type: ConversationQuery,
+      args: {
+        id: { type: GraphQLID }
+      },
+      resolve(parent, args) {
+        return Conversation.findOne({ id: args.id });
       }
     },
     getCode: {
@@ -333,21 +344,25 @@ const Mutation = new GraphQLObjectType({
       }
     },
     pushMessage: {
-      type: ConversationQuery,
+      type: MessageQuery,
       args: {
         id: { type: GraphQLID },
         userId: { type: GraphQLID },
         timestamp: { type: GraphQLID },
-        content: { type: GraphQLString }
+        content: { type: GraphQLString },
+        edited: { type: GraphQLBoolean }
       },
       resolve(parent, args) {
         return Conversation.update(
           { id: args.id },
           {
             $push: {
-              userId: args.userId,
-              timestamp: args.timestamp,
-              content: args.content
+              messages: {
+                userId: args.userId,
+                timestamp: args.timestamp,
+                content: args.content,
+                edited: false
+              }
             }
           }
         );
@@ -479,6 +494,27 @@ const Mutation = new GraphQLObjectType({
                 timestamp: args.timestamp,
                 leadName: args.leadName,
                 leadId: args.leadId
+              }
+            }
+          }
+        );
+      }
+    },
+    addConvo: {
+      type: ConversationQuery,
+      args: {
+        userId: { type: GraphQLID },
+        id: { type: GraphQLID },
+        to: { type: GraphQLID }
+      },
+      resolve(parent, args) {
+        return User.update(
+          { id: args.userId },
+          {
+            $push: {
+              conversations: {
+                id: args.id,
+                to: args.to
               }
             }
           }
