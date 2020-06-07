@@ -120,12 +120,14 @@ const About: React.FC = () => {
             <li>Code editing and sharing</li>
             <li>Project joining and posting</li>
             <li>Personal, unlisted projects</li>
-            <li>Mobile version</li>
+            <li>Group chats</li>
+            <li>Emojis</li>
+            <li>Image upload and profile icons</li>
           </ul>
           <h2 className="about_features">Future Features</h2>
           <ul className="features_bullets">
-            <li>Group chats</li>
             <li>Group code editing</li>
+            <li>Mobile version</li>
             <li>Improved code editing UI</li>
             <li>Shared tasks</li>
             <li>Separable friend and team lists</li>
@@ -137,7 +139,6 @@ const About: React.FC = () => {
             <li>Profile icons</li>
             <li>Automatic code completion</li>
             <li>Code highlighting</li>
-            <li>Emojis</li>
             <li>Payment option for projects</li>
             <li>Various payment methods available for project creators</li>
             <li>Concept: Invisible server monitoring</li>

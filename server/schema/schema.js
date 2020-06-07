@@ -19,6 +19,14 @@ const FriendRequest = require("../models/friendreq");
 const ProjectMember = require("../models/ProjectMember");
 const Conversation = require("../models/conversation");
 const Contributers = require("../models/contributers");
+const FriendRequestToUser = require("../models/friendreqtouser");
+
+const FriendRequestToUserQuery = new GraphQLObjectType({
+  name: "FriendRequestToUser",
+  fields: () => ({
+    id: { type: GraphQLID }
+  })
+});
 
 const FriendRequestQuery = new GraphQLObjectType({
   name: "FriendRequest",
@@ -97,7 +105,8 @@ const UserQuery = new GraphQLObjectType({
     tasks: { type: new GraphQLList(TaskQuery) },
     projects: { type: new GraphQLList(ProjectQuery) },
     usersettings: { type: new GraphQLList(SettingsQuery) },
-    conversations: { type: new GraphQLList(ConversationQuery) }
+    conversations: { type: new GraphQLList(ConversationQuery) },
+    friendrequests: { type: new GraphQLList(FriendRequestToUserQuery) }
   })
 });
 
@@ -318,6 +327,19 @@ const Mutation = new GraphQLObjectType({
         return Project.update(
           { id: args.projId },
           { $push: { id: args.id, name: args.name } }
+        );
+      }
+    },
+    pushUserFriendRequest: {
+      type: FriendRequestToUserQuery,
+      args: {
+        userId: { type: GraphQLID },
+        id: { type: GraphQLID }
+      },
+      resolve(parent, args) {
+        return User.update(
+          { id: args.userId },
+          { $push: { friendrequests: { id: args.id } } }
         );
       }
     },

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import AddUserComponent from "./AddUserComponent";
+import AddUserComponent from "./AddUserComponent.js";
 import { graphql } from "react-apollo";
 import { useLazyQuery } from "@apollo/react-hooks";
 import { getUsers } from "../../../queries/queries";

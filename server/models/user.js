@@ -20,7 +20,8 @@ const userSchema = new Schema({
     }
   ],
   usersettings: [{ savedata: Boolean }],
-  conversations: [{ id: Number, to: Number }]
+  conversations: [{ id: Number, to: Number }],
+  friendrequests: [{ id: Number }]
 });
 
 module.exports = mongoose.model("User", userSchema);

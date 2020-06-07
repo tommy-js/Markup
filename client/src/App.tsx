@@ -39,7 +39,7 @@ function App(): JSX.Element {
   }
 
   function checkProj() {
-    if (loggedIn && userVal.projects) {
+    if (loggedIn == true && userVal.projects) {
       console.log("Running" + userVal.projects);
       return (
         <div>

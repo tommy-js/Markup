@@ -111,6 +111,9 @@ const userQuery = gql`
         id
         to
       }
+      friendrequests {
+        id
+      }
     }
   }
 `;
@@ -181,6 +184,17 @@ const getUsers = gql`
         id
         to
       }
+      friendrequests {
+        id
+      }
+    }
+  }
+`;
+
+const pushFriendRequestToUser = gql`
+  mutation($id: ID!, $userId: ID!) {
+    pushUserFriendRequest(id: $id, userId: $userId) {
+      id
     }
   }
 `;
@@ -441,6 +455,9 @@ const addUserMutation = gql`
       conversations {
         id
       }
+      friendrequests {
+        id
+      }
     }
   }
 `;
@@ -500,5 +517,6 @@ export {
   addSessionIDMutation,
   createConversationQuery,
   getSpecConversation,
-  addConversationToUser
+  addConversationToUser,
+  pushFriendRequestToUser
 };

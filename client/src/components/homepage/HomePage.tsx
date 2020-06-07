@@ -58,7 +58,8 @@ const HomePage: React.FC = () => {
         projects: data.user.projects,
         teammates: data.user.teammates,
         tasks: data.user.tasks,
-        conversations: data.user.conversations
+        conversations: data.user.conversations,
+        friendrequests: data.user.friendrequests
       });
     }
   }, [data]);
