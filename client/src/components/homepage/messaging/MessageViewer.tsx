@@ -38,13 +38,11 @@ export const MessageViewer: React.FC<Props> = props => {
     if (userVal.friends) {
       return (
         <div className="message_viewer">
-          <Switch>
-            {userVal.friends.map((el: any) => (
-              <Route exact path={`/home/${el.id}`}>
-                <MessageBox name={el.name} id={el.id} />
-              </Route>
-            ))}
-          </Switch>
+          {userVal.friends.map((el: any) => (
+            <Route exact path={`/home/${el.id}`}>
+              <MessageBox name={el.name} id={el.id} />
+            </Route>
+          ))}
         </div>
       );
     } else {

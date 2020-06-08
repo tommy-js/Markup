@@ -47,7 +47,12 @@ const About: React.FC = () => {
       setUserVal({
         username: data.user.username,
         id: data.user.id,
-        projects: data.user.projects
+        friends: data.user.friends,
+        projects: data.user.projects,
+        teammates: data.user.teammates,
+        tasks: data.user.tasks,
+        conversations: data.user.conversations,
+        friendrequests: data.user.friendrequests
       });
     }
   }, [data]);
@@ -103,9 +108,9 @@ const About: React.FC = () => {
             one developer working on the project, and the purpose of it was
             mostly personal interest.
           </p>
-          <h1 className="about_header">Closed Beta</h1>
+          <h1 className="about_header">Closed Alpha</h1>
           <p className="about_body">
-            The Saturnia closed beta is the first feature rich release. It is
+            The Saturnia closed alpha is the first feature rich release. It is
             expected to have quite a few bugs and issues, and will therefore be
             shared with only a few people. This release is created by one
             developer as a personal project.
@@ -138,7 +143,6 @@ const About: React.FC = () => {
             <li>Message change log</li>
             <li>Separable friend and team chats</li>
             <li>Image messages</li>
-            <li>Profile icons</li>
             <li>Automatic code completion</li>
             <li>Code highlighting</li>
             <li>Payment option for projects</li>

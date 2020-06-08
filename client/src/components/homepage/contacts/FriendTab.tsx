@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Friend } from "./Friend";
 import { userContext } from "../../../App";
+import { Link } from "react-router-dom";
 import "../../../App.scss";
 
 interface Props {
@@ -16,13 +17,15 @@ export const FriendTab: React.FC<Props> = props => {
     return (
       <div className="friend_class_container">
         {userVal.friends.map((person: any) => (
-          <Friend
-            key={Math.floor(Math.random() * 10000)}
-            id={person.id}
-            name={person.name}
-            userId={userVal.id}
-            searchingForFriends={props.searchingForFriends}
-          />
+          <Link to={`/home/${person.id}`}>
+            <Friend
+              key={Math.floor(Math.random() * 10000)}
+              id={person.id}
+              name={person.name}
+              userId={userVal.id}
+              searchingForFriends={props.searchingForFriends}
+            />
+          </Link>
         ))}
       </div>
     );

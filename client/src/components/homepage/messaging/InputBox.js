@@ -5,6 +5,13 @@ import { flowRight as compose } from "lodash";
 import { addMessageMutation } from "../../../queries/queries";
 import { userContext } from "../../../App";
 import send from "../../../icons/send.png";
+import {
+  ContextMenu,
+  MenuItem,
+  ContextMenuTrigger,
+  SubMenu
+} from "react-contextmenu";
+import { Icon } from "./Icon";
 
 function InputBox(props) {
   const [userInput, setUserInput] = useState("");
@@ -37,30 +44,43 @@ function InputBox(props) {
     }
   }
 
+  function contextMenu() {
+    return (
+      <ContextMenu id="input_box_context_menu">
+        <SubMenu title={<Icon />}>
+          <MenuItem>Icon</MenuItem>
+        </SubMenu>
+      </ContextMenu>
+    );
+  }
+
   return (
-    <div className="div_message_input_box">
-      <input
-        className="input_message_container"
-        onChange={e => setUserInput(e.target.value)}
-        value={userInput}
-        placeholder="Enter text..."
-        onKeyDown={e => checkKey(e)}
-      />
-      <div className="div_message_input_box_button">
-        <button
-          onClick={() => props.entryButton(!props.val)}
-          className="div_message_button div_button_top"
-        >
-          <img src={props.entryImage} className="send_enter_button" />
-        </button>
-        <button
-          className="div_message_button div_button_bottom"
-          onClick={() => sendMessage()}
-        >
-          <img src={send} className="send_enter_button" />
-        </button>
+    <ContextMenuTrigger id="input_box_context_menu">
+      <div className="div_message_input_box">
+        <input
+          className="input_message_container"
+          onChange={e => setUserInput(e.target.value)}
+          value={userInput}
+          placeholder="Enter text..."
+          onKeyDown={e => checkKey(e)}
+        />
+        <div className="div_message_input_box_button">
+          <button
+            onClick={() => props.entryButton(!props.val)}
+            className="div_message_button div_button_top"
+          >
+            <img src={props.entryImage} className="send_enter_button" />
+          </button>
+          <button
+            className="div_message_button div_button_bottom"
+            onClick={() => sendMessage()}
+          >
+            <img src={send} className="send_enter_button" />
+          </button>
+        </div>
+        {contextMenu()}
       </div>
-    </div>
+    </ContextMenuTrigger>
   );
 }
 
