@@ -5,6 +5,7 @@ import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
 import { useLazyQuery } from "@apollo/react-hooks";
 import { useHistory, Link, Route } from "react-router-dom";
+import { ImageUpload } from "./ImageUpload";
 const aes256 = require("aes256");
 
 const UserSettings = () => {
@@ -17,6 +18,7 @@ const UserSettings = () => {
 
   return (
     <div className="profile_settings_block">
+      <ImageUpload />
       <h2 className="profile_settings_header">Settings</h2>
       <div className="profile_setting_option">
         <form onSubmit={() => submitForm()}>
