@@ -305,6 +305,7 @@ const pushUserToProjectMutation = gql`
 const addMessageMutation = gql`
   mutation(
     $id: ID!
+    $messageId: ID!
     $userId: ID!
     $timestamp: ID!
     $content: String!
@@ -312,15 +313,26 @@ const addMessageMutation = gql`
   ) {
     pushMessage(
       id: $id
+      messageId: $messageId
       userId: $userId
       timestamp: $timestamp
       content: $content
       edited: $edited
     ) {
       userId
+      messageId
       timestamp
       content
       edited
+    }
+  }
+`;
+
+const removeMessageMutation = gql`
+  mutation($id: ID!, $messageId: ID!) {
+    pullMessage(id: $id, messageId: $messageId) {
+      id
+      messageId
     }
   }
 `;
@@ -344,10 +356,16 @@ const addCodeMutation = gql`
 `;
 
 const changeMessageMutation = gql`
-  mutation($content: String!, $id: ID!, $edited: Boolean!) {
-    changeMessage(content: $content, id: $id, edited: $edited) {
-      content
+  mutation($content: String!, $id: ID!, $edited: Boolean!, $messageId: ID!) {
+    changeMessage(
+      content: $content
+      id: $id
+      edited: $edited
+      messageId: $messageId
+    ) {
       id
+      messageId
+      content
       edited
     }
   }
@@ -527,5 +545,6 @@ export {
   getSpecConversation,
   addConversationToUser,
   pushFriendRequestToUser,
-  pullFriendRequestFromUser
+  pullFriendRequestFromUser,
+  removeMessageMutation
 };

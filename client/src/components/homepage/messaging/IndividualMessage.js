@@ -5,7 +5,7 @@ import edited from "../../../icons/edited.png";
 import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
 import { changeMessageMutation } from "../../../queries/queries";
-import { Menu, Item, MenuProvider } from "react-contexify";
+import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
 import { userContext } from "../../../App";
 
 function IndividualMessage(props) {
@@ -16,6 +16,7 @@ function IndividualMessage(props) {
   const [hasBeenEdited, setHasBeenEdited] = useState(props.edited);
   const [modMessage, setModMessage] = useState(props.message);
   const { userVal, setUserVal } = useContext(userContext);
+  const [randomizedKey] = useState(Math.floor(Math.random() * 100000));
 
   useEffect(() => {
     console.log(props.userId);
@@ -92,21 +93,27 @@ function IndividualMessage(props) {
     }
   }
 
-  function testing() {
-    console.log("working context menu");
-  }
-
   function contextMenu() {
-    return (
-      <Menu id="message_context_menu">
-        <Item onClick={() => testing()}>Edit Message</Item>
-      </Menu>
-    );
+    if (props.userId == userVal.id) {
+      return (
+        <ContextMenu id={`message_context_menu${randomizedKey}`}>
+          <MenuItem onClick={() => modEdits()}>Edit</MenuItem>
+          <MenuItem>Delete</MenuItem>
+        </ContextMenu>
+      );
+    } else {
+      return (
+        <ContextMenu id={`message_context_menu${randomizedKey}`}>
+          <MenuItem>Visit User Profile</MenuItem>
+          <MenuItem>Add To Teammates</MenuItem>
+        </ContextMenu>
+      );
+    }
   }
 
   return (
     <div className="individual_message">
-      <MenuProvider id="message_context_menu">
+      <ContextMenuTrigger id={`message_context_menu${randomizedKey}`}>
         <div className="message">
           <span>{userLabel.label}</span>
           {checkEditing()}
@@ -118,7 +125,7 @@ function IndividualMessage(props) {
           <span className="message_timestamp">{time}</span>
           {checkEdited()}
         </div>
-      </MenuProvider>
+      </ContextMenuTrigger>
       {contextMenu()}
     </div>
   );

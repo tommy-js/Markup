@@ -26,15 +26,15 @@ export function ImageUpload() {
   ));
 
   return (
-    <section className="container">
+    <div className="dropzone_container">
       <div {...getRootProps({ className: "dropzone" })}>
         <input {...getInputProps()} />
-        <p>Drag 'n' drop some files here, or click to select files</p>
+        <p>Drop your profile image here</p>
       </div>
-      <aside>
+      <span>
         <h4>Files</h4>
         <aside className="thumbsContainer">{thumbs}</aside>
-      </aside>
-    </section>
+      </span>
+    </div>
   );
 }

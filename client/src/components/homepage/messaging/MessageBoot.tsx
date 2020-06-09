@@ -19,6 +19,7 @@ export const MessageBoot: React.FC<Props> = props => {
         {props.messageArray.map((messages: any) => (
           <IndividualMessage
             userId={messages.userId}
+            messageId={messages.messageId}
             edited={messages.edited}
             key={Math.floor(Math.random() * 10000)}
             message={messages.content}

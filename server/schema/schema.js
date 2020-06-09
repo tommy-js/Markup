@@ -382,6 +382,7 @@ const Mutation = new GraphQLObjectType({
       type: MessageQuery,
       args: {
         id: { type: GraphQLID },
+        messageId: { type: GraphQLID },
         userId: { type: GraphQLID },
         timestamp: { type: GraphQLID },
         content: { type: GraphQLString },
@@ -394,6 +395,7 @@ const Mutation = new GraphQLObjectType({
             $push: {
               messages: {
                 userId: args.userId,
+                messageId: args.messageId,
                 timestamp: args.timestamp,
                 content: args.content,
                 edited: false
@@ -463,11 +465,12 @@ const Mutation = new GraphQLObjectType({
       type: MessageQuery,
       args: {
         id: { type: GraphQLID },
+        messageId: { type: GraphQLID },
         content: { type: GraphQLString },
         edited: { type: GraphQLBoolean }
       },
       resolve(parent, args) {
-        return Message.findOneAndUpdate(
+        return Conversation.findOneAndUpdate(
           { id: args.id },
           { $set: { content: args.content, edited: args.edited } },
           { upsert: true, new: true }

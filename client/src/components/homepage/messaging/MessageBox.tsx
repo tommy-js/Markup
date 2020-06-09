@@ -95,26 +95,8 @@ const MessageBox: React.FC<Props> = props => {
     }
   }
 
-  if (conversation.length == 0) {
-    return (
-      <div>
-        <div className="message_container">
-          <p className="start_of_messages">
-            This is the start of your messages...
-          </p>
-        </div>
-        <InputBox
-          convoId={convoId}
-          userId={props.id}
-          val={val}
-          entryImage={entryImage}
-          entryButton={entryButton}
-        />
-      </div>
-    );
-  }
   if (!loading) {
-    if (conversation.length < 1) {
+    if (conversation.length == 0) {
       return (
         <div className="message_box">
           <InitialBox />
@@ -138,7 +120,7 @@ const MessageBox: React.FC<Props> = props => {
       );
     }
   } else {
-    return <div>Loading...</div>;
+    return null;
   }
 };
 

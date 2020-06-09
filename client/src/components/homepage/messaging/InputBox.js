@@ -26,6 +26,7 @@ function InputBox(props) {
     props.addMessageMutation({
       variables: {
         id: props.convoId,
+        messageId: Math.floor(Math.random() * 1000000),
         userId: userVal.id,
         content: userInput,
         timestamp: Math.round(new Date().getTime() / 1000),
