@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import edit from "../../../icons/edit.png";
 import check from "../../../icons/checkmark.png";
 import edited from "../../../icons/edited.png";
+import remove from "../../../icons/remove.png";
 import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
 import { changeMessageMutation } from "../../../queries/queries";
@@ -119,6 +120,9 @@ function IndividualMessage(props) {
           {checkEditing()}
         </div>
         <div className="right_align">
+          <span className="message_remove_button">
+            <img src={remove} className="edit_image" />
+          </span>
           <span className="message_edit_button" onClick={() => modEdits()}>
             <img src={image} className="edit_image" />
           </span>

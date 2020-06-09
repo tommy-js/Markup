@@ -477,6 +477,16 @@ const Mutation = new GraphQLObjectType({
         );
       }
     },
+    pullMessage: {
+      type: MessageQuery,
+      args: {
+        id: { type: GraphQLID },
+        messageId: { type: GraphQLID }
+      },
+      resolve(parent, args) {
+        return Message.deleteOne({ messageId: args.messageId });
+      }
+    },
     changeCode: {
       type: CodeQuery,
       args: {
