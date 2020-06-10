@@ -21,6 +21,7 @@ a:active {
 $midBlue: #3d3b56;
 $darkBlue: #282c35;
 $darkestBlue: #1f2229;
+$hoverOverBlue: #34334b;
 
 @mixin sideBarHeights {
   height: 85%;
@@ -54,6 +55,10 @@ $darkestBlue: #1f2229;
 
 @mixin fastTransition {
   transition: 0.15s ease-in-out all;
+}
+
+@mixin superFastTransition {
+  transition: 0.05s ease-in-out all;
 }
 
 @mixin noselect {

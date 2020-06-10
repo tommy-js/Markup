@@ -13,6 +13,7 @@ import { userContext } from "../../../App";
 function IndividualMessage(props) {
   const [userLabel, setUserLabel] = useState({ label: "" });
   const [time, setTime] = useState("");
+  const [hours, setHours] = useState("");
   const [editing, setEditing] = useState(false);
   const [image, setImage] = useState(edit);
   const [hasBeenEdited, setHasBeenEdited] = useState(props.edited);
@@ -47,6 +48,15 @@ function IndividualMessage(props) {
       let day = date.getDate();
       let month = date.getMonth() + 1;
       let year = date.getFullYear();
+      let hours = date.getHours();
+      let minutes = date.getMinutes();
+      let calcTime;
+      if (hours > 12) {
+        calcTime = `${hours % 12}:${minutes}PM`;
+      } else {
+        calcTime = `${hours}:${minutes}AM`;
+      }
+      setHours(`${calcTime}`);
       setTime(`${month}/${day}/${year}`);
     }
   }, []);
@@ -113,35 +123,48 @@ function IndividualMessage(props) {
     }
   }
 
-  return (
-    <div className="individual_message">
-      <ContextMenuTrigger id={`message_context_menu${randomizedKey}`}>
-        <div className="message">
-          <span>{userLabel.label}</span>
-          {checkEditing()}
-        </div>
-
-        <div className="right_align">
-          <div className="inline_align edit_icons">
-            <div className="inline_align">
-              <span className="menu_button">
-                <img src={menu_button} className="edit_image" />
-              </span>
-            </div>
-            <div className="inline_align">
-              <span className="message_remove_button">
-                <img src={remove} className="edit_image" />
-              </span>
-              <span className="message_edit_button" onClick={() => modEdits()}>
-                <img src={image} className="edit_image" />
-              </span>
-              {checkEdited()}
-            </div>
+  function returnIcons() {
+    if (props.userId == userVal.id) {
+      return (
+        <div className="inline_align edit_icons">
+          <div className="inline_align">
+            <span className="menu_button">
+              <img src={menu_button} className="edit_image" />
+            </span>
           </div>
-          <span className="message_timestamp">{time}</span>
+          <div className="inline_align">
+            <span className="message_remove_button">
+              <img src={remove} className="edit_image" />
+            </span>
+            <span className="message_edit_button" onClick={() => modEdits()}>
+              <img src={image} className="edit_image" />
+            </span>
+            {checkEdited()}
+          </div>
         </div>
-      </ContextMenuTrigger>
-      {contextMenu()}
+      );
+    } else {
+      return null;
+    }
+  }
+
+  return (
+    <div className="background_individual_message">
+      <div className="specific_message_time">{hours}</div>
+      <div className="individual_message">
+        <ContextMenuTrigger id={`message_context_menu${randomizedKey}`}>
+          <div className="message">
+            <span>{userLabel.label}</span>
+            {checkEditing()}
+          </div>
+
+          <div className="right_align">
+            {returnIcons()}
+            <span className="message_timestamp">{time}</span>
+          </div>
+        </ContextMenuTrigger>
+        {contextMenu()}
+      </div>
     </div>
   );
 }

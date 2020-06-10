@@ -629,8 +629,7 @@
   float: right;
   display: inline-block;
   height: 100%;
-  opacity: 0;
-  @include standardTransition;
+  width: 75px;
 }
 
 .inline_align {
@@ -639,8 +638,9 @@
 
 .edit_icons {
   display: inline-block;
+  opacity: 0;
   width: 100%;
-  border: 1px solid red;
+  @include fastTransition;
 }
 
 .edit_icons:hover .menu_button {
@@ -675,30 +675,36 @@
 .edit_image {
   height: 20px;
   width: 20px;
-  border-radius: 50%;
   padding: 2.5px;
-  border: 1px solid yellow;
-  transition: 0.2s;
 }
 
-.edit_image:hover {
-  background-color: pink;
-  transition: 0.2s;
+.background_individual_message {
+  position: relative;
+  width: 90%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: $midBlue;
+  @include superFastTransition;
+}
+
+.background_individual_message:hover {
+  background-color: $hoverOverBlue;
+  @include superFastTransition;
 }
 
 .individual_message {
   position: relative;
-  width: 80%;
+  width: 85%;
   padding: 15px;
   border-radius: 5px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  display: inline-block;
+  margin-right: 0;
+  right: 0;
+  box-sizing: border-box;
   background-color: #6f6b9b;
 }
 
-.individual_message:hover .right_align {
+.individual_message:hover .edit_icons {
   opacity: 1;
   @include fastTransition;
 }
@@ -706,6 +712,7 @@
 .message_timestamp {
   position: relative;
   display: block;
+  font-size: 12px;
   vertical-align: top;
 }
 
@@ -790,4 +797,18 @@
 .context_menu_icon_image {
   height: 30px;
   width: 30px;
+}
+
+.specific_message_time {
+  display: inline-block;
+  width: 15%;
+  // border: 1px solid red;
+  vertical-align: middle;
+  opacity: 0;
+  @include superFastTransition;
+}
+
+.background_individual_message:hover .specific_message_time {
+  opacity: 1;
+  @include superFastTransition;
 }
