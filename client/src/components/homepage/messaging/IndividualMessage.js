@@ -33,6 +33,7 @@ function IndividualMessage(props) {
   useEffect(() => {
     let timer = Math.round(new Date().getTime() / 1000);
     let passedTime = timer - props.timestamp;
+    let date = new Date(props.timestamp * 1000);
     if (passedTime < 60) {
       setTime("1 minute");
     } else if (passedTime < 120) {
@@ -44,21 +45,20 @@ function IndividualMessage(props) {
     } else if (passedTime < 300) {
       setTime("5 minutes");
     } else {
-      let date = new Date(props.timestamp * 1000);
       let day = date.getDate();
       let month = date.getMonth() + 1;
       let year = date.getFullYear();
-      let hours = date.getHours();
-      let minutes = date.getMinutes();
-      let calcTime;
-      if (hours > 12) {
-        calcTime = `${hours % 12}:${minutes}PM`;
-      } else {
-        calcTime = `${hours}:${minutes}AM`;
-      }
-      setHours(`${calcTime}`);
       setTime(`${month}/${day}/${year}`);
     }
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+    let calcTime;
+    if (hours > 12) {
+      calcTime = `${hours % 12}:${minutes}PM`;
+    } else {
+      calcTime = `${hours}:${minutes}AM`;
+    }
+    setHours(`${calcTime}`);
   }, []);
 
   function checkEditing() {

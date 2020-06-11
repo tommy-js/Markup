@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { NavLink, useHistory } from "react-router-dom";
-import favicon from "../../icons/favicon-32x32.png";
+import planet from "../../icons/planet_mod.png";
 import "../../App.scss";
 import { loggedInContext } from "../../App";
 import { userContext } from "../../App";
@@ -29,7 +29,7 @@ export const Navbar: React.FC = () => {
         to="/home"
       >
         <div className="header_image_block">
-          <img className="header_image" src={favicon} />
+          <img className="header_image" src={planet} />
         </div>
       </NavLink>
       <NavLink

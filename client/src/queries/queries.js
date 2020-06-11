@@ -328,6 +328,26 @@ const addMessageMutation = gql`
   }
 `;
 
+const getAllProjects = gql`
+  query {
+    getProjects {
+      leadName
+      leadId
+      stack
+      timestamp
+      joined
+      total
+      title
+      content
+      id
+      members {
+        id
+        name
+      }
+    }
+  }
+`;
+
 const removeMessageMutation = gql`
   mutation($id: ID!, $messageId: ID!) {
     pullMessage(id: $id, messageId: $messageId) {
@@ -546,5 +566,6 @@ export {
   addConversationToUser,
   pushFriendRequestToUser,
   pullFriendRequestFromUser,
-  removeMessageMutation
+  removeMessageMutation,
+  getAllProjects
 };

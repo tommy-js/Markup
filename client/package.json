@@ -28,6 +28,7 @@
     "react-dom": "^16.13.1",
     "react-dropzone": "^11.0.1",
     "react-favicon": "0.0.18",
+    "react-lazyload": "^2.6.7",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
     "start": "^5.1.0",

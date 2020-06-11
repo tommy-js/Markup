@@ -3,19 +3,35 @@ import ProjectPage from "./ProjectPage";
 import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
 import { useLazyQuery } from "@apollo/react-hooks";
-import { getOpenProjectsQuery } from "../../queries/queries";
+import { getOpenProjectsQuery, getAllProjects } from "../../queries/queries";
 
-interface Props {
-  searchSettings: any;
-  routeDriller: (projects: object) => void;
-}
-
-const OpenProject: React.FC<Props> = props => {
+function OpenProject(props) {
   const [projects, setProjects] = useState([]);
   const [placeholder, setPlaceholder] = useState();
   const [callProjects, { loading, data }] = useLazyQuery(getOpenProjectsQuery, {
     pollInterval: 500
   });
+  const [callAllProjects, { loadingAll, dataAll }] = useLazyQuery(
+    getAllProjects
+  );
+
+  useEffect(() => {
+    callAll();
+  }, []);
+
+  function callAll() {
+    callAllProjects();
+  }
+
+  useEffect(() => {
+    if (dataAll) {
+      let foundData = dataAll.getProjects;
+      foundData.length = 100;
+      setProjects(foundData);
+      props.routeDriller(foundData);
+      console.log(dataAll);
+    }
+  }, [dataAll]);
 
   useEffect(() => {
     setPlaceholder(props.searchSettings);
@@ -28,6 +44,8 @@ const OpenProject: React.FC<Props> = props => {
           stack: placeholder.stack.toUpperCase()
         }
       });
+    } else {
+      callAllProjects();
     }
   }, [placeholder]);
 
@@ -41,11 +59,11 @@ const OpenProject: React.FC<Props> = props => {
     }
   }, [data]);
 
-  if (!loading) {
+  if (!loading || !loadingAll) {
     if (projects.length > 0) {
       return (
         <div className="project_opening">
-          {projects.map((el: any) => (
+          {projects.map(el => (
             <ProjectPage
               leadName={el.leadName}
               leadId={el.leadId}
@@ -67,8 +85,9 @@ const OpenProject: React.FC<Props> = props => {
   } else {
     return <div className="project_opening">Loading</div>;
   }
-};
+}
 
 export default compose(
-  graphql(getOpenProjectsQuery, { name: "getOpenProjectsQuery" })
+  graphql(getOpenProjectsQuery, { name: "getOpenProjectsQuery" }),
+  graphql(getAllProjects, { name: "getAllProjects" })
 )(OpenProject);

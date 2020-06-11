@@ -228,6 +228,12 @@ const RootQuery = new GraphQLObjectType({
         return Project.find({ stack: args.stack });
       }
     },
+    getProjects: {
+      type: new GraphQLList(ProjectQuery),
+      resolve(parent) {
+        return Project.find({});
+      }
+    },
     user: {
       type: UserQuery,
       args: { username: { type: GraphQLString }, id: { type: GraphQLID } },

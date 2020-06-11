@@ -7,7 +7,7 @@ import HomePage from "./components/homepage/HomePage";
 import { ApolloProvider } from "react-apollo";
 import About from "./components/about/About";
 import Contact from "./components/contact/Contact";
-import Projects from "./components/projects/Projects";
+import Projects from "./components/projects/Projects.js";
 import { Redirect } from "./components/navigation/Redirect";
 import Profile from "./components/profile/Profile";
 import ProjectPage from "./components/projects/ProjectPage";

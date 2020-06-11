@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import OpenProject from "./OpenProject";
+import OpenProject from "./OpenProject.js";
 import { Navbar } from "../navigation/Navbar";
 import { SideSearchBar } from "./SideSearchBar";
 import { userContext } from "../../App";
@@ -13,12 +13,8 @@ import { useLazyQuery } from "@apollo/react-hooks";
 import { loggedInContext } from "../../App";
 const aes256 = require("aes256");
 
-interface Props {
-  routeDriller: (projects: object) => void;
-}
-
-const Projects: React.FC<Props> = props => {
-  const [searchSettings, setSearchSettings] = useState<any>();
+function Projects(props) {
+  const [searchSettings, setSearchSettings] = useState();
   const { userVal, setUserVal } = useContext(userContext);
   const history = useHistory();
   const { loggedIn, setLoggedIn } = useContext(loggedInContext);
@@ -57,7 +53,7 @@ const Projects: React.FC<Props> = props => {
     }
   }, [data]);
 
-  function setSearch(submittedStack: object) {
+  function setSearch(submittedStack) {
     setSearchSettings(submittedStack);
   }
 
@@ -76,6 +72,6 @@ const Projects: React.FC<Props> = props => {
       </div>
     </div>
   );
-};
+}
 
 export default compose(graphql(userQuery, { name: "userQuery" }))(Projects);
