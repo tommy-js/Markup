@@ -33,6 +33,7 @@ function InputBox(props) {
         edited: false
       }
     });
+    props.modInput(userInput);
     setUserInput("");
   }
 

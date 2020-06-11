@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import MessageBox from "./MessageBox";
+import MessageBox from "./MessageBox.js";
 import { SearchForUser } from "./SearchForUser";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { useHistory } from "react-router-dom";

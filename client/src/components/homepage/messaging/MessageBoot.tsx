@@ -21,7 +21,7 @@ export const MessageBoot: React.FC<Props> = props => {
             userId={messages.userId}
             messageId={messages.messageId}
             edited={messages.edited}
-            key={Math.floor(Math.random() * 10000)}
+            key={messages.timestamp}
             message={messages.content}
             timestamp={messages.timestamp}
           />

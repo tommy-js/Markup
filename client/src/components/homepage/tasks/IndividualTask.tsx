@@ -4,6 +4,9 @@ import unchecked from "../../../icons/unchecked.png";
 import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
 import { removeTaskMutation } from "../../../queries/queries";
+import low_box from "../../../icons/low_box.png";
+import med_box from "../../../icons/med_box.png";
+import high_box from "../../../icons/high_box.png";
 import "../../../App.scss";
 import {
   ContextMenu,
@@ -26,6 +29,7 @@ const IndividualTask: React.FC<Props> = props => {
   const [displayed, setDisplayed] = useState("none");
   const [decorator, setDecorator] = useState("none");
   const [whitebox, setWhiteBox] = useState("white");
+  const [priority, setPriority] = useState(low_box);
   const [checkState, setCheckState] = useState(unchecked);
   const [randomInt] = useState(Math.floor(Math.random() * 1000000));
 
@@ -62,9 +66,11 @@ const IndividualTask: React.FC<Props> = props => {
         <MenuItem>Remove Item</MenuItem>
         <MenuItem onClick={() => setChecking(!checking)}>Check Item</MenuItem>
         <SubMenu title="Set Priority">
-          <MenuItem>High Priority</MenuItem>
-          <MenuItem>Med Priority</MenuItem>
-          <MenuItem>Low Priority</MenuItem>
+          <MenuItem onClick={() => setPriority(high_box)}>
+            High Priority
+          </MenuItem>
+          <MenuItem onClick={() => setPriority(med_box)}>Med Priority</MenuItem>
+          <MenuItem onClick={() => setPriority(low_box)}>Low Priority</MenuItem>
         </SubMenu>
       </ContextMenu>
     );
@@ -77,6 +83,9 @@ const IndividualTask: React.FC<Props> = props => {
           <p className="inner_task_block" style={{ textDecoration: decorator }}>
             {props.task}
           </p>
+          <div className="inner_task_checkbox">
+            <img src={priority} className="checkbox_image" />
+          </div>
           <div className="inner_task_checkbox">
             <div
               className="checkbox_container"

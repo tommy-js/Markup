@@ -4,8 +4,9 @@ import IndividualTask from "./IndividualTask";
 import { userContext } from "../../../App";
 import AddTask from "./AddTask";
 import "../../../App.scss";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
-export const Tasks: React.FC = () => {
+export function Tasks() {
   const { userVal, setUserVal } = useContext(userContext);
   const [displayTask, setDisplayTask] = useState(true);
   const [loadIfEmpty, setLoadIfEmpty] = useState("Add a task to start...");
@@ -37,7 +38,7 @@ export const Tasks: React.FC = () => {
       <div className="task_box_container">
         <div className="task_box">
           <div className="tasklist_container">
-            {userVal.tasks.map((task: any) => (
+            {userVal.tasks.map(task => (
               <IndividualTask
                 key={task.id}
                 userId={userVal.id}
@@ -54,4 +55,4 @@ export const Tasks: React.FC = () => {
       </div>
     );
   }
-};
+}

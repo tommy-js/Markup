@@ -144,7 +144,12 @@ function IndividualMessage(props) {
         </div>
       );
     } else {
-      return null;
+      return (
+        <div className="inline_align edit_icons">
+          <div className="inline_align"></div>
+          <div className="inline_align">{checkEdited()}</div>
+        </div>
+      );
     }
   }
 

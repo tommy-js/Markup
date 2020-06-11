@@ -15,13 +15,7 @@ import addCode from "../../../icons/code.png";
 import { MessageBoot } from "./MessageBoot";
 import "../../../App.scss";
 
-interface Props {
-  name: String;
-  id: Number;
-  getMessages: () => object;
-}
-
-const MessageBox: React.FC<Props> = props => {
+export function MessageBox(props) {
   const [userMessages, setUserMessages] = useState([
     "This is the start of your conversation..."
   ]);
@@ -41,7 +35,7 @@ const MessageBox: React.FC<Props> = props => {
     if (userVal.conversations) {
       console.log("userval confo");
       let convo = userVal.conversations;
-      let foundVar = convo.find((el: any) => el.to === props.id);
+      let foundVar = convo.find(el => el.to === props.id);
       let arrIndex = convo.indexOf(foundVar);
       let currentConversation = convo[arrIndex].id;
       getConvo({ variables: { id: currentConversation } });
@@ -55,12 +49,13 @@ const MessageBox: React.FC<Props> = props => {
 
   useEffect(() => {
     if (data) {
-      console.log(data);
-      setConversation(data.getConversation.messages);
+      if (data.getConversation.messages != conversation) {
+        setConversation(data.getConversation.messages);
+      }
     }
   }, [data]);
 
-  function entryButton(checkVal: boolean) {
+  function entryButton(checkVal) {
     if (entryImage === alphabet) {
       setEntryImage(addCode);
       setVal(checkVal);
@@ -73,6 +68,12 @@ const MessageBox: React.FC<Props> = props => {
   function deleteCode() {
     entryButton(false);
     setInnerCode("");
+  }
+
+  function modInput(input) {
+    let arr = conversation;
+    arr.push(input);
+    setConversation(arr);
   }
 
   function modal() {
@@ -110,6 +111,7 @@ const MessageBox: React.FC<Props> = props => {
             <MessageBoot messageArray={conversation} userVal={userVal.id} />
           </div>
           <InputBox
+            modInput={modInput}
             convoId={convoId}
             userId={props.id}
             val={val}
@@ -122,7 +124,7 @@ const MessageBox: React.FC<Props> = props => {
   } else {
     return null;
   }
-};
+}
 
 export default compose(
   graphql(getSpecConversation, {

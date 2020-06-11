@@ -63,6 +63,7 @@ const MessageQuery = new GraphQLObjectType({
     userId: { type: GraphQLID },
     from: { type: GraphQLID },
     to: { type: GraphQLID },
+    messageId: { type: GraphQLID },
     content: { type: GraphQLString },
     timestamp: { type: GraphQLID },
     edited: { type: GraphQLBoolean }
