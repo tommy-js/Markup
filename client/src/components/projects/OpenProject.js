@@ -7,11 +7,10 @@ import { getOpenProjectsQuery, getAllProjects } from "../../queries/queries";
 
 function OpenProject(props) {
   const [projects, setProjects] = useState([]);
-  const [placeholder, setPlaceholder] = useState();
-  const [callProjects, { loading, data }] = useLazyQuery(getOpenProjectsQuery, {
+  const [callProjects, { data, loading }] = useLazyQuery(getOpenProjectsQuery, {
     pollInterval: 500
   });
-  const [callAllProjects, { loadingAll, dataAll }] = useLazyQuery(
+  const [callAllProjects, { data: data2, loading: loading2 }] = useLazyQuery(
     getAllProjects
   );
 
@@ -20,34 +19,34 @@ function OpenProject(props) {
   }, []);
 
   function callAll() {
+    console.log("function passing");
     callAllProjects();
   }
 
   useEffect(() => {
-    if (dataAll) {
-      let foundData = dataAll.getProjects;
+    console.log("data prev");
+    if (data2) {
+      console.log("data called");
+      let foundData = data2.getProjects;
       foundData.length = 100;
       setProjects(foundData);
       props.routeDriller(foundData);
-      console.log(dataAll);
+      console.log(data2);
     }
-  }, [dataAll]);
+  }, [data2]);
 
   useEffect(() => {
-    setPlaceholder(props.searchSettings);
-  }, [props.searchSettings]);
-
-  useEffect(() => {
-    if (props.searchSettings) {
+    if (props.searchSettings != "") {
       callProjects({
         variables: {
-          stack: placeholder.stack.toUpperCase()
+          stack: props.searchSettings.toUpperCase()
         }
       });
     } else {
-      callAllProjects();
+      console.log("correct");
+      callAll();
     }
-  }, [placeholder]);
+  }, [props.searchSettings]);
 
   useEffect(() => {
     if (data) {
@@ -59,7 +58,7 @@ function OpenProject(props) {
     }
   }, [data]);
 
-  if (!loading || !loadingAll) {
+  if (!loading || !loading2) {
     if (projects.length > 0) {
       return (
         <div className="project_opening">

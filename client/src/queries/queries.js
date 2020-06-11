@@ -59,8 +59,28 @@ const getMessageQuery = gql`
 `;
 
 const getOpenProjectsQuery = gql`
-  query($stack: String!) {
+  query($stack: String) {
     projects(stack: $stack) {
+      leadName
+      leadId
+      stack
+      timestamp
+      joined
+      total
+      title
+      content
+      id
+      members {
+        id
+        name
+      }
+    }
+  }
+`;
+
+const getAllProjects = gql`
+  query {
+    getProjects {
       leadName
       leadId
       stack
@@ -324,26 +344,6 @@ const addMessageMutation = gql`
       timestamp
       content
       edited
-    }
-  }
-`;
-
-const getAllProjects = gql`
-  query {
-    getProjects {
-      leadName
-      leadId
-      stack
-      timestamp
-      joined
-      total
-      title
-      content
-      id
-      members {
-        id
-        name
-      }
     }
   }
 `;

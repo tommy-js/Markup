@@ -1,17 +1,15 @@
 import React, { useState } from "react";
 
 interface Props {
-  setSearch: (submittedStack: object) => void;
+  setSearch: (submittedStack: string) => void;
 }
 
 export const SideSearchBar: React.FC<Props> = props => {
-  const [searchSettings, setSearchSettings] = useState({
-    stack: ""
-  });
+  const [stackSearchSettings, setStackSearchSettings] = useState("");
 
   function passSearchParams(e: any) {
     e.preventDefault();
-    props.setSearch(searchSettings);
+    props.setSearch(stackSearchSettings);
   }
 
   return (
@@ -21,12 +19,8 @@ export const SideSearchBar: React.FC<Props> = props => {
         <form onSubmit={e => passSearchParams(e)}>
           <input
             type="text"
-            value={searchSettings.stack}
-            onChange={e =>
-              setSearchSettings({
-                stack: e.target.value
-              })
-            }
+            value={stackSearchSettings}
+            onChange={e => setStackSearchSettings(e.target.value)}
             placeholder="Stack"
           />
           <button>Search</button>

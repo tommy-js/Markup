@@ -19,9 +19,11 @@ const ProjectPage: React.FC<Props> = props => {
   const [member, setMember] = useState(false);
 
   useEffect(() => {
-    let findData = userVal.projects.find((el: any) => el.id === props.id);
-    if (findData) {
-      setMember(true);
+    if (userVal.projects) {
+      let findData = userVal.projects.find((el: any) => el.id === props.id);
+      if (findData) {
+        setMember(true);
+      }
     }
   }, []);
 

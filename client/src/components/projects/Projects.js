@@ -14,7 +14,7 @@ import { loggedInContext } from "../../App";
 const aes256 = require("aes256");
 
 function Projects(props) {
-  const [searchSettings, setSearchSettings] = useState();
+  const [searchSettings, setSearchSettings] = useState("");
   const { userVal, setUserVal } = useContext(userContext);
   const history = useHistory();
   const { loggedIn, setLoggedIn } = useContext(loggedInContext);
@@ -44,11 +44,16 @@ function Projects(props) {
 
   useEffect(() => {
     if (data) {
-      console.log("data");
+      console.log(data);
       setUserVal({
         username: data.user.username,
         id: data.user.id,
-        projects: data.user.projects
+        friends: data.user.friends,
+        projects: data.user.projects,
+        teammates: data.user.teammates,
+        tasks: data.user.tasks,
+        conversations: data.user.conversations,
+        friendrequests: data.user.friendrequests
       });
     }
   }, [data]);
