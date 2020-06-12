@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import "../../App.scss";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp.js";
+import AboutSaturnia from "./AboutSaturnia.js";
 
 import { userContext } from "../../App";
 import { useHistory, Link, Route } from "react-router-dom";
@@ -55,8 +56,13 @@ const AccountCreation: React.FC = () => {
   return (
     <div className="account_creation_block">
       <div className="account_creation">
-        <SignUp />
-        <SignIn />
+        <div className="account_inputs">
+          <SignUp />
+          <SignIn />
+        </div>
+      </div>
+      <div className="about_saturnia">
+        <AboutSaturnia />
       </div>
     </div>
   );

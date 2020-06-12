@@ -39,25 +39,27 @@ function App(): JSX.Element {
   }
 
   function checkProj() {
-    if (loggedIn == true && userVal.projects) {
-      console.log("Running" + userVal.projects);
-      return (
-        <div>
-          {userVal.projects.map((el: any) => (
-            <div key={el.id}>
-              <Route path={`/profile/contributor/${el.id}`}>
-                <AdminProjectPage
-                  leadName={el.leadName}
-                  leadId={el.leadId}
-                  id={el.id}
-                  title={el.title}
-                  content={el.content}
-                />
-              </Route>
-            </div>
-          ))}
-        </div>
-      );
+    if (userVal) {
+      if (loggedIn == true && userVal.projects) {
+        console.log("Running" + userVal.projects);
+        return (
+          <div>
+            {userVal.projects.map((el: any) => (
+              <div key={el.id}>
+                <Route path={`/profile/contributor/${el.id}`}>
+                  <AdminProjectPage
+                    leadName={el.leadName}
+                    leadId={el.leadId}
+                    id={el.id}
+                    title={el.title}
+                    content={el.content}
+                  />
+                </Route>
+              </div>
+            ))}
+          </div>
+        );
+      }
     } else {
       return;
     }

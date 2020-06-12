@@ -4,6 +4,7 @@ import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
 import { addProjectUserMutation } from "../../queries/queries";
 import { userContext } from "../../App";
+import { MenuItem, ContextMenu, ContextMenuTrigger } from "react-contextmenu";
 
 interface Props {
   addProjectUserMutation: (variables: object) => void;
@@ -17,6 +18,7 @@ interface Props {
 const ProjectPage: React.FC<Props> = props => {
   const { userVal, setUserVal } = useContext(userContext);
   const [member, setMember] = useState(false);
+  const [randomInt] = useState(Math.floor(Math.random() * 100000));
 
   useEffect(() => {
     if (userVal.projects) {
@@ -73,16 +75,30 @@ const ProjectPage: React.FC<Props> = props => {
     }
   }
 
+  function contextMenu() {
+    return (
+      <div>
+        <ContextMenu id={`project_context_menu${randomInt}`}>
+          <MenuItem>Join</MenuItem>
+          <MenuItem>Bookmark</MenuItem>
+        </ContextMenu>
+      </div>
+    );
+  }
+
   return (
     <div>
-      <div className="project_page">
-        <p>{props.title}</p>
-        <p>{props.content}</p>
-        <p>
-          Project Lead: {props.leadName} #{props.leadId}
-        </p>
-        {checkMember()}
-      </div>
+      <ContextMenuTrigger id={`project_context_menu${randomInt}`}>
+        <div className="project_page">
+          <p>{props.title}</p>
+          <p>{props.content}</p>
+          <p>
+            Project Lead: {props.leadName} #{props.leadId}
+          </p>
+          {checkMember()}
+        </div>
+      </ContextMenuTrigger>
+      {contextMenu()}
     </div>
   );
 };

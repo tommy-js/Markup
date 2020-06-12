@@ -367,6 +367,15 @@
   scrollbar-color: #ffcbec transparent;
 }
 
+.message_cont_bottom_align {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  height: 100%;
+  overflow-y: scroll;
+  @include testing;
+}
+
 .search_user_block {
   position: relative;
   width: 60%;
@@ -680,6 +689,7 @@
 
 .background_individual_message {
   position: relative;
+  bottom: 0;
   width: 90%;
   margin-top: 10px;
   margin-bottom: 10px;
