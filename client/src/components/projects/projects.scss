@@ -80,10 +80,56 @@
 }
 
 .project_page {
-  width: 95%;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  border-bottom: 1px solid grey;
+  padding: 0;
+}
+
+.inline_container {
+  position: relative;
+  display: inline-block;
+  margin: 0;
+  padding-top: 100px;
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+.third_left {
+  min-width: 100px;
+  width: 15%;
+  height: 100%;
+  box-sizing: border-box;
+  @include testing;
+}
+
+.third_center {
+  height: 100%;
+  width: 70%;
+  box-sizing: border-box;
+  @include testing2;
+}
+.third_right {
+  min-width: 100px;
+  width: 15%;
+  float: right;
+  box-sizing: border-box;
+}
+
+.hidden_dropdown {
+  position: absolute;
+  height: 60px;
+  border: 1px solid orange;
+  width: 100%;
+  z-index: 99;
+}
+
+.hover_over_dropdown {
+  height: 0;
+  width: 100%;
+  border: 1px solid green;
+  overflow: hidden;
+  @include standardTransition;
+}
+
+.hidden_dropdown:hover .hover_over_dropdown {
+  height: 60px;
+  @include standardTransition;
 }

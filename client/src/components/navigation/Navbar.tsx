@@ -35,6 +35,14 @@ export const Navbar: React.FC = () => {
       <NavLink
         className="nav_item"
         activeClassName="nav_item_active"
+        to="/myprojects"
+      >
+        <div className="middle_align">Projects</div>
+      </NavLink>
+
+      <NavLink
+        className="nav_item"
+        activeClassName="nav_item_active"
         to={`/profile/projects/${userVal.id}`}
       >
         <div className="middle_align">Profile</div>
@@ -44,7 +52,7 @@ export const Navbar: React.FC = () => {
         activeClassName="nav_item_active"
         to="/projects"
       >
-        <div className="middle_align">Projects</div>
+        <div className="middle_align">Job Hunt</div>
       </NavLink>
       <NavLink
         className="nav_item"

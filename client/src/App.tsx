@@ -13,6 +13,7 @@ import Profile from "./components/profile/Profile";
 import ProjectPage from "./components/projects/ProjectPage";
 import AdminProjectPage from "./components/projects/AdminProjectPage";
 import BuildNewProject from "./components/projects/BuildNewProject.js";
+import MyProjects from "./components/projects/MyProjects.js";
 
 const client = new ApolloClient({
   uri: "http://localhost:4000/graphql"
@@ -94,6 +95,9 @@ function App(): JSX.Element {
                     </Route>
                     <Route path={`/profile`}>
                       <Profile />
+                    </Route>
+                    <Route path={`/myprojects`}>
+                      <MyProjects />
                     </Route>
                     <Route path={`/newproject`}>
                       <BuildNewProject />
