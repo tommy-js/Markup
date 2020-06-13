@@ -84,33 +84,43 @@
 }
 
 .inline_container {
-  position: relative;
   display: inline-block;
-  margin: 0;
   padding-top: 100px;
-  padding-left: 25px;
-  padding-right: 25px;
 }
 
 .third_left {
+  position: absolute;
   min-width: 100px;
   width: 15%;
   height: 100%;
+  left: 0;
+  padding-left: 25px;
+  padding-right: 25px;
   box-sizing: border-box;
   @include testing;
 }
 
 .third_center {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
   height: 100%;
   width: 70%;
+  padding-left: 25px;
+  padding-right: 25px;
   box-sizing: border-box;
   @include testing2;
 }
 .third_right {
+  position: absolute;
   min-width: 100px;
   width: 15%;
-  float: right;
+  height: 100%;
+  right: 0;
   box-sizing: border-box;
+  @include testing;
 }
 
 .hidden_dropdown {
@@ -132,4 +142,46 @@
 .hidden_dropdown:hover .hover_over_dropdown {
   height: 60px;
   @include standardTransition;
+}
+
+.add_new_file_button {
+  position: absolute;
+  bottom: 0;
+  height: 100px;
+  width: 100%;
+  display: inline-block;
+  @include testing2;
+}
+
+.file_system {
+  position: relative;
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  border: 1px solid yellow;
+}
+
+.document_file_container {
+  position: absolute;
+  height: 80%;
+  width: 100%;
+  @include testing;
+}
+
+.add_file_button_clickable {
+  position: relative;
+  width: 150px;
+  margin-left: auto;
+  margin-right: auto;
+  height: 75px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @include testing;
+}
+
+.add_file_inner_button {
+  position: relative;
+  width: 150px;
+  height: 75px;
 }
