@@ -185,3 +185,17 @@
   width: 150px;
   height: 75px;
 }
+
+.document_item {
+  position: relative;
+  background-color: grey;
+  margin-left: 25px;
+  margin-right: 25px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.document_title {
+  padding: 5px;
+  font-size: 16px;
+}
