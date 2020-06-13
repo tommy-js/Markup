@@ -1,9 +1,10 @@
 import React from "react";
+import { TextEditor } from "./TextEditor";
 
 export function DocumentInner(props) {
   return (
-    <div>
-      <p>{props.id}</p>
+    <div className="document_inner">
+      <TextEditor content={props.content} />
     </div>
   );
 }

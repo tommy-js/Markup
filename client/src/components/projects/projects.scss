@@ -199,3 +199,19 @@
   padding: 5px;
   font-size: 16px;
 }
+
+.document_inner {
+  position: relative;
+  height: 100%;
+}
+
+.text_editor {
+  position: relative;
+  width: 50%;
+  height: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: grey;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}

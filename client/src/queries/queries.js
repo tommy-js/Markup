@@ -284,6 +284,15 @@ const addProjectMutation = gql`
   }
 `;
 
+const addDocumentMutation = gql`
+  mutation($id: ID!, $projectId: ID!) {
+    addDocument(id: $id, projectId: $projectId) {
+      id
+      projectId
+    }
+  }
+`;
+
 const addProjectUserMutation = gql`
   mutation(
     $timestamp: ID!
@@ -567,5 +576,6 @@ export {
   pushFriendRequestToUser,
   pullFriendRequestFromUser,
   removeMessageMutation,
-  getAllProjects
+  getAllProjects,
+  addDocumentMutation
 };

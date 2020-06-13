@@ -20,6 +20,23 @@ const ProjectMember = require("../models/ProjectMember");
 const Conversation = require("../models/conversation");
 const Contributers = require("../models/contributers");
 const FriendRequestToUser = require("../models/friendreqtouser");
+const Documents = require("../models/documents");
+const UserAccess = require("../models/useraccess");
+
+const UserAccessQuery = new GraphQLObjectType({
+  name: "UserAccess",
+  fields: () => ({
+    id: { type: GraphQLID }
+  })
+});
+
+const DocumentsQuery = new GraphQLObjectType({
+  name: "Documents",
+  fields: () => ({
+    id: { type: GraphQLID },
+    content: { type: GraphQLString }
+  })
+});
 
 const FriendRequestToUserQuery = new GraphQLObjectType({
   name: "FriendRequestToUser",
@@ -130,7 +147,8 @@ const ProjectQuery = new GraphQLObjectType({
     total: { type: GraphQLID },
     timestamp: { type: GraphQLID },
     stack: { type: GraphQLString },
-    members: { type: new GraphQLList(ProjectMemberQuery) }
+    members: { type: new GraphQLList(ProjectMemberQuery) },
+    documents: { type: new GraphQLList(DocumentsQuery) }
   })
 });
 
@@ -334,6 +352,19 @@ const Mutation = new GraphQLObjectType({
         return Project.update(
           { id: args.projId },
           { $push: { id: args.id, name: args.name } }
+        );
+      }
+    },
+    addDocument: {
+      type: DocumentsQuery,
+      args: {
+        id: { type: GraphQLID },
+        projectId: { type: GraphQLID }
+      },
+      resolve(parent, args) {
+        return Project.update(
+          { id: args.projectId },
+          { $push: { documents: { id: args.id } } }
         );
       }
     },
