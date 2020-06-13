@@ -32,8 +32,52 @@
   box-sizing: border-box;
 }
 
-.margin_top_block {
+.about_container {
+  position: relative;
   margin-top: 50px;
+  width: 75%;
+  min-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.about_container h3 {
+  font-size: 26px;
+}
+
+.about_container p,
+ul {
+  font-size: 22px;
+  line-height: 165%;
+}
+
+.about_tasklist {
+  position: relative;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  background-color: $midBlue;
+  padding: 15px;
+  border-radius: 15px;
+}
+
+#active_green {
+  color: lightgreen;
+}
+
+#active_red {
+  color: red;
+}
+
+#active_yellow {
+  color: yellow;
+}
+
+.about_header {
+  font-size: 22px;
+}
+
+.pink_span {
+  color: pink;
 }
 
 .userform {
