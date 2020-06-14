@@ -190,6 +190,15 @@ const RootQuery = new GraphQLObjectType({
         return User.find({ username: args.username });
       }
     },
+    getProjectById: {
+      type: ProjectQuery,
+      args: {
+        id: { type: GraphQLID }
+      },
+      resolve(parent, args) {
+        return Project.findOne({ id: args.id });
+      }
+    },
     getFriendRequests: {
       type: new GraphQLList(FriendRequestQuery),
       args: {

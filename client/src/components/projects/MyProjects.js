@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { ProjectOptionsMenu } from "./ProjectOptionsMenu";
 import { CenterContainer } from "./CenterContainer";
-import { FileSystem } from "./FileSystem";
+import FileSystem from "./FileSystem";
 import { Navbar } from "../navigation/Navbar.tsx";
 import { HiddenDropdown } from "./HiddenDropdown";
 import { loggedInContext } from "../../App";
@@ -83,6 +83,7 @@ function MyProjects() {
           </div>
           <div className="inline_container third_right">
             <FileSystem
+              projects={userVal.projects}
               selectedProject={selectedProject}
               selectedProjectId={selectedProjectId}
             />

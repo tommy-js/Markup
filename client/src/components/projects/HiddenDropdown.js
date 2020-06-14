@@ -10,6 +10,7 @@ export function HiddenDropdown(props) {
     let index = props.projects.find(el => el.title === e.target.value);
     let found = index.id;
     props.keepSelectedProject(e.target.value, found);
+    console.log(userVal);
   }
 
   return (

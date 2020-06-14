@@ -98,6 +98,31 @@ const getAllProjects = gql`
   }
 `;
 
+const getProjectByIdQuery = gql`
+  query($id: ID!) {
+    getProjectById(id: $id) {
+      leadName
+      leadId
+      stack
+      timestamp
+      joined
+      total
+      title
+      content
+      id
+      members {
+        id
+        name
+      }
+      documents {
+        name
+        id
+        content
+      }
+    }
+  }
+`;
+
 const userQuery = gql`
   query($username: String!, $id: ID!) {
     user(username: $username, id: $id) {
@@ -123,6 +148,10 @@ const userQuery = gql`
         content
         leadName
         leadId
+        documents {
+          id
+          name
+        }
       }
       usersettings {
         savedata
@@ -558,6 +587,7 @@ export {
   changeCodeMutation,
   addTaskMutation,
   addUserMutation,
+  getProjectByIdQuery,
   removeTaskMutation,
   addFriendMutation,
   changeMessageMutation,
