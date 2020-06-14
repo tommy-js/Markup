@@ -84,7 +84,7 @@ function MyProjects() {
             <ProjectOptionsMenu />
           </div>
           <div className="inline_container third_center">
-            <CenterContainer />
+            <CenterContainer updatedProj={updatedProj} />
           </div>
           <div className="inline_container third_right">
             <FileSystem

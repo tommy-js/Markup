@@ -1,22 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Route } from "react-router-dom";
 import { DocumentInner } from "./DocumentInner";
 
-export function CenterContainer() {
-  const [test] = useState([
-    { id: 242, content: "Inner content" },
-    { id: 3557, content: "Also inner content" }
-  ]);
+export function CenterContainer(props) {
+  const [projects, setProjects] = useState();
 
-  return (
-    <div>
+  useEffect(() => {
+    if (props.updatedProj) {
+      setProjects(props.updatedProj.documents);
+    }
+  }, [props.updatedProj]);
+
+  if (projects) {
+    return (
       <div>
-        {test.map(el => (
-          <Route path={`/myprojects/documents/${el.id}`}>
-            <DocumentInner id={el.id} content={el.content} />
-          </Route>
-        ))}
+        <div>
+          {projects.map(el => (
+            <Route path={`/myprojects/documents/${el.id}`}>
+              <DocumentInner id={el.id} content={el.content} name={el.name} />
+            </Route>
+          ))}
+        </div>
       </div>
-    </div>
-  );
+    );
+  } else {
+    return null;
+  }
 }

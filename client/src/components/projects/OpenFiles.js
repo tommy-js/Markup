@@ -35,7 +35,7 @@ export function OpenFiles(props) {
         {projects.map(doc => (
           <ContextMenuTrigger id={`file_context_menu_${randomInt}`}>
             <Link to={`/myprojects/documents/${doc.id}`}>
-              <DocumentItem title={doc.title} />
+              <DocumentItem title={doc.name} />
             </Link>
           </ContextMenuTrigger>
         ))}
