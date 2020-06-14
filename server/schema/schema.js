@@ -34,7 +34,8 @@ const DocumentsQuery = new GraphQLObjectType({
   name: "Documents",
   fields: () => ({
     id: { type: GraphQLID },
-    content: { type: GraphQLString }
+    content: { type: GraphQLString },
+    name: { type: GraphQLString }
   })
 });
 
@@ -359,12 +360,13 @@ const Mutation = new GraphQLObjectType({
       type: DocumentsQuery,
       args: {
         id: { type: GraphQLID },
-        projectId: { type: GraphQLID }
+        projectId: { type: GraphQLID },
+        name: { type: GraphQLString }
       },
       resolve(parent, args) {
         return Project.update(
           { id: args.projectId },
-          { $push: { documents: { id: args.id } } }
+          { $push: { documents: { id: args.id, name: args.name } } }
         );
       }
     },

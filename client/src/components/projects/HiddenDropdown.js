@@ -7,7 +7,9 @@ export function HiddenDropdown(props) {
 
   function updateSelect(e) {
     setVal(e.target.value);
-    props.keepSelectedProject(e.target.value);
+    let index = props.projects.find(el => el.title === e.target.value);
+    let found = index.id;
+    props.keepSelectedProject(e.target.value, found);
   }
 
   return (

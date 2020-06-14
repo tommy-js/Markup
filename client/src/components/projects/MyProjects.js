@@ -22,6 +22,7 @@ function MyProjects() {
   const [passInUser, { data, loading }] = useLazyQuery(userQuery);
   const cookies = new Cookies();
   const [selectedProject, setSelectedProject] = useState();
+  const [selectedProjectId, setSelectedProjectId] = useState();
 
   useEffect(() => {
     if (!loggedIn) {
@@ -60,8 +61,9 @@ function MyProjects() {
     }
   }, [data]);
 
-  function keepSelectedProject(val) {
+  function keepSelectedProject(val, id) {
     setSelectedProject(val);
+    setSelectedProjectId(id);
   }
 
   if (userVal.projects) {
@@ -80,7 +82,10 @@ function MyProjects() {
             <CenterContainer />
           </div>
           <div className="inline_container third_right">
-            <FileSystem selectedProject={selectedProject} />
+            <FileSystem
+              selectedProject={selectedProject}
+              selectedProjectId={selectedProjectId}
+            />
           </div>
         </div>
       </div>

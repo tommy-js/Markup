@@ -285,10 +285,10 @@ const addProjectMutation = gql`
 `;
 
 const addDocumentMutation = gql`
-  mutation($id: ID!, $projectId: ID!) {
-    addDocument(id: $id, projectId: $projectId) {
+  mutation($id: ID!, $projectId: ID!, $name: String!) {
+    addDocument(id: $id, projectId: $projectId, name: $name) {
       id
-      projectId
+      name
     }
   }
 `;
