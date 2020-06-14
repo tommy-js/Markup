@@ -23,6 +23,7 @@ function MyProjects() {
   const cookies = new Cookies();
   const [selectedProject, setSelectedProject] = useState();
   const [selectedProjectId, setSelectedProjectId] = useState();
+  const [updatedProj, setUpdatedProj] = useState();
 
   useEffect(() => {
     if (!loggedIn) {
@@ -66,6 +67,10 @@ function MyProjects() {
     setSelectedProjectId(id);
   }
 
+  function updateProject(val) {
+    setUpdatedProj(val);
+  }
+
   if (userVal.projects) {
     return (
       <div className="project_page">
@@ -86,6 +91,7 @@ function MyProjects() {
               projects={userVal.projects}
               selectedProject={selectedProject}
               selectedProjectId={selectedProjectId}
+              updateProject={updateProject}
             />
           </div>
         </div>

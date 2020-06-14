@@ -8,11 +8,11 @@ export function OpenFiles(props) {
   const [projects, setProjects] = useState();
 
   useEffect(() => {
-    if (props.projects) {
-      setProjects(props.projects.documents);
-      console.log(props.projects);
+    if (props.newProj) {
+      console.log(props.newProj);
+      setProjects(props.newProj.documents);
     }
-  }, [props.projects]);
+  }, [props.newProj]);
 
   function contextMenu() {
     return (
@@ -35,7 +35,7 @@ export function OpenFiles(props) {
         {projects.map(doc => (
           <ContextMenuTrigger id={`file_context_menu_${randomInt}`}>
             <Link to={`/myprojects/documents/${doc.id}`}>
-              <DocumentItem title={doc.name} />
+              <DocumentItem title={doc.title} />
             </Link>
           </ContextMenuTrigger>
         ))}
