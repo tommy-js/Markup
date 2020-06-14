@@ -17,7 +17,12 @@ export function CenterContainer(props) {
         <div>
           {projects.map(el => (
             <Route path={`/myprojects/documents/${el.id}`}>
-              <DocumentInner id={el.id} content={el.content} name={el.name} />
+              <DocumentInner
+                key={el.id}
+                id={el.id}
+                content={el.content}
+                name={el.name}
+              />
             </Route>
           ))}
         </div>

@@ -123,6 +123,15 @@ const getProjectByIdQuery = gql`
   }
 `;
 
+const updateDocument = gql`
+  mutation($id: ID!, $content: String!) {
+    changeDocument(id: $id, content: $content) {
+      id
+      content
+    }
+  }
+`;
+
 const userQuery = gql`
   query($username: String!, $id: ID!) {
     user(username: $username, id: $id) {
@@ -579,6 +588,7 @@ export {
   getOpenProjectsQuery,
   getConversationQuery,
   getUsers,
+  updateDocument,
   getSessionIDQuery,
   addMessageMutation,
   addCodeMutation,

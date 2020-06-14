@@ -365,6 +365,20 @@ const Mutation = new GraphQLObjectType({
         );
       }
     },
+    changeDocument: {
+      type: DocumentsQuery,
+      args: {
+        id: { type: GraphQLID },
+        content: { type: GraphQLString }
+      },
+      resolve(parent, args) {
+        return Project.findOneAndUpdate(
+          { id: args.id },
+          { $set: { content: args.content } },
+          { upsert: true, new: true }
+        );
+      }
+    },
     addDocument: {
       type: DocumentsQuery,
       args: {
@@ -375,7 +389,9 @@ const Mutation = new GraphQLObjectType({
       resolve(parent, args) {
         return Project.update(
           { id: args.projectId },
-          { $push: { documents: { id: args.id, name: args.name } } }
+          {
+            $push: { documents: { id: args.id, name: args.name, content: "" } }
+          }
         );
       }
     },

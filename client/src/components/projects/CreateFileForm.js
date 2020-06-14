@@ -12,6 +12,11 @@ function CreateFileForm(props) {
 
   function submitFile(e) {
     e.preventDefault();
+    let newPush = {
+      id: Math.floor(Math.random() * 1000000),
+      projectId: props.selectedProjectId,
+      name: documentName
+    };
     props.addDocumentMutation({
       variables: {
         id: Math.floor(Math.random() * 100000),
@@ -19,6 +24,8 @@ function CreateFileForm(props) {
         name: documentName
       }
     });
+    props.setCreateFileFalse();
+    props.addToProjects(newPush);
   }
 
   return (

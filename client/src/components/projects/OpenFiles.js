@@ -20,6 +20,7 @@ export function OpenFiles(props) {
         <ContextMenu id={`file_context_menu_${randomInt}`}>
           <MenuItem>Open Document</MenuItem>
           <MenuItem>Add Users</MenuItem>
+          <MenuItem>Rename</MenuItem>
           <MenuItem>Delete</MenuItem>
         </ContextMenu>
       </div>
@@ -35,7 +36,7 @@ export function OpenFiles(props) {
         {projects.map(doc => (
           <ContextMenuTrigger id={`file_context_menu_${randomInt}`}>
             <Link to={`/myprojects/documents/${doc.id}`}>
-              <DocumentItem title={doc.name} />
+              <DocumentItem key={doc.id} title={doc.name} />
             </Link>
           </ContextMenuTrigger>
         ))}
