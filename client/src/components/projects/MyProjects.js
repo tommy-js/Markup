@@ -21,6 +21,7 @@ function MyProjects() {
   const [decrypt, setDecrypt] = useState();
   const [passInUser, { data, loading }] = useLazyQuery(userQuery);
   const cookies = new Cookies();
+  const [selectedProject, setSelectedProject] = useState();
 
   useEffect(() => {
     if (!loggedIn) {
@@ -59,12 +60,19 @@ function MyProjects() {
     }
   }, [data]);
 
+  function keepSelectedProject(val) {
+    setSelectedProject(val);
+  }
+
   if (userVal.projects) {
     return (
       <div className="project_page">
         <Navbar />
         <div className="fixed_under">
-          <HiddenDropdown projects={userVal.projects} />
+          <HiddenDropdown
+            projects={userVal.projects}
+            keepSelectedProject={keepSelectedProject}
+          />
           <div className="inline_container third_left">
             <ProjectOptionsMenu />
           </div>
@@ -72,7 +80,7 @@ function MyProjects() {
             <CenterContainer />
           </div>
           <div className="inline_container third_right">
-            <FileSystem />
+            <FileSystem selectedProject={selectedProject} />
           </div>
         </div>
       </div>
