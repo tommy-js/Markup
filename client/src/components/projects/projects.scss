@@ -125,14 +125,16 @@
 
 .hidden_dropdown {
   position: absolute;
-  height: 60px;
+  height: 90px;
   border: 1px solid orange;
   width: 100%;
-  z-index: 99;
+  z-index: 199;
 }
 
 .hover_over_dropdown {
+  position: absolute;
   height: 0;
+  top: 40px;
   width: 100%;
   border: 1px solid green;
   overflow: hidden;
@@ -140,7 +142,7 @@
 }
 
 .hidden_dropdown:hover .hover_over_dropdown {
-  height: 60px;
+  height: 50px;
   @include standardTransition;
 }
 

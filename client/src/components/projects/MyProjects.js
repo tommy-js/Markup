@@ -74,12 +74,14 @@ function MyProjects() {
   if (userVal.projects) {
     return (
       <div className="project_page">
-        <Navbar />
-        <div className="fixed_under">
+        <div className="hidden_dropdown">
           <HiddenDropdown
             projects={userVal.projects}
             keepSelectedProject={keepSelectedProject}
           />
+        </div>
+        <Navbar />
+        <div className="fixed_under">
           <div className="inline_container third_left">
             <ProjectOptionsMenu />
           </div>
