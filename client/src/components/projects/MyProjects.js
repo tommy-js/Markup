@@ -1,16 +1,14 @@
 import React, { useContext, useState, useEffect } from "react";
-import { ProjectOptionsMenu } from "./ProjectOptionsMenu";
-import { CenterContainer } from "./CenterContainer";
-import FileSystem from "./FileSystem";
 import { Navbar } from "../navigation/Navbar.tsx";
 import { HiddenDropdown } from "./HiddenDropdown";
+import ProjectsUnder from "./ProjectsUnder";
 import { loggedInContext } from "../../App";
 import { useHistory } from "react-router-dom";
 import { userQuery } from "../../queries/queries";
 import { userContext } from "../../App";
 import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
-import { useLazyQuery, getDocumentsByProjectQuery } from "@apollo/react-hooks";
+import { useLazyQuery } from "@apollo/react-hooks";
 import Cookies from "universal-cookie";
 const aes256 = require("aes256");
 
@@ -82,20 +80,14 @@ function MyProjects() {
         </div>
         <Navbar />
         <div className="fixed_under">
-          <div className="inline_container third_left">
-            <ProjectOptionsMenu />
-          </div>
-          <div className="inline_container third_center">
-            <CenterContainer updatedProj={updatedProj} />
-          </div>
-          <div className="inline_container third_right">
-            <FileSystem
-              projects={userVal.projects}
-              selectedProject={selectedProject}
-              selectedProjectId={selectedProjectId}
-              updateProject={updateProject}
-            />
-          </div>
+          <ProjectsUnder
+            projects={userVal.projects}
+            userVal={userVal}
+            updatedProj={updatedProj}
+            selectedProject={selectedProject}
+            selectedProjectId={selectedProjectId}
+            updateProject={updateProject}
+          />
         </div>
       </div>
     );
@@ -104,7 +96,4 @@ function MyProjects() {
   }
 }
 
-export default compose(
-  graphql(userQuery, { name: "userQuery" }),
-  graphql(getDocumentsByProjectQuery, { name: "getDocumentsByProjectQuery" })
-)(MyProjects);
+export default compose(graphql(userQuery, { name: "userQuery" }))(MyProjects);

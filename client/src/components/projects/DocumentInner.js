@@ -5,7 +5,7 @@ export function DocumentInner(props) {
   return (
     <div className="document_inner">
       {props.name}
-      <TextEditor content={props.content} />
+      <TextEditor content={props.content} id={props.id} />
     </div>
   );
 }

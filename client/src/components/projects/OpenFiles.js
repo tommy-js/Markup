@@ -7,23 +7,6 @@ export function OpenFiles(props) {
   const [randomInt] = useState(Math.floor(Math.random() * 1000000));
   const [projects, setProjects] = useState();
 
-  useEffect(() => {
-    if (props.newProj) {
-      console.log(props.newProj.id);
-      getDocs({
-        variables: {
-          projectId: props.newProj.id
-        }
-      });
-    }
-  }, [props.newProj]);
-
-  useEffect(() => {
-    if (data) {
-      console.log(data);
-    }
-  }, [data]);
-
   function contextMenu() {
     return (
       <div>
@@ -37,13 +20,13 @@ export function OpenFiles(props) {
     );
   }
 
-  if (projects) {
+  if (props.documents) {
     return (
       <div className="open_files_container">
         <div className="selected_project_header">
           <span>{props.selectedProject}</span>
         </div>
-        {projects.map(doc => (
+        {props.documents.map(doc => (
           <ContextMenuTrigger id={`file_context_menu_${randomInt}`}>
             <Link to={`/myprojects/documents/${doc.id}`}>
               <DocumentItem key={doc.id} title={doc.name} />

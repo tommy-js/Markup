@@ -1,4 +1,8 @@
 import React, { useState } from "react";
+import { flowRight as compose } from "lodash";
+import { graphql } from "react-apollo";
+import { useLazyQuery } from "@apollo/react-hooks";
+import { updateDocument } from "../../queries/queries";
 
 export function TextEditor(props) {
   const [innerVal, setInnerVal] = useState(props.content);
@@ -7,7 +11,13 @@ export function TextEditor(props) {
     setInnerVal(val);
   }
 
-  function saveChanges() {}
+  function saveChanges() {
+    props.updateDocument({
+      variables: {
+        id: props.id
+      }
+    });
+  }
 
   return (
     <div className="text_editor">
@@ -19,3 +29,7 @@ export function TextEditor(props) {
     </div>
   );
 }
+
+export default compose(graphql(updateDocument, { name: "updateDocument" }))(
+  TextEditor
+);

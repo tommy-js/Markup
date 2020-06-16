@@ -11,11 +11,11 @@ export function CenterContainer(props) {
     }
   }, [props.updatedProj]);
 
-  if (projects) {
+  if (props.documents) {
     return (
       <div>
         <div>
-          {projects.map(el => (
+          {props.documents.map(el => (
             <Route path={`/myprojects/documents/${el.id}`}>
               <DocumentInner
                 key={el.id}
