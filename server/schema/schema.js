@@ -381,7 +381,7 @@ const Mutation = new GraphQLObjectType({
         content: { type: GraphQLString }
       },
       resolve(parent, args) {
-        return Documents.findOneAndUpdate(
+        return Document.findOneAndUpdate(
           { id: args.id },
           { $set: { content: args.content } },
           { upsert: true, new: true }

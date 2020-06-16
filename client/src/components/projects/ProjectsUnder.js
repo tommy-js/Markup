@@ -27,7 +27,7 @@ function ProjectsUnder(props) {
     if (data) {
       setDocuments(data.documents);
       console.log("documents: ");
-      console.log(data);
+      console.log(data.documents);
     }
   }, [data]);
 
