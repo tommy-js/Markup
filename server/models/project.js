@@ -11,8 +11,7 @@ const projectSchema = new Schema({
   total: Number,
   joined: Number,
   stack: String,
-  members: [{ id: Number, name: String }],
-  documents: [{ id: Number, content: String, name: String }]
+  members: [{ id: Number, name: String }]
 });
 
 module.exports = mongoose.model("Project", projectSchema);

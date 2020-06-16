@@ -114,19 +114,24 @@ const getProjectByIdQuery = gql`
         id
         name
       }
-      documents {
-        name
-        id
-        content
-      }
     }
   }
 `;
 
 const updateDocument = gql`
-  mutation($id: ID!, $content: String!) {
-    changeDocument(id: $id, content: $content) {
+  mutation($id: ID!, $projectId: ID!, $content: String!) {
+    changeDocument(id: $id, projectId: $projectId, content: $content) {
       id
+      content
+    }
+  }
+`;
+
+const getDocumentsByProjectQuery = gql`
+  query($projectId: ID!) {
+    documents(projectId: $projectId) {
+      id
+      name
       content
     }
   }
@@ -157,10 +162,6 @@ const userQuery = gql`
         content
         leadName
         leadId
-        documents {
-          id
-          name
-        }
       }
       usersettings {
         savedata
@@ -306,7 +307,7 @@ const addProjectMutation = gql`
       content: $content
       title: $title
       id: $id
-      userId: $userId
+      userId: $userIddocu
       username: $username
     ) {
       leadId
@@ -617,5 +618,6 @@ export {
   pullFriendRequestFromUser,
   removeMessageMutation,
   getAllProjects,
-  addDocumentMutation
+  addDocumentMutation,
+  getDocumentsByProjectQuery
 };

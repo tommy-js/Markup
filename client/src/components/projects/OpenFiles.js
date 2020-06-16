@@ -9,10 +9,20 @@ export function OpenFiles(props) {
 
   useEffect(() => {
     if (props.newProj) {
-      console.log(props.newProj);
-      setProjects(props.newProj.documents);
+      console.log(props.newProj.id);
+      getDocs({
+        variables: {
+          projectId: props.newProj.id
+        }
+      });
     }
   }, [props.newProj]);
+
+  useEffect(() => {
+    if (data) {
+      console.log(data);
+    }
+  }, [data]);
 
   function contextMenu() {
     return (

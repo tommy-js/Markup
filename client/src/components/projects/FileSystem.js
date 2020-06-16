@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { CreateFileButton } from "./CreateFileButton";
-import { OpenFiles } from "./OpenFiles";
+import OpenFiles from "./OpenFiles";
 import CreateFileForm from "./CreateFileForm";
 import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";

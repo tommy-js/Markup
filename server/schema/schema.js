@@ -34,6 +34,7 @@ const DocumentsQuery = new GraphQLObjectType({
   name: "Documents",
   fields: () => ({
     id: { type: GraphQLID },
+    projectId: { type: GraphQLID },
     content: { type: GraphQLString },
     name: { type: GraphQLString }
   })
@@ -148,8 +149,7 @@ const ProjectQuery = new GraphQLObjectType({
     total: { type: GraphQLID },
     timestamp: { type: GraphQLID },
     stack: { type: GraphQLString },
-    members: { type: new GraphQLList(ProjectMemberQuery) },
-    documents: { type: new GraphQLList(DocumentsQuery) }
+    members: { type: new GraphQLList(ProjectMemberQuery) }
   })
 });
 
@@ -207,6 +207,15 @@ const RootQuery = new GraphQLObjectType({
       },
       resolve(parent, args) {
         return FriendRequest.find({ toId: args.toId });
+      }
+    },
+    documents: {
+      type: new GraphQLList(DocumentsQuery),
+      args: {
+        projectId: { type: GraphQLID }
+      },
+      resolve(parent, args) {
+        return Documents.find({ projectId: args.projectId });
       }
     },
     getMessages: {
@@ -372,7 +381,7 @@ const Mutation = new GraphQLObjectType({
         content: { type: GraphQLString }
       },
       resolve(parent, args) {
-        return Project.findOneAndUpdate(
+        return Documents.findOneAndUpdate(
           { id: args.id },
           { $set: { content: args.content } },
           { upsert: true, new: true }
@@ -387,12 +396,12 @@ const Mutation = new GraphQLObjectType({
         name: { type: GraphQLString }
       },
       resolve(parent, args) {
-        return Project.update(
-          { id: args.projectId },
-          {
-            $push: { documents: { id: args.id, name: args.name, content: "" } }
-          }
-        );
+        let newDoc = new Documents({
+          id: args.id,
+          projectId: args.projectId,
+          name: args.name
+        });
+        return newDoc.save();
       }
     },
     pushUserFriendRequest: {

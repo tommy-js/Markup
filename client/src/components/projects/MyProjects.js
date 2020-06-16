@@ -10,7 +10,7 @@ import { userQuery } from "../../queries/queries";
 import { userContext } from "../../App";
 import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
-import { useLazyQuery } from "@apollo/react-hooks";
+import { useLazyQuery, getDocumentsByProjectQuery } from "@apollo/react-hooks";
 import Cookies from "universal-cookie";
 const aes256 = require("aes256");
 
@@ -104,4 +104,7 @@ function MyProjects() {
   }
 }
 
-export default compose(graphql(userQuery, { name: "userQuery" }))(MyProjects);
+export default compose(
+  graphql(userQuery, { name: "userQuery" }),
+  graphql(getDocumentsByProjectQuery, { name: "getDocumentsByProjectQuery" })
+)(MyProjects);
