@@ -6,9 +6,15 @@ import { updateDocument } from "../../queries/queries";
 
 function TextEditor(props) {
   const [innerVal, setInnerVal] = useState(props.content);
+  const [fontSize, setFontSize] = useState();
+  const [modFontSize, setModFontSize] = useState(16);
 
   function changeInnerVal(val) {
     setInnerVal(val);
+  }
+
+  function changeFontSize(size) {
+    setFontSize(size);
   }
 
   function saveChanges() {
@@ -22,11 +28,17 @@ function TextEditor(props) {
 
   return (
     <div className="text_editor">
-      <textarea
-        onChange={e => changeInnerVal(e.target.value)}
-        value={innerVal}
-      />
-      <button onClick={() => saveChanges()}>Save</button>
+      <div className="text_editor_container">
+        <input onChange={e => setModFontSize(e.target.value)} />
+        <button onClick={() => changeFontSize(modFontSize)}>Set</button>
+        <textarea
+          className="inner_text_editor"
+          onChange={e => changeInnerVal(e.target.value)}
+          value={innerVal}
+          style={{ fontSize: fontSize + "px" }}
+        />
+        <button onClick={() => saveChanges()}>Save</button>
+      </div>
     </div>
   );
 }

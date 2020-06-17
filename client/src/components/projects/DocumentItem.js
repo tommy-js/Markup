@@ -20,7 +20,6 @@ function DocumentItem(props) {
     return (
       <div>
         <ContextMenu id={`file_context_menu_${randomInt}`}>
-          <MenuItem>Open Document</MenuItem>
           <MenuItem>Add Users</MenuItem>
           <MenuItem>Rename</MenuItem>
           <MenuItem onClick={() => deleteDocument()}>Delete</MenuItem>

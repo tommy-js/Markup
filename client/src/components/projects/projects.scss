@@ -210,10 +210,28 @@
 .text_editor {
   position: relative;
   width: 50%;
-  height: 80%;
+  height: 500px;
   margin-left: auto;
   margin-right: auto;
   background-color: grey;
   overflow-y: scroll;
   overflow-x: hidden;
+}
+
+.text_editor_container {
+  position: relative;
+  width: 85%;
+  margin-left: auto;
+  margin-right: auto;
+  height: 90%;
+  padding: 25px;
+  box-sizing: border-box;
+}
+
+.inner_text_editor {
+  padding: 15px;
+  font-size: 16px;
+  width: 100%;
+  height: 100%;
+  resize: none;
 }
