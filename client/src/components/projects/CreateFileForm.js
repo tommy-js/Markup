@@ -25,7 +25,7 @@ function CreateFileForm(props) {
       }
     });
     props.setCreateFileFalse();
-    props.addToProjects(newPush);
+    props.addToDocs(newPush);
   }
 
   return (

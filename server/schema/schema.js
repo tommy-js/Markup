@@ -381,10 +381,10 @@ const Mutation = new GraphQLObjectType({
         content: { type: GraphQLString }
       },
       resolve(parent, args) {
-        return Document.findOneAndUpdate(
+        return Documents.findOneAndUpdate(
           { id: args.id },
           { $set: { content: args.content } },
-          { upsert: true, new: true }
+          { upsert: true, new: false }
         );
       }
     },
@@ -402,6 +402,15 @@ const Mutation = new GraphQLObjectType({
           name: args.name
         });
         return newDoc.save();
+      }
+    },
+    deleteDocument: {
+      type: DocumentsQuery,
+      args: {
+        id: { type: GraphQLID }
+      },
+      resolve(parent, args) {
+        return Documents.deleteOne({ id: args.id });
       }
     },
     pushUserFriendRequest: {

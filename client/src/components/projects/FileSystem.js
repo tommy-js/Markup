@@ -10,7 +10,14 @@ import { getProjectByIdQuery } from "../../queries/queries";
 function FileSystem(props) {
   const [createFile, setCreateFile] = useState(false);
   const [getProj, { data, loading }] = useLazyQuery(getProjectByIdQuery);
+  const [newDocs, setNewDocs] = useState();
   const [newProj, setNewProj] = useState();
+
+  useEffect(() => {
+    if (props.documents) {
+      setNewDocs(props.documents);
+    }
+  }, [props.documents]);
 
   function addFile() {
     setCreateFile(true);
@@ -34,12 +41,11 @@ function FileSystem(props) {
     }
   }, [data]);
 
-  function addToProjects(val) {
+  function addToDocs(val) {
     let newAdd = val;
-    let arr = newProj.documents;
+    let arr = props.documents;
     arr.push(val);
-    setNewProj(arr);
-    props.updateProject(arr);
+    setNewDocs(arr);
   }
 
   function setCreateFileFalse() {
@@ -54,7 +60,7 @@ function FileSystem(props) {
             addFile={addFile}
             selectedProjectId={props.selectedProjectId}
             setCreateFileFalse={setCreateFileFalse}
-            addToProjects={addToProjects}
+            addToDocs={addToDocs}
           />
         </div>
       );
@@ -73,8 +79,7 @@ function FileSystem(props) {
         <OpenFiles
           selectedProject={props.selectedProject}
           projects={props.projects}
-          newProj={newProj}
-          documents={props.documents}
+          newDocs={newDocs}
         />
       </div>
       {checkForAdd()}

@@ -119,8 +119,8 @@ const getProjectByIdQuery = gql`
 `;
 
 const updateDocument = gql`
-  mutation($id: ID!, $projectId: ID!, $content: String!) {
-    changeDocument(id: $id, projectId: $projectId, content: $content) {
+  mutation($id: ID!, $content: String!) {
+    changeDocument(id: $id, content: $content) {
       id
       content
     }
@@ -328,6 +328,14 @@ const addDocumentMutation = gql`
     addDocument(id: $id, projectId: $projectId, name: $name) {
       id
       name
+    }
+  }
+`;
+
+const deleteDocumentMutation = gql`
+  mutation($id: ID!) {
+    deleteDocument(id: $id) {
+      id
     }
   }
 `;
@@ -590,6 +598,7 @@ export {
   getConversationQuery,
   getUsers,
   updateDocument,
+  deleteDocumentMutation,
   getSessionIDQuery,
   addMessageMutation,
   addCodeMutation,
