@@ -13,6 +13,7 @@ function DocumentItem(props) {
         id: props.id
       }
     });
+    props.removeFromDocs(props.id);
   }
 
   function contextMenu() {

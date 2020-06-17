@@ -16,6 +16,7 @@ function FileSystem(props) {
   useEffect(() => {
     if (props.documents) {
       setNewDocs(props.documents);
+      console.log(props.documents);
     }
   }, [props.documents]);
 
@@ -42,9 +43,16 @@ function FileSystem(props) {
   }, [data]);
 
   function addToDocs(val) {
-    let newAdd = val;
     let arr = props.documents;
     arr.push(val);
+    setNewDocs(arr);
+  }
+
+  function removeFromDocs(val) {
+    let arr = newDocs;
+    let foundEl = arr.find(el => el.id == val);
+    let foundArr = arr.indexOf(foundEl);
+    arr.splice(foundArr, 1);
     setNewDocs(arr);
   }
 
@@ -80,6 +88,7 @@ function FileSystem(props) {
           selectedProject={props.selectedProject}
           projects={props.projects}
           newDocs={newDocs}
+          removeFromDocs={removeFromDocs}
         />
       </div>
       {checkForAdd()}

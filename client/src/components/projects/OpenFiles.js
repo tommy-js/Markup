@@ -13,7 +13,12 @@ export function OpenFiles(props) {
         </div>
         {props.newDocs.map(doc => (
           <Link to={`/myprojects/documents/${doc.id}`}>
-            <DocumentItem key={doc.id} title={doc.name} id={doc.id} />
+            <DocumentItem
+              key={doc.id}
+              title={doc.name}
+              id={doc.id}
+              removeFromDocs={props.removeFromDocs}
+            />
           </Link>
         ))}
       </div>
