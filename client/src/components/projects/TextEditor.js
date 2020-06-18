@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
 import { useLazyQuery } from "@apollo/react-hooks";
@@ -6,10 +6,16 @@ import { updateDocument } from "../../queries/queries";
 import { userContext } from "../../App";
 
 function TextEditor(props) {
-  const [innerVal, setInnerVal] = useState("props.content");
+  const [innerVal, setInnerVal] = useState(props.viewableContent);
   const [fontSize, setFontSize] = useState();
   const [modFontSize, setModFontSize] = useState(16);
   const { userVal, setUserVal } = useContext(userContext);
+
+  useEffect(() => {
+    if (props.viewableContent) {
+      setInnerVal(props.viewableContent);
+    }
+  }, [props.viewableContent]);
 
   function changeInnerVal(val) {
     setInnerVal(val);
@@ -43,6 +49,11 @@ function TextEditor(props) {
           style={{ fontSize: fontSize + "px" }}
         />
         <button onClick={() => saveChanges()}>Save</button>
+        <div>
+          {props.visualUpdates.map(el => (
+            <span className="previous_versions">{el}</span>
+          ))}
+        </div>
       </div>
     </div>
   );

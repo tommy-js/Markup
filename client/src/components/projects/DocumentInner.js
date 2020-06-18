@@ -2,28 +2,36 @@ import React, { useState, useEffect } from "react";
 import TextEditor from "./TextEditor";
 
 export function DocumentInner(props) {
-  const [visualUpdates, setVisualUpdates] = useState();
+  const [visualUpdates, setVisualUpdates] = useState([]);
+  const [viewableContent, setViewableContent] = useState("");
 
   useEffect(() => {
-    console.log(props.updates);
-    // if (props.updates) {
-    //   let arr = [];
-    //   let passInto;
-    //   props.updates.map(
-    //     el => (
-    //       (passInto = `${el.userId} at ${el.timestamp}`), arr.push(passInto)
-    //     )
-    //   );
-    //   setVisualUpdates(arr);
-    //   console.log("info");
-    //   console.log(arr);
-    // }
+    if (props.updates) {
+      let arr = [];
+      let passInto;
+      props.updates.map(
+        el => (
+          (passInto = `${el.userId} at ${el.timestamp}`), arr.push(passInto)
+        )
+      );
+      setVisualUpdates(arr);
+      let updaterArr = props.updates;
+      let len = updaterArr.length;
+      let current = updaterArr[len - 1].content;
+      setViewableContent(current);
+    }
   }, [props.updates]);
 
-  return (
-    <div className="document_inner">
-      {props.name}
-      <TextEditor id={props.id} />
-    </div>
-  );
+  if (props.updates) {
+    return (
+      <div className="document_inner">
+        {props.name}
+        <TextEditor
+          id={props.id}
+          visualUpdates={visualUpdates}
+          viewableContent={viewableContent}
+        />
+      </div>
+    );
+  }
 }

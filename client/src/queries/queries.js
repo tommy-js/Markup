@@ -127,9 +127,11 @@ const updateDocument = gql`
       userId: $userId
     ) {
       id
-      content
-      timestamp
-      userId
+      update {
+        content
+        timestamp
+        userId
+      }
     }
   }
 `;

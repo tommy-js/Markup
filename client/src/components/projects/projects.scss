@@ -223,7 +223,7 @@
   width: 85%;
   margin-left: auto;
   margin-right: auto;
-  height: 90%;
+  height: 350px;
   padding: 25px;
   box-sizing: border-box;
 }
@@ -233,4 +233,9 @@
   width: 100%;
   height: 100%;
   resize: none;
+}
+
+.previous_versions {
+  display: block;
+  cursor: pointer;
 }
