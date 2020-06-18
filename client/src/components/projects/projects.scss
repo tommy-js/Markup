@@ -125,16 +125,16 @@
 
 .hidden_dropdown {
   position: absolute;
-  height: 90px;
+  top: 40px;
+  height: 60px;
   border: 1px solid orange;
   width: 100%;
   z-index: 199;
 }
 
 .hover_over_dropdown {
-  position: absolute;
+  position: relative;
   height: 0;
-  top: 40px;
   width: 100%;
   border: 1px solid green;
   overflow: hidden;
@@ -230,7 +230,6 @@
 
 .inner_text_editor {
   padding: 15px;
-  font-size: 16px;
   width: 100%;
   height: 100%;
   resize: none;

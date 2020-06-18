@@ -22,6 +22,7 @@ const Contributers = require("../models/contributers");
 const FriendRequestToUser = require("../models/friendreqtouser");
 const Documents = require("../models/documents");
 const UserAccess = require("../models/useraccess");
+const Update = require("../models/updates");
 
 const UserAccessQuery = new GraphQLObjectType({
   name: "UserAccess",
@@ -30,13 +31,22 @@ const UserAccessQuery = new GraphQLObjectType({
   })
 });
 
+const UpdateQuery = new GraphQLObjectType({
+  name: "Update",
+  fields: () => ({
+    content: { type: GraphQLString },
+    userId: { type: GraphQLID },
+    timestamp: { type: GraphQLID }
+  })
+});
+
 const DocumentsQuery = new GraphQLObjectType({
   name: "Documents",
   fields: () => ({
     id: { type: GraphQLID },
     projectId: { type: GraphQLID },
-    content: { type: GraphQLString },
-    name: { type: GraphQLString }
+    name: { type: GraphQLString },
+    update: { type: new GraphQLList(UpdateQuery) }
   })
 });
 
@@ -378,13 +388,22 @@ const Mutation = new GraphQLObjectType({
       type: DocumentsQuery,
       args: {
         id: { type: GraphQLID },
-        content: { type: GraphQLString }
+        content: { type: GraphQLString },
+        userId: { type: GraphQLID },
+        timestamp: { type: GraphQLID }
       },
       resolve(parent, args) {
-        return Documents.findOneAndUpdate(
+        return Documents.update(
           { id: args.id },
-          { $set: { content: args.content } },
-          { upsert: true, new: false }
+          {
+            $push: {
+              update: {
+                content: args.content,
+                userId: args.userId,
+                timestamp: args.timestamp
+              }
+            }
+          }
         );
       }
     },

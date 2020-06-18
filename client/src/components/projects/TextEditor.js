@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { flowRight as compose } from "lodash";
 import { graphql } from "react-apollo";
 import { useLazyQuery } from "@apollo/react-hooks";
 import { updateDocument } from "../../queries/queries";
+import { userContext } from "../../App";
 
 function TextEditor(props) {
-  const [innerVal, setInnerVal] = useState(props.content);
+  const [innerVal, setInnerVal] = useState("props.content");
   const [fontSize, setFontSize] = useState();
   const [modFontSize, setModFontSize] = useState(16);
+  const { userVal, setUserVal } = useContext(userContext);
 
   function changeInnerVal(val) {
     setInnerVal(val);
@@ -18,10 +20,13 @@ function TextEditor(props) {
   }
 
   function saveChanges() {
+    let time = Math.round(new Date().getTime() / 1000);
     props.updateDocument({
       variables: {
         id: props.id,
-        content: innerVal
+        content: innerVal,
+        userId: userVal.id,
+        timestamp: time
       }
     });
   }

@@ -20,7 +20,7 @@ export function CenterContainer(props) {
               <DocumentInner
                 key={el.id}
                 id={el.id}
-                content={el.content}
+                updates={el.update}
                 name={el.name}
               />
             </Route>

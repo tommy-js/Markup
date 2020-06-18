@@ -119,10 +119,17 @@ const getProjectByIdQuery = gql`
 `;
 
 const updateDocument = gql`
-  mutation($id: ID!, $content: String!) {
-    changeDocument(id: $id, content: $content) {
+  mutation($id: ID!, $content: String!, $timestamp: ID!, $userId: ID!) {
+    changeDocument(
+      id: $id
+      content: $content
+      timestamp: $timestamp
+      userId: $userId
+    ) {
       id
       content
+      timestamp
+      userId
     }
   }
 `;
@@ -132,7 +139,11 @@ const getDocumentsByProjectQuery = gql`
     documents(projectId: $projectId) {
       id
       name
-      content
+      update {
+        content
+        userId
+        timestamp
+      }
     }
   }
 `;

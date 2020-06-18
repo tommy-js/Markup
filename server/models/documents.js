@@ -4,8 +4,8 @@ const Schema = mongoose.Schema;
 const documentSchema = new Schema({
   id: Number,
   projectId: Number,
-  content: String,
-  name: String
+  name: String,
+  update: [{ content: String, timestamp: Number, userId: Number }]
 });
 
 module.exports = mongoose.model("Documents", documentSchema);
