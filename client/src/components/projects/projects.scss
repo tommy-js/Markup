@@ -210,7 +210,7 @@
 .text_editor {
   position: relative;
   width: 50%;
-  height: 500px;
+  min-height: 500px;
   margin-left: auto;
   margin-right: auto;
   background-color: grey;

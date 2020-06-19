@@ -13,6 +13,7 @@ import { graphql } from "react-apollo";
 import { useLazyQuery } from "@apollo/react-hooks";
 import { ProfileContact } from "./ProfileContact";
 import { FriendRequest } from "./FriendRequest";
+import { ProfileResume } from "./ProfileResume";
 const aes256 = require("aes256");
 
 interface Props {
@@ -75,6 +76,9 @@ const Profile: React.FC<Props> = props => {
           </Route>
           <Route path={`/profile/friendrequest/${userVal.id}`}>
             <FriendRequest />
+          </Route>
+          <Route path={`/profile/resume/${userVal.id}`}>
+            <ProfileResume />
           </Route>
           <Route path={`/profile/contact/${userVal.id}`}>
             <ProfileContact />
